@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>نور — رفيقة حملك</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FDF8F3; --ink:#2C3E50; --ink-soft:#6B7C8C;
+  --accent:#E8B65A; --accent-soft:#FBF0DC;
+  --sage:#7BA098; --danger:#D9634F;
+  --card:#FFFFFF; --line:#EFE6DA;
+  --shadow:0 2px 14px rgba(44,62,80,.06);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--ink);
+  -webkit-font-smoothing:antialiased;line-height:1.7}
+#root{max-width:520px;margin:0 auto;min-height:100vh;position:relative}
+
+.screen{padding:22px 18px 100px}
+.center-screen{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:28px 22px}
+
+h1{font-size:30px;font-weight:700;letter-spacing:-.5px}
+h2{font-size:21px;font-weight:700;margin-bottom:4px}
+.muted{color:var(--ink-soft);font-size:15px}
+.tiny{font-size:13px;color:var(--ink-soft)}
+
+.brand{font-size:44px;font-weight:700;color:var(--accent);text-align:center;letter-spacing:-1px}
+.brand-sub{text-align:center;color:var(--ink-soft);margin-bottom:34px;font-size:16px}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;
+  padding:20px;margin-bottom:14px;box-shadow:var(--shadow)}
+
+label{display:block;font-size:14px;color:var(--ink-soft);margin-bottom:7px;font-weight:500}
+input,textarea,select{width:100%;font-family:inherit;font-size:16px;color:var(--ink);
+  background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 14px;margin-bottom:16px}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--accent);outline-offset:1px}
+textarea{resize:vertical;min-height:130px;line-height:1.9}
+
+.btn{width:100%;background:var(--accent);color:#fff;border:none;border-radius:14px;
+  padding:15px;font-family:inherit;font-size:17px;font-weight:700;cursor:pointer;margin-bottom:10px}
+.btn:disabled{opacity:.45}
+.btn-ghost{background:transparent;color:var(--ink-soft);border:1px solid var(--line)}
+.btn-sage{background:var(--sage)}
+.btn-danger{background:transparent;color:var(--danger);border:1px solid var(--danger)}
+.btn-sm{padding:10px;font-size:15px;width:auto;flex:1}
+
+.row{display:flex;gap:9px}
+.pill{flex:1;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 8px;
+  font-family:inherit;font-size:15px;color:var(--ink);cursor:pointer;text-align:center}
+.pill[data-on="1"]{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}
+
+/* الشاشة الرئيسية */
+.hero{background:linear-gradient(160deg,var(--accent-soft),#fff);
+  border:1px solid var(--line);border-radius:22px;padding:26px 20px;text-align:center;
+  margin-bottom:14px;box-shadow:var(--shadow)}
+.week-num{font-size:60px;font-weight:700;color:var(--accent);line-height:1}
+.size-note{font-size:19px;font-weight:500;margin-top:8px}
+.bar{height:7px;background:var(--line);border-radius:99px;overflow:hidden;margin:18px 0 8px}
+.bar span{display:block;height:100%;background:var(--accent);border-radius:99px;transition:width .6s}
+
+.stats{display:flex;gap:10px;margin-bottom:14px}
+.stat{flex:1;background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:15px 8px;text-align:center;box-shadow:var(--shadow)}
+.stat b{display:block;font-size:24px;color:var(--accent)}
+.stat span{font-size:12px;color:var(--ink-soft)}
+
+.letter{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px 20px;
+  box-shadow:var(--shadow);margin-bottom:14px}
+.letter p{font-size:17.5px;line-height:2.1;white-space:pre-wrap}
+.letter .from{margin-top:16px;font-size:14px;color:var(--accent);font-weight:700}
+
+.saved{background:var(--accent-soft);border:1px dashed var(--accent);border-radius:14px;
+  padding:15px;margin-bottom:10px}
+.saved .meta{font-size:12px;color:var(--ink-soft);margin-bottom:6px}
+.locked{filter:blur(5px);user-select:none}
+
+.plan{border:1.5px solid var(--line);border-radius:18px;padding:18px;margin-bottom:12px;background:#fff}
+.plan[data-on="1"]{border-color:var(--accent);background:var(--accent-soft)}
+.plan .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.plan .price{font-size:22px;font-weight:700;color:var(--accent)}
+.plan ul{list-style:none;font-size:14px;color:var(--ink-soft)}
+.plan li{padding-right:16px;position:relative;margin-bottom:3px}
+.plan li:before{content:"•";position:absolute;right:0;color:var(--accent)}
+
+.alert{border-radius:14px;padding:14px;font-size:15px;margin-bottom:14px}
+.alert-warn{background:#FDF0ED;border:1px solid var(--danger);color:var(--danger)}
+.alert-ok{background:#EFF5F3;border:1px solid var(--sage);color:#4A7266}
+.alert-info{background:var(--accent-soft);border:1px solid var(--accent);color:#8A6A22}
+
+.tabs{position:fixed;bottom:0;right:0;left:0;max-width:520px;margin:0 auto;
+  background:#fff;border-top:1px solid var(--line);display:flex;padding:9px 4px 14px;z-index:50}
+.tab{flex:1;background:none;border:none;font-family:inherit;font-size:12px;
+  color:var(--ink-soft);cursor:pointer;padding:5px 2px}
+.tab i{display:block;font-size:21px;font-style:normal;margin-bottom:2px;opacity:.5}
+.tab[data-on="1"]{color:var(--accent);font-weight:700}
+.tab[data-on="1"] i{opacity:1}
+
+.hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.spin{width:26px;height:26px;border:3px solid var(--line);border-top-color:var(--accent);
+  border-radius:50%;animation:sp .8s linear infinite;margin:32px auto}
+@keyframes sp{to{transform:rotate(360deg)}}
+.req{background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px;margin-bottom:12px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ===== لابتوب: قائمة جانبية ثابتة على اليمين ===== */
+@media(min-width:900px){
+  #root{max-width:none;display:block;padding-inline-end:252px}
+  .screen{max-width:860px;margin:0 auto;padding:34px 34px 70px}
+  .center-screen{max-width:520px;margin:0 auto}
+
+  .tabs{position:fixed;top:0;bottom:0;right:0;left:auto;width:252px;max-width:none;
+    margin:0;flex-direction:column;gap:4px;overflow-y:auto;
+    border-top:none;border-inline-start:1px solid var(--line);
+    padding:28px 14px;background:#fff}
+
+  .tabs:before{content:"نور";display:block;font-size:29px;font-weight:700;
+    color:var(--accent);padding:0 14px 20px;letter-spacing:-1px}
+
+  .tab{flex:none;display:flex;align-items:center;gap:11px;
+    text-align:start;font-size:15.5px;padding:12px 14px;border-radius:12px}
+  .tab i{margin:0;font-size:19px}
+  .tab:hover{background:var(--accent-soft)}
+  .tab[data-on="1"]{background:var(--accent-soft)}
+  .nav-sep{font-size:12px;color:var(--ink-soft);padding:16px 14px 6px;font-weight:700}
+
+  .stats{gap:14px}
+  .row{gap:12px}
+  .admin-pills{display:none}
+}
+.nav-sep{display:none}
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script type="text/plain" id="src">
+const { useState, useEffect, useRef } = React;
+
+const SUPABASE_URL = "https://bxoraepjhbpmtkspiwqw.supabase.co";
+const SUPABASE_KEY = "sb_publishable_kjZO4nGETTy0NlkobuhfAA_J0fiy6hC";
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const DAY = 86400000;
+
+const PLAN_INFO = {
+  basic:  { name:"الأساسية", items:["الرسالة الأسبوعية من جنينك","صندوق احكيلي","عدّاد الولادة"] },
+  family: { name:"العائلية",  items:["كل ما سبق","حساب الأب ورسالة خاصة له","ألبوم التصوير الأسبوعي"] },
+  full:   { name:"الكاملة",   items:["كل ما سبق","جنينك بيرد عليكي","متابعة ما بعد الولادة"] }
+};
+
+/* ---------- أدوات ---------- */
+function weekFrom(due){
+  if(!due) return 1;
+  const left = Math.ceil((new Date(due) - new Date()) / DAY);
+  const w = 40 - Math.ceil(left / 7);
+  return Math.min(42, Math.max(1, w + 1));
+}
+function daysLeft(due){
+  if(!due) return 0;
+  return Math.max(0, Math.ceil((new Date(due) - new Date()) / DAY));
+}
+function dueFromLmp(lmp){
+  const d = new Date(lmp);
+  d.setDate(d.getDate() + 280);
+  return d.toISOString().slice(0,10);
+}
+function fillName(text, name){
+  return (text||"").replace(/\{\{name\}\}/g, name ? " " + name : "");
+}
+function accentFor(gender){
+  if(gender === "boy")  return "#6B95B8";
+  if(gender === "girl") return "#D48A96";
+  return "#E8B65A";
+}
+function softFor(gender){
+  if(gender === "boy")  return "#EAF1F7";
+  if(gender === "girl") return "#FAEEF0";
+  return "#FBF0DC";
+}
+
+/* ============ تسجيل الدخول ============ */
+function Auth(){
+  const [mode,setMode] = useState("in");
+  const [email,setEmail] = useState("");
+  const [pass,setPass] = useState("");
+  const [err,setErr] = useState("");
+  const [busy,setBusy] = useState(false);
+
+  async function go(){
+    setErr(""); setBusy(true);
+    try{
+      const fn = mode === "in" ? "signInWithPassword" : "signUp";
+      const { error } = await db.auth[fn]({ email: email.trim(), password: pass });
+      if(error) throw error;
+      if(mode === "up") setErr("تم إنشاء حسابك! سجّلي دخولك هلق.");
+    }catch(e){
+      setErr(e.message === "Invalid login credentials"
+        ? "الإيميل أو كلمة السر غلط"
+        : e.message);
+    }
+    setBusy(false);
+  }
+
+  return (
+    <div className="center-screen">
+      <div className="brand">نور</div>
+      <div className="brand-sub">رفيقة حملك، من أول أسبوع لآخر يوم</div>
+
+      <div className="card">
+        <label>الإيميل</label>
+        <input type="email" value={email} onChange={e=>setEmail(e.target.value)}
+          placeholder="you@mail.com" autoComplete="email" />
+        <label>كلمة السر</label>
+        <input type="password" value={pass} onChange={e=>setPass(e.target.value)}
+          placeholder="٦ حروف على الأقل" autoComplete="current-password" />
+
+        {err && <div className={"alert " + (err.includes("تم") ? "alert-ok" : "alert-warn")}>{err}</div>}
+
+        <button className="btn" onClick={go} disabled={busy || !email || pass.length < 6}>
+          {busy ? "لحظة..." : mode === "in" ? "دخول" : "إنشاء حساب"}
+        </button>
+        <button className="btn btn-ghost" onClick={()=>{setMode(mode==="in"?"up":"in");setErr("")}}>
+          {mode === "in" ? "ما عندي حساب — سجّليني" : "عندي حساب — دخول"}
+        </button>
+      </div>
+      <p className="tiny" style={{textAlign:"center"}}>
+        نور بيرافقك ويطمّنك، بس ما بيغني عن دكتورك أبداً.
+      </p>
+    </div>
+  );
+}
+
+/* ============ الإعداد الأول ============ */
+function Onboard({ user, done }){
+  const [step,setStep] = useState(0);
+  const [name,setName] = useState("");
+  const [country,setCountry] = useState("LB");
+  const [dialect,setDialect] = useState("lb");
+  const [mode,setMode] = useState("due");
+  const [dateVal,setDate] = useState("");
+  const [busy,setBusy] = useState(false);
+  const [err,setErr] = useState("");
+
+  async function save(){
+    setBusy(true); setErr("");
+    try{
+      const due = mode === "lmp" ? dueFromLmp(dateVal) : dateVal;
+
+      await db.from("profiles").update({
+        display_name: name.trim(), country, dialect
+      }).eq("id", user.id);
+
+      const { data: preg, error } = await db.from("pregnancies")
+        .insert({ owner_id:user.id, due_date:due, mother_name:name.trim() })
+        .select().single();
+      if(error) throw error;
+
+      await db.from("pregnancy_members")
+        .insert({ pregnancy_id: preg.id, user_id: user.id, member_role:"mother" });
+
+      done();
+    }catch(e){ setErr(e.message); setBusy(false); }
+  }
+
+  if(step === 0) return (
+    <div className="center-screen">
+      <h1>أهلاً فيكي 🤍</h1>
+      <p className="muted" style={{marginBottom:26}}>شو اسمك؟ جنينك رح يناديكي فيه.</p>
+      <div className="card">
+        <label>اسمك</label>
+        <input value={name} maxLength={20} onChange={e=>setName(e.target.value)} placeholder="مثلاً: آية" />
+        <label>من وين انتي؟</label>
+        <div className="row" style={{marginBottom:18}}>
+          <button className="pill" data-on={country==="LB"?"1":"0"}
+            onClick={()=>{setCountry("LB");setDialect("lb")}}>لبنان</button>
+          <button className="pill" data-on={country==="EG"?"1":"0"}
+            onClick={()=>{setCountry("EG");setDialect("eg")}}>مصر</button>
+          <button className="pill" data-on={country==="OTHER"?"1":"0"}
+            onClick={()=>setCountry("OTHER")}>غير هيك</button>
+        </div>
+        <button className="btn" disabled={!name.trim()} onClick={()=>setStep(1)}>يلا نكمّل</button>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="center-screen">
+      <h1>إمتى موعدك؟</h1>
+      <p className="muted" style={{marginBottom:26}}>اختاري الطريقة يلي بتعرفيها.</p>
+      <div className="card">
+        <div className="row" style={{marginBottom:18}}>
+          <button className="pill" data-on={mode==="due"?"1":"0"} onClick={()=>setMode("due")}>
+            الدكتور قالي موعد الولادة
+          </button>
+          <button className="pill" data-on={mode==="lmp"?"1":"0"} onClick={()=>setMode("lmp")}>
+            بعرف أول يوم بآخر دورة
+          </button>
+        </div>
+
+        <label>{mode==="due" ? "تاريخ الولادة المتوقع" : "أول يوم بآخر دورة"}</label>
+        <input type="date" value={dateVal} onChange={e=>setDate(e.target.value)} />
+
+        {mode==="lmp" && dateVal &&
+          <div className="alert alert-info">
+            موعد ولادتك المتوقع: <b>{dueFromLmp(dateVal)}</b>
+          </div>}
+
+        {err && <div className="alert alert-warn">{err}</div>}
+
+        <button className="btn" disabled={!dateVal || busy} onClick={save}>
+          {busy ? "لحظة..." : "ابدأي رحلتك"}
+        </button>
+        <button className="btn btn-ghost" onClick={()=>setStep(0)}>رجوع</button>
+        <p className="tiny">فيكي تعدّلي التاريخ بأي وقت من إعداداتك.</p>
+      </div>
+    </div>
+  );
+}
+
+/* ============ الشاشة الرئيسية ============ */
+function Home({ profile, preg, week }){
+  const left = daysLeft(preg.due_date);
+  const pct = Math.min(100, Math.round((week / 40) * 100));
+  const [size,setSize] = useState("");
+  const [ann,setAnn] = useState([]);
+
+  useEffect(()=>{
+    db.from("announcements").select("*").eq("is_active", true)
+      .order("created_at",{ascending:false}).limit(2)
+      .then(({data})=>setAnn(data||[]));
+  },[]);
+
+  useEffect(()=>{
+    db.from("weekly_messages").select("size_note")
+      .eq("week", week).eq("audience","mother").eq("dialect", profile.dialect)
+      .limit(1).then(({data})=>{ if(data && data[0]) setSize(data[0].size_note || ""); });
+  },[week]);
+
+  return (
+    <div className="screen">
+      <div className="hdr">
+        <div>
+          <h2>أهلاً {profile.display_name} 🤍</h2>
+          <p className="muted">كل يوم بيقرّبك أكتر</p>
+        </div>
+      </div>
+
+      {ann.map(a=>(
+        <div className="alert alert-info" key={a.id}>
+          <b>{a.title}</b><br/>{a.body}
+        </div>
+      ))}
+
+      <div className="hero">
+        <p className="muted">انتي بالأسبوع</p>
+        <div className="week-num">{week}</div>
+        {size && <div className="size-note">جنينك هلق قد {size}</div>}
+        <div className="bar"><span style={{width: pct + "%"}}></span></div>
+        <p className="tiny">{pct}% من الرحلة</p>
+      </div>
+
+      <div className="stats">
+        <div className="stat"><b>{left}</b><span>يوم باقي</span></div>
+        <div className="stat"><b>{Math.max(0, 40 - week)}</b><span>أسبوع باقي</span></div>
+        <div className="stat"><b>{Math.ceil(week/13.4)}</b><span>التلت الحالي</span></div>
+      </div>
+
+      <div className="card">
+        <h2>موعد ولادتك</h2>
+        <p className="muted">{preg.due_date}</p>
+      </div>
+
+      <div className="alert alert-warn">
+        ⚠️ لو صار عندك نزيف، أو وجع بطن قوي، أو ما عدتي تحسي بحركة الجنين، أو صداع شديد مع تشوّش نظر —
+        روحي عالطوارئ فوراً. لا تستني.
+      </div>
+    </div>
+  );
+}
+
+/* ============ الرسالة الأسبوعية ============ */
+function Weekly({ profile, preg, week, role }){
+  const [msg,setMsg] = useState(null);
+  const [load,setLoad] = useState(true);
+
+  useEffect(()=>{
+    setLoad(true);
+    db.from("weekly_messages").select("*")
+      .eq("week", week)
+      .eq("audience", role === "father" ? "father" : "mother")
+      .eq("dialect", profile.dialect)
+      .then(({data})=>{
+        if(data && data.length){
+          const pick = data.find(r => r.variant === profile.variant_no) || data[0];
+          setMsg(pick);
+        } else setMsg(null);
+        setLoad(false);
+      });
+  },[week, role]);
+
+  const who = role === "father"
+    ? (preg.father_name || "بابا")
+    : (preg.mother_name || profile.display_name);
+
+  return (
+    <div className="screen">
+      <div className="hdr"><div>
+        <h2>رسالة الأسبوع {week}</h2>
+        <p className="muted">من جنينك إلك</p>
+      </div></div>
+
+      {load ? <div className="spin"></div> :
+       !msg ? <div className="card"><p className="muted">
+          ما في رسالة لهالأسبوع بعد. رح تكون جاهزة قريب 🤍
+       </p></div> :
+      <div className="letter">
+        <p>{fillName(msg.body, who)}</p>
+        <div className="from">— {preg.baby_name || "جنينك"} 🤍</div>
+      </div>}
+    </div>
+  );
+}
+
+/* ============ احكيلي ============ */
+function Letters({ user, preg, week }){
+  const [body,setBody] = useState("");
+  const [list,setList] = useState([]);
+  const [busy,setBusy] = useState(false);
+  const [open,setOpen] = useState({});
+  const born = daysLeft(preg.due_date) === 0;
+
+  async function load(){
+    const { data } = await db.from("letters_to_baby").select("*")
+      .eq("pregnancy_id", preg.id).order("created_at",{ascending:false});
+    setList(data || []);
+  }
+  useEffect(()=>{ load(); },[]);
+
+  async function save(){
+    if(!body.trim()) return;
+    setBusy(true);
+    await db.from("letters_to_baby").insert({
+      pregnancy_id: preg.id, user_id: user.id, week, body: body.trim(),
+      open_at: preg.due_date
+    });
+    setBody(""); setBusy(false); load();
+  }
+
+  return (
+    <div className="screen">
+      <div className="hdr"><div>
+        <h2>احكيلو</h2>
+        <p className="muted">اكتبيلو شو ما بدك — بينحفظ لهون لما يجي</p>
+      </div></div>
+
+      <div className="card">
+        <textarea value={body} onChange={e=>setBody(e.target.value)}
+          placeholder="حبيبي، اليوم..." maxLength={2000} />
+        <button className="btn" onClick={save} disabled={busy || !body.trim()}>
+          {busy ? "عم ينحفظ..." : "احفظيها بالصندوق"}
+        </button>
+        <p className="tiny">صندوقك مقفول — بينفتح يوم ما يجي 🤍</p>
+      </div>
+
+      {list.length > 0 && <>
+        <h2 style={{margin:"22px 0 12px"}}>رسائلك ({list.length})</h2>
+        {list.map(l=>(
+          <div className="saved" key={l.id}>
+            <div className="meta">
+              أسبوع {l.week} · {new Date(l.created_at).toLocaleDateString("ar-EG")}
+            </div>
+            <div className={(!born && !open[l.id]) ? "locked" : ""}>{l.body}</div>
+            {!born && <button className="btn btn-ghost btn-sm" style={{marginTop:10,width:"100%"}}
+              onClick={()=>setOpen({...open,[l.id]:!open[l.id]})}>
+              {open[l.id] ? "سكّريها" : "🔒 افتحيها بدري"}
+            </button>}
+          </div>
+        ))}
+      </>}
+    </div>
+  );
+}
+
+/* ============ الاشتراك والدفع ============ */
+function Billing({ user, profile, sub, reload }){
+  const [prices,setPrices] = useState([]);
+  const [methods,setMethods] = useState([]);
+  const [plan,setPlan] = useState(null);
+  const [method,setMethod] = useState(null);
+  const [ref,setRef] = useState("");
+  const [file,setFile] = useState(null);
+  const [busy,setBusy] = useState(false);
+  const [msg,setMsg] = useState("");
+  const [reqs,setReqs] = useState([]);
+
+  useEffect(()=>{
+    const c = profile.country;
+    db.from("plan_prices").select("*").eq("country", c).then(({data})=>setPrices(data||[]));
+    db.from("payment_methods").select("*").eq("country", c).order("sort_order")
+      .then(({data})=>setMethods(data||[]));
+    db.from("payment_requests").select("*").eq("user_id", user.id)
+      .order("created_at",{ascending:false}).limit(5).then(({data})=>setReqs(data||[]));
+  },[]);
+
+  async function submit(){
+    if(!plan || !method || !ref.trim()) return;
+    setBusy(true); setMsg("");
+    try{
+      let path = null;
+      if(file){
+        path = user.id + "/" + Date.now() + "_" + file.name.replace(/[^\w.]/g,"");
+        const { error } = await db.storage.from("receipts").upload(path, file);
+        if(error) throw error;
+      }
+      const p = prices.find(x=>x.plan===plan);
+      const { error } = await db.from("payment_requests").insert({
+        user_id:user.id, plan, country:profile.country, method_name:method.method_name,
+        amount: p ? (p.price_local || p.price_usd) : null,
+        currency: p ? p.currency : null,
+        reference: ref.trim(), receipt_path: path, status:"pending"
+      });
+      if(error) throw error;
+      setMsg("وصلنا طلبك! رح نفعّل اشتراكك بأقرب وقت 🤍");
+      setPlan(null); setMethod(null); setRef(""); setFile(null);
+    }catch(e){
+      setMsg(e.message.includes("duplicate")
+        ? "رقم العملية هيدا مستعمل من قبل."
+        : e.message);
+    }
+    setBusy(false);
+  }
+
+  const exp = sub ? new Date(sub.expires_at) : null;
+
+  return (
+    <div className="screen">
+      <div className="hdr"><div>
+        <h2>اشتراكك</h2>
+        <p className="muted">
+          {sub ? (sub.status === "trial" ? "تجربة مجانية" : PLAN_INFO[sub.plan]?.name || "مجاني") : "—"}
+          {exp && " · لحد " + exp.toLocaleDateString("ar-EG")}
+        </p>
+      </div></div>
+
+      {msg && <div className={"alert " + (msg.includes("وصلنا") ? "alert-ok" : "alert-warn")}>{msg}</div>}
+
+      {reqs.filter(r=>r.status==="pending").length > 0 &&
+        <div className="alert alert-info">عندك طلب دفع قيد المراجعة 🤍</div>}
+
+      {["basic","family","full"].map(k=>{
+        const p = prices.find(x=>x.plan===k);
+        return (
+          <div className="plan" key={k} data-on={plan===k?"1":"0"} onClick={()=>setPlan(k)}>
+            <div className="top">
+              <b>{PLAN_INFO[k].name}</b>
+              <span className="price">
+                {p ? (p.price_local || p.price_usd) + " " + p.currency : "—"}
+              </span>
+            </div>
+            <ul>{PLAN_INFO[k].items.map((it,i)=><li key={i}>{it}</li>)}</ul>
+          </div>
+        );
+      })}
+
+      {plan && <div className="card">
+        <h2>كيف بتحبي تدفعي؟</h2>
+        <div style={{marginTop:12}}>
+          {methods.map(m=>(
+            <div className="plan" key={m.id} data-on={method?.id===m.id?"1":"0"}
+              onClick={()=>setMethod(m)}>
+              <b>{m.method_name}</b>
+              <p className="muted" style={{fontSize:15}}>{m.account_info}</p>
+              {m.instructions && <p className="tiny">{m.instructions}</p>}
+            </div>
+          ))}
+        </div>
+
+        {method && <>
+          <label>رقم العملية / المرجع</label>
+          <input value={ref} onChange={e=>setRef(e.target.value)} placeholder="من إيصال التحويل" />
+          <label>صورة الإيصال (اختياري بس بيسرّع)</label>
+          <input type="file" accept="image/*" onChange={e=>setFile(e.target.files[0])} />
+          <button className="btn" onClick={submit} disabled={busy || !ref.trim()}>
+            {busy ? "عم يتبعت..." : "ابعتي الطلب"}
+          </button>
+        </>}
+      </div>}
+
+      {reqs.length > 0 && <>
+        <h2 style={{margin:"22px 0 12px"}}>طلباتك السابقة</h2>
+        {reqs.map(r=>(
+          <div className="req" key={r.id}>
+            <b>{PLAN_INFO[r.plan]?.name}</b> · {r.amount} {r.currency}
+            <p className="tiny">
+              {r.status === "pending" ? "⏳ قيد المراجعة"
+               : r.status === "approved" ? "✅ تم التفعيل" : "❌ مرفوض"}
+              {r.admin_note ? " — " + r.admin_note : ""}
+            </p>
+          </div>
+        ))}
+      </>}
+    </div>
+  );
+}
+
+/* ============ الإعدادات ============ */
+function Settings({ user, profile, preg, sub, reload }){
+  const [gender,setGender] = useState(preg.baby_gender);
+  const [babyName,setBabyName] = useState(preg.baby_name || "");
+  const [due,setDue] = useState(preg.due_date);
+  const [msg,setMsg] = useState("");
+  const [confirmStop,setConfirm] = useState(false);
+
+  async function save(){
+    await db.from("pregnancies").update({
+      baby_gender: gender, baby_name: babyName.trim() || null, due_date: due
+    }).eq("id", preg.id);
+    setMsg("انحفظ 🤍"); reload();
+  }
+
+  async function stop(){
+    await db.from("pregnancies").update({ status:"ended", ended_at:new Date().toISOString() })
+      .eq("id", preg.id);
+    await db.auth.signOut();
+  }
+
+  return (
+    <div className="screen">
+      <div className="hdr"><div><h2>إعداداتك</h2></div></div>
+
+      {msg && <div className="alert alert-ok">{msg}</div>}
+
+      <div className="card">
+        <label>جنس الجنين</label>
+        <div className="row" style={{marginBottom:18}}>
+          <button className="pill" data-on={gender==="unknown"?"1":"0"}
+            onClick={()=>setGender("unknown")}>ما بدي أعرف</button>
+          <button className="pill" data-on={gender==="boy"?"1":"0"}
+            onClick={()=>setGender("boy")}>صبي</button>
+          <button className="pill" data-on={gender==="girl"?"1":"0"}
+            onClick={()=>setGender("girl")}>بنت</button>
+        </div>
+
+        <label>اسم الجنين (لو اخترتوه)</label>
+        <input value={babyName} maxLength={20} onChange={e=>setBabyName(e.target.value)}
+          placeholder="لسا ما اخترنا" />
+
+        <label>موعد الولادة</label>
+        <input type="date" value={due} onChange={e=>setDue(e.target.value)} />
+
+        <button className="btn" onClick={save}>احفظي</button>
+      </div>
+
+      <div className="card">
+        <h2>حسابك</h2>
+        <p className="muted" style={{marginBottom:14}}>{user.email}</p>
+        <button className="btn btn-ghost" onClick={()=>db.auth.signOut()}>تسجيل خروج</button>
+      </div>
+
+      <Support user={user} />
+
+      <div className="card">
+        <h2>إيقاف المتابعة</h2>
+        <p className="muted" style={{marginBottom:14}}>
+          بيوقف كل الرسائل والتنبيهات فوراً. بيانات صندوقك بتضل محفوظة.
+        </p>
+        {!confirmStop
+          ? <button className="btn btn-danger" onClick={()=>setConfirm(true)}>إيقاف المتابعة</button>
+          : <>
+              <p className="muted" style={{marginBottom:12}}>متأكدة؟</p>
+              <div className="row">
+                <button className="btn btn-danger btn-sm" onClick={stop}>إي، أوقفها</button>
+                <button className="btn btn-ghost btn-sm" onClick={()=>setConfirm(false)}>لأ</button>
+              </div>
+            </>}
+      </div>
+
+      <p className="tiny" style={{textAlign:"center",marginTop:20}}>
+        نور بيعطيكي معلومات عامة بس، وما بيغني عن دكتورك.
+      </p>
+    </div>
+  );
+}
+
+/* ============ الدعم الفني ============ */
+function Support({ user }){
+  const [body,setBody] = useState("");
+  const [list,setList] = useState([]);
+  const [busy,setBusy] = useState(false);
+  const [msg,setMsg] = useState("");
+  const [open,setOpen] = useState(false);
+
+  async function load_(){
+    const { data } = await db.from("support_tickets").select("*")
+      .eq("user_id", user.id).order("created_at",{ascending:false}).limit(10);
+    setList(data || []);
+  }
+  useEffect(()=>{ load_(); },[]);
+
+  async function send(){
+    if(!body.trim()) return;
+    setBusy(true);
+    const { error } = await db.from("support_tickets")
+      .insert({ user_id:user.id, body:body.trim() });
+    setMsg(error ? error.message : "وصلتنا رسالتك! رح نرد عليكي قريب 🤍");
+    setBody(""); setBusy(false); load_();
+  }
+
+  return (
+    <div className="card">
+      <h2>تواصلي معنا</h2>
+      <p className="muted" style={{marginBottom:14}}>
+        أي مشكلة بالتطبيق أو بالاشتراك، اكتبيلنا.
+      </p>
+
+      {!open
+        ? <button className="btn btn-ghost" onClick={()=>setOpen(true)}>
+            اكتبي رسالة {list.length > 0 ? "(" + list.length + " سابقة)" : ""}
+          </button>
+        : <>
+            {msg && <div className="alert alert-ok">{msg}</div>}
+            <textarea style={{minHeight:100}} value={body} maxLength={800}
+              onChange={e=>setBody(e.target.value)} placeholder="شو المشكلة؟" />
+            <button className="btn" onClick={send} disabled={busy || !body.trim()}>
+              {busy ? "عم تتبعت..." : "ابعتي"}
+            </button>
+            <p className="tiny" style={{marginBottom:14}}>
+              للأسئلة الطبية، دكتورك هو المرجع — نحنا منساعد بالتطبيق بس.
+            </p>
+
+            {list.map(t=>(
+              <div className="saved" key={t.id}>
+                <div className="meta">{new Date(t.created_at).toLocaleDateString("ar-EG")}</div>
+                {t.body}
+                {t.admin_reply &&
+                  <div style={{marginTop:10,paddingTop:10,borderTop:"1px solid var(--line)"}}>
+                    <div className="meta">رد الإدارة</div>{t.admin_reply}
+                  </div>}
+              </div>
+            ))}
+            <button className="btn btn-ghost btn-sm" style={{width:"100%",marginTop:10}}
+              onClick={()=>setOpen(false)}>سكّر</button>
+          </>}
+    </div>
+  );
+}
+
+/* ============ لوحة الأدمن ============ */
+function Admin({ view, setView }){
+  return (
+    <div className="screen">
+      <div className="hdr"><div><h2>{ADMIN_SECTIONS.find(s=>s.id===view)?.label}</h2></div></div>
+
+      <div className="admin-pills">
+        <div className="row" style={{marginBottom:10}}>
+          {ADMIN_SECTIONS.slice(0,4).map(s=>(
+            <button className="pill" key={s.id} data-on={view===s.id?"1":"0"}
+              onClick={()=>setView(s.id)}>{s.label}</button>
+          ))}
+        </div>
+        <div className="row" style={{marginBottom:18}}>
+          {ADMIN_SECTIONS.slice(4).map(s=>(
+            <button className="pill" key={s.id} data-on={view===s.id?"1":"0"}
+              onClick={()=>setView(s.id)}>{s.label}</button>
+          ))}
+        </div>
+      </div>
+
+      {view === "stats"   && <AdminStats go={setView} />}
+      {view === "money"   && <AdminMoney />}
+      {view === "reqs"    && <AdminReqs />}
+      {view === "users"   && <AdminUsers />}
+      {view === "tickets" && <AdminTickets />}
+      {view === "ann"     && <AdminAnnounce />}
+      {view === "log"     && <AdminLog />}
+    </div>
+  );
+}
+
+const ADMIN_SECTIONS = [
+  { id:"stats",   label:"الأرقام",     icon:"📊" },
+  { id:"money",   label:"المالية",     icon:"💰" },
+  { id:"reqs",    label:"الطلبات",     icon:"📩" },
+  { id:"users",   label:"المستخدمين",  icon:"👥" },
+  { id:"tickets", label:"الرسايل",     icon:"✉️" },
+  { id:"ann",     label:"إعلان",       icon:"📢" },
+  { id:"log",     label:"السجل",       icon:"🧾" }
+];
+
+function csvDownload(name, rows){
+  if(!rows.length) return;
+  const cols = Object.keys(rows[0]);
+  const body = rows.map(r => cols.map(c =>
+    '"' + String(r[c] ?? "").replace(/"/g,'""') + '"').join(",")).join("\n");
+  const blob = new Blob(["\uFEFF" + cols.join(",") + "\n" + body], {type:"text/csv"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = name + ".csv";
+  a.click();
+}
+
+function AdminMoney(){
+  const [f,setF] = useState(null);
+  const [rows,setRows] = useState([]);
+  const [list,setList] = useState([]);
+  const [title,setTitle] = useState("");
+  const [amount,setAmount] = useState("");
+  const [cat,setCat] = useState("ai");
+
+  async function load_(){
+    const a = await db.rpc("admin_finance");   setF(a.data);
+    const b = await db.rpc("admin_monthly");   setRows(b.data || []);
+    const c = await db.from("expenses").select("*")
+      .order("spent_on",{ascending:false}).limit(20);
+    setList(c.data || []);
+  }
+  useEffect(()=>{ load_(); },[]);
+
+  async function add(){
+    if(!title.trim() || !amount) return;
+    await db.from("expenses").insert({
+      title:title.trim(), amount_usd:Number(amount), category:cat });
+    setTitle(""); setAmount(""); load_();
+  }
+  async function del(id){
+    await db.from("expenses").delete().eq("id", id); load_();
+  }
+
+  if(!f) return <div className="spin"></div>;
+
+  const net = Number(f.revenue_total) - Number(f.expense_total);
+  const netMonth = Number(f.revenue_month) - Number(f.expense_month);
+  const max = Math.max(1, ...rows.map(r => Math.max(Number(r.revenue), Number(r.expense))));
+
+  return (
+    <>
+      <div className="hero" style={{padding:"22px 16px"}}>
+        <p className="muted">صافي الربح الكلي</p>
+        <div className="week-num" style={{color: net >= 0 ? "var(--sage)" : "var(--danger)"}}>
+          ${net.toFixed(0)}
+        </div>
+        <p className="tiny">دخل ${Number(f.revenue_total).toFixed(0)} · مصاريف ${Number(f.expense_total).toFixed(0)}</p>
+      </div>
+
+      <div className="stats">
+        <Box label="دخل هالشهر" value={"$" + Number(f.revenue_month).toFixed(0)} />
+        <Box label="مصاريف الشهر" value={"$" + Number(f.expense_month).toFixed(0)} />
+        <Box label="صافي الشهر" value={"$" + netMonth.toFixed(0)} />
+      </div>
+
+      <div className="card">
+        <h2>آخر ٦ شهور</h2>
+        <div style={{marginTop:14}}>
+          {rows.map(r=>(
+            <div key={r.month_key} style={{marginBottom:12}}>
+              <div style={{display:"flex",justifyContent:"space-between",fontSize:13}}>
+                <span>{r.month_key}</span>
+                <span style={{color: Number(r.net) >= 0 ? "var(--sage)" : "var(--danger)"}}>
+                  صافي ${Number(r.net).toFixed(0)}
+                </span>
+              </div>
+              <div className="bar" style={{margin:"5px 0 3px"}}>
+                <span style={{width:(Number(r.revenue)/max*100)+"%"}}></span>
+              </div>
+              <div className="bar" style={{margin:0}}>
+                <span style={{width:(Number(r.expense)/max*100)+"%",background:"var(--danger)"}}></span>
+              </div>
+            </div>
+          ))}
+          <p className="tiny">الذهبي = دخل · الأحمر = مصاريف</p>
+        </div>
+      </div>
+
+      <div className="card">
+        <h2>متوسط الدخل من المستخدم</h2>
+        <div className="week-num" style={{fontSize:34,marginTop:6}}>${Number(f.arpu).toFixed(2)}</div>
+        <p className="tiny">لو أقل من تكلفة المستخدم، السعر محتاج مراجعة</p>
+      </div>
+
+      <div className="card">
+        <h2>سجّل مصروف</h2>
+        <label>شو المصروف</label>
+        <input value={title} onChange={e=>setTitle(e.target.value)} placeholder="مثلاً: رصيد API" />
+        <label>المبلغ بالدولار</label>
+        <input type="number" value={amount} onChange={e=>setAmount(e.target.value)} placeholder="10" />
+        <label>التصنيف</label>
+        <select value={cat} onChange={e=>setCat(e.target.value)}>
+          <option value="ai">ذكاء اصطناعي</option>
+          <option value="hosting">استضافة</option>
+          <option value="marketing">تسويق</option>
+          <option value="audio">صوت</option>
+          <option value="other">غير هيك</option>
+        </select>
+        <button className="btn" onClick={add} disabled={!title.trim() || !amount}>ضيفه</button>
+      </div>
+
+      {list.length > 0 && <div className="card">
+        <h2>آخر المصاريف</h2>
+        <div style={{marginTop:12}}>
+          {list.map(e=>(
+            <div className="req" key={e.id}>
+              <div style={{display:"flex",justifyContent:"space-between"}}>
+                <b>{e.title}</b><span>${Number(e.amount_usd).toFixed(2)}</span>
+              </div>
+              <p className="tiny">{e.spent_on}</p>
+              <button className="btn btn-ghost btn-sm" style={{width:"100%",marginTop:8}}
+                onClick={()=>del(e.id)}>احذف</button>
+            </div>
+          ))}
+        </div>
+        <button className="btn btn-ghost" style={{marginTop:12}}
+          onClick={()=>csvDownload("expenses", list)}>نزّل Excel</button>
+      </div>}
+    </>
+  );
+}
+
+function Box({ label, value, note }){
+  return (
+    <div className="stat">
+      <b>{value}</b>
+      <span>{label}</span>
+      {note && <p className="tiny" style={{marginTop:3}}>{note}</p>}
+    </div>
+  );
+}
+
+function AdminStats({ go }){
+  const [s,setS] = useState(null);
+  const [err,setErr] = useState("");
+  const [exp,setExp] = useState([]);
+
+  useEffect(()=>{
+    db.rpc("admin_stats").then(({data,error})=>{
+      if(error) setErr(error.message); else setS(data);
+    });
+    db.rpc("admin_expiring").then(({data})=>setExp(data||[]));
+  },[]);
+
+  if(err) return <div className="alert alert-warn">{err}</div>;
+  if(!s)  return <div className="spin"></div>;
+
+  return (
+    <>
+      {s.stale_payments > 0 &&
+        <div className="alert alert-warn" onClick={()=>go("reqs")}>
+          ⏰ {s.stale_payments} طلب دفع مستني من أكتر من ٢٤ ساعة
+        </div>}
+      {s.tickets_open > 0 &&
+        <div className="alert alert-warn" onClick={()=>go("tickets")}>
+          ✉️ {s.tickets_open} رسالة دعم ما انرد عليها
+        </div>}
+      {s.pending_payments > 0 && s.stale_payments === 0 &&
+        <div className="alert alert-info" onClick={()=>go("reqs")}>
+          📩 {s.pending_payments} طلب دفع بانتظارك
+        </div>}
+      {s.expiring_7 > 0 &&
+        <div className="alert alert-info">
+          🔔 {s.expiring_7} اشتراك بينتهي خلال ٧ أيام — ذكّرهم
+        </div>}
+
+      <div className="hero" style={{padding:"22px 16px"}}>
+        <p className="muted">مشتركين فعليين</p>
+        <div className="week-num">{s.paying}</div>
+        <p className="tiny">من أصل {s.users_total} مستخدم · تحوّل {s.conversion}%</p>
+      </div>
+
+      <div className="stats">
+        <Box label="كل المستخدمين" value={s.users_total} />
+        <Box label="جداد هالأسبوع" value={s.users_week} />
+        <Box label="حمل نشط" value={s.pregnancies} />
+      </div>
+
+      <div className="stats">
+        <Box label="تجربة مجانية" value={s.trials} />
+        <Box label="منتهي" value={s.expired} />
+        <Box label="مجمّد" value={s.frozen} />
+      </div>
+
+      <div className="card">
+        <h2>الباقات</h2>
+        <div className="stats" style={{marginTop:12,marginBottom:0}}>
+          <Box label="الأساسية" value={s.plan_basic} />
+          <Box label="العائلية" value={s.plan_family} />
+          <Box label="الكاملة" value={s.plan_full} />
+        </div>
+      </div>
+
+      <div className="card">
+        <h2>الدخل التقريبي</h2>
+        <div className="week-num" style={{fontSize:38,marginTop:6}}>
+          ${Number(s.revenue_usd).toFixed(0)}
+        </div>
+        <p className="tiny">من {s.approved_total} عملية مقبولة · تقديري بالدولار</p>
+      </div>
+
+      {exp.length > 0 && <div className="card">
+        <h2>بينتهي قريباً</h2>
+        <p className="muted" style={{marginBottom:12}}>ذكّرهم قبل ما يخلص</p>
+        {exp.map(u=>(
+          <div className="req" key={u.user_id}>
+            <b>{u.display_name || "بلا اسم"}</b>
+            <p className="tiny">{u.email}</p>
+            <p className="tiny">
+              {PLAN_INFO[u.plan]?.name} · باقي {u.days_left} يوم
+            </p>
+          </div>
+        ))}
+      </div>}
+
+      <div className="card">
+        <h2>البلدان</h2>
+        <div className="stats" style={{marginTop:12,marginBottom:0}}>
+          <Box label="لبنان" value={s.country_lb} />
+          <Box label="مصر" value={s.country_eg} />
+          <Box label="غير هيك" value={s.country_other} />
+        </div>
+      </div>
+
+      <div className="card">
+        <h2>التفاعل</h2>
+        <p className="muted">{s.letters} رسالة انكتبت بصندوق احكيلو</p>
+      </div>
+    </>
+  );
+}
+
+function AdminReqs(){
+  const [reqs,setReqs] = useState([]);
+  const [load,setLoad] = useState(true);
+  const [note,setNote] = useState({});
+
+  async function load_(){
+    setLoad(true);
+    const { data } = await db.from("payment_requests").select("*")
+      .eq("status","pending").order("created_at",{ascending:false});
+    setReqs(data || []); setLoad(false);
+  }
+  useEffect(()=>{ load_(); },[]);
+
+  async function decide(r, status){
+    await db.from("payment_requests")
+      .update({ status, admin_note: note[r.id] || null }).eq("id", r.id);
+    load_();
+  }
+
+  async function viewReceipt(path){
+    const { data } = await db.storage.from("receipts").createSignedUrl(path, 300);
+    if(data) window.open(data.signedUrl, "_blank");
+  }
+
+  if(load) return <div className="spin"></div>;
+  if(!reqs.length) return <div className="card"><p className="muted">ما في طلبات جديدة ✅</p></div>;
+
+  return reqs.map(r=>(
+    <div className="card" key={r.id}>
+      <b>{PLAN_INFO[r.plan]?.name}</b> · {r.amount} {r.currency}
+      <p className="tiny">{r.method_name} · مرجع: {r.reference}</p>
+      <p className="tiny">{new Date(r.created_at).toLocaleString("ar-EG")}</p>
+
+      {r.receipt_path &&
+        <button className="btn btn-ghost" style={{marginTop:10}}
+          onClick={()=>viewReceipt(r.receipt_path)}>شوف الإيصال</button>}
+
+      <input placeholder="ملاحظة (اختياري)" value={note[r.id]||""}
+        onChange={e=>setNote({...note,[r.id]:e.target.value})} style={{marginTop:10}} />
+
+      <div className="row">
+        <button className="btn btn-sage btn-sm" onClick={()=>decide(r,"approved")}>موافقة</button>
+        <button className="btn btn-danger btn-sm" onClick={()=>decide(r,"rejected")}>رفض</button>
+      </div>
+    </div>
+  ));
+}
+
+function AdminUsers(){
+  const [rows,setRows] = useState([]);
+  const [load,setLoad] = useState(true);
+  const [err,setErr] = useState("");
+  const [q,setQ] = useState("");
+
+  async function load_(){
+    setLoad(true);
+    const { data, error } = await db.rpc("admin_users");
+    if(error) setErr(error.message); else setRows(data || []);
+    setLoad(false);
+  }
+  useEffect(()=>{ load_(); },[]);
+
+  async function give(u, plan){
+    await db.rpc("admin_set_plan", { p_user:u.user_id, p_plan:plan, p_months:1 });
+    load_();
+  }
+  async function extend(u){
+    await db.rpc("admin_extend", { p_user:u.user_id, p_days:7 });
+    load_();
+  }
+  async function freeze(u){
+    await db.rpc("admin_freeze", { p_user:u.user_id, p_state: !u.is_frozen });
+    load_();
+  }
+
+  if(err)  return <div className="alert alert-warn">{err}</div>;
+  if(load) return <div className="spin"></div>;
+
+  const t = q.trim().toLowerCase();
+  const list = rows.filter(r => !t ||
+    (r.display_name||"").toLowerCase().includes(t) ||
+    (r.email||"").toLowerCase().includes(t) ||
+    (r.country||"").toLowerCase().includes(t));
+
+  return (
+    <>
+      <input placeholder="دوّر باسم أو إيميل أو بلد" value={q} onChange={e=>setQ(e.target.value)} />
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
+        <p className="tiny">{list.length} مستخدم</p>
+        <button className="btn btn-ghost btn-sm" style={{margin:0,flex:"none",padding:"7px 14px"}}
+          onClick={()=>csvDownload("users", list)}>نزّل Excel</button>
+      </div>
+
+      {list.map(u=>(
+        <div className="card" key={u.user_id}
+          style={u.is_frozen ? {opacity:.6,borderColor:"var(--danger)"} : {}}>
+          <div style={{display:"flex",justifyContent:"space-between"}}>
+            <b>{u.display_name || "بلا اسم"}</b>
+            <span className="tiny">{u.country}{u.is_frozen ? " · مجمّد" : ""}</span>
+          </div>
+          <p className="tiny">{u.email}</p>
+          <p className="tiny">
+            {PLAN_INFO[u.plan]?.name || "مجاني"} ·{" "}
+            {u.status === "active" ? "مشترك" : u.status === "trial" ? "تجربة" : "منتهي"}
+            {u.expires_at && " · لحد " + new Date(u.expires_at).toLocaleDateString("ar-EG")}
+          </p>
+          {u.week_now && <p className="tiny">أسبوع {u.week_now} · ولادة {u.due_date}</p>}
+          <p className="tiny">سجّل: {new Date(u.joined).toLocaleDateString("ar-EG")}</p>
+
+          <div className="row" style={{marginTop:10}}>
+            <button className="btn btn-ghost btn-sm" onClick={()=>give(u,"basic")}>أساسية</button>
+            <button className="btn btn-ghost btn-sm" onClick={()=>give(u,"family")}>عائلية</button>
+            <button className="btn btn-sage btn-sm" onClick={()=>give(u,"full")}>كاملة</button>
+          </div>
+          <div className="row" style={{marginTop:8}}>
+            <button className="btn btn-ghost btn-sm" onClick={()=>extend(u)}>+٧ أيام</button>
+            <button className="btn btn-danger btn-sm" onClick={()=>freeze(u)}>
+              {u.is_frozen ? "فك التجميد" : "تجميد"}
+            </button>
+          </div>
+        </div>
+      ))}
+    </>
+  );
+}
+
+function AdminTickets(){
+  const [rows,setRows] = useState([]);
+  const [load,setLoad] = useState(true);
+  const [reply,setReply] = useState({});
+
+  async function load_(){
+    setLoad(true);
+    const { data } = await db.rpc("admin_tickets");
+    setRows(data || []); setLoad(false);
+  }
+  useEffect(()=>{ load_(); },[]);
+
+  async function send(t){
+    if(!reply[t.id]?.trim()) return;
+    await db.rpc("admin_reply_ticket", { p_id:t.id, p_reply:reply[t.id].trim() });
+    setReply({...reply,[t.id]:""});
+    load_();
+  }
+
+  if(load) return <div className="spin"></div>;
+  if(!rows.length) return <div className="card"><p className="muted">ما في رسائل ✅</p></div>;
+
+  return rows.map(t=>(
+    <div className="card" key={t.id}>
+      <div style={{display:"flex",justifyContent:"space-between"}}>
+        <b>{t.display_name || "بلا اسم"}</b>
+        <span className="tiny">{t.status === "open" ? "🔴 جديدة" : "✅ انرد عليها"}</span>
+      </div>
+      <p className="tiny">{t.email} · {new Date(t.created_at).toLocaleString("ar-EG")}</p>
+      <p style={{margin:"10px 0",whiteSpace:"pre-wrap"}}>{t.body}</p>
+
+      {t.admin_reply &&
+        <div className="alert alert-ok" style={{whiteSpace:"pre-wrap"}}>ردك: {t.admin_reply}</div>}
+
+      <textarea style={{minHeight:80}} placeholder="اكتب ردك"
+        value={reply[t.id]||""} onChange={e=>setReply({...reply,[t.id]:e.target.value})} />
+      <button className="btn btn-sage" onClick={()=>send(t)}>ابعت الرد</button>
+    </div>
+  ));
+}
+
+function AdminAnnounce(){
+  const [title,setTitle] = useState("");
+  const [body,setBody] = useState("");
+  const [list,setList] = useState([]);
+  const [msg,setMsg] = useState("");
+
+  async function load_(){
+    const { data } = await db.from("announcements").select("*")
+      .order("created_at",{ascending:false}).limit(10);
+    setList(data || []);
+  }
+  useEffect(()=>{ load_(); },[]);
+
+  async function publish(){
+    if(!title.trim() || !body.trim()) return;
+    const { error } = await db.from("announcements")
+      .insert({ title:title.trim(), body:body.trim() });
+    setMsg(error ? error.message : "تم النشر ✅");
+    setTitle(""); setBody(""); load_();
+  }
+
+  async function toggle(a){
+    await db.from("announcements").update({ is_active: !a.is_active }).eq("id", a.id);
+    load_();
+  }
+
+  return (
+    <>
+      {msg && <div className="alert alert-ok">{msg}</div>}
+      <div className="card">
+        <h2>إعلان جديد</h2>
+        <p className="muted" style={{marginBottom:14}}>بيظهر لكل المستخدمين بالشاشة الرئيسية</p>
+        <label>العنوان</label>
+        <input value={title} maxLength={60} onChange={e=>setTitle(e.target.value)}
+          placeholder="مثلاً: ميزة جديدة" />
+        <label>النص</label>
+        <textarea style={{minHeight:90}} value={body} maxLength={400}
+          onChange={e=>setBody(e.target.value)} />
+        <button className="btn" onClick={publish} disabled={!title.trim() || !body.trim()}>
+          انشر
+        </button>
+      </div>
+
+      {list.map(a=>(
+        <div className="card" key={a.id}>
+          <div style={{display:"flex",justifyContent:"space-between"}}>
+            <b>{a.title}</b>
+            <span className="tiny">{a.is_active ? "🟢 ظاهر" : "⚪ مخفي"}</span>
+          </div>
+          <p className="muted">{a.body}</p>
+          <button className="btn btn-ghost btn-sm" style={{marginTop:10,width:"100%"}}
+            onClick={()=>toggle(a)}>{a.is_active ? "إخفاء" : "إظهار"}</button>
+        </div>
+      ))}
+    </>
+  );
+}
+
+function AdminLog(){
+  const [rows,setRows] = useState([]);
+  useEffect(()=>{ db.rpc("admin_recent_log").then(({data})=>setRows(data||[])); },[]);
+
+  if(!rows.length) return <div className="card"><p className="muted">السجل فاضي</p></div>;
+
+  return (
+    <div className="card">
+      <h2>آخر العمليات</h2>
+      <div style={{marginTop:12}}>
+        {rows.map((l,i)=>(
+          <div className="req" key={i}>
+            <b>{l.action}</b>
+            {l.details && <p className="tiny">{l.details}</p>}
+            <p className="tiny">{new Date(l.created_at).toLocaleString("ar-EG")}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ============ التطبيق ============ */
+function App(){
+  const [session,setSession] = useState(null);
+  const [profile,setProfile] = useState(null);
+  const [preg,setPreg] = useState(null);
+  const [role,setRole] = useState("mother");
+  const [sub,setSub] = useState(null);
+  const [tab,setTab] = useState("home");
+  const [ready,setReady] = useState(false);
+  const [asUser,setAsUser] = useState(false);
+  const [adminView,setAdminView] = useState("stats");
+
+  useEffect(()=>{
+    db.auth.getSession().then(({data})=>{ setSession(data.session); if(!data.session) setReady(true); });
+    const { data:sc } = db.auth.onAuthStateChange((_e,s)=>{
+      setSession(s);
+      if(!s){ setProfile(null); setPreg(null); setReady(true); }
+    });
+    return ()=> sc.subscription.unsubscribe();
+  },[]);
+
+  async function loadAll(){
+    if(!session) return;
+    const uid = session.user.id;
+    const { data:p } = await db.from("profiles").select("*").eq("id", uid).single();
+    setProfile(p);
+
+    const { data:m } = await db.from("pregnancy_members").select("pregnancy_id, member_role")
+      .eq("user_id", uid).limit(1);
+
+    if(m && m.length){
+      setRole(m[0].member_role);
+      const { data:pr } = await db.from("pregnancies").select("*").eq("id", m[0].pregnancy_id).single();
+      setPreg(pr && pr.status !== "ended" ? pr : null);
+    } else setPreg(null);
+
+    const { data:s } = await db.from("subscriptions").select("*").eq("user_id", uid).single();
+    setSub(s);
+    setReady(true);
+  }
+  useEffect(()=>{ if(session) loadAll(); },[session]);
+
+  useEffect(()=>{
+    const g = preg ? preg.baby_gender : "unknown";
+    document.documentElement.style.setProperty("--accent", accentFor(g));
+    document.documentElement.style.setProperty("--accent-soft", softFor(g));
+  },[preg]);
+
+  if(!ready) return <div className="spin"></div>;
+  if(!session) return <Auth />;
+  if(!profile) return <div className="spin"></div>;
+
+  const isAdmin = profile.is_admin;
+
+  /* الأدمن: لوحة التحكم مباشرة */
+  if(isAdmin && !asUser){
+    return (
+      <>
+        <Admin view={adminView} setView={setAdminView} />
+        <div className="tabs">
+          <div className="nav-sep">الإدارة</div>
+          {ADMIN_SECTIONS.map(s=>(
+            <button className="tab" key={s.id} data-on={adminView===s.id?"1":"0"}
+              onClick={()=>setAdminView(s.id)}>
+              <i>{s.icon}</i>{s.label}
+            </button>
+          ))}
+          <div className="nav-sep">غير هيك</div>
+          <button className="tab" onClick={()=>{ setAsUser(true); setTab("home"); }}>
+            <i>👁️</i>شوف كمستخدمة</button>
+          <button className="tab" onClick={()=>db.auth.signOut()}>
+            <i>🚪</i>خروج</button>
+        </div>
+      </>
+    );
+  }
+
+  if(!preg) return <Onboard user={session.user} done={loadAll} />;
+
+  const week = weekFrom(preg.due_date);
+
+  return (
+    <>
+      {tab === "home"    && <Home profile={profile} preg={preg} week={week} />}
+      {tab === "weekly"  && <Weekly profile={profile} preg={preg} week={week} role={role} />}
+      {tab === "letters" && <Letters user={session.user} preg={preg} week={week} />}
+      {tab === "billing" && <Billing user={session.user} profile={profile} sub={sub} reload={loadAll} />}
+      {tab === "me"      && <Settings user={session.user} profile={profile} preg={preg} sub={sub} reload={loadAll} />}
+
+      <div className="tabs">
+        <button className="tab" data-on={tab==="home"?"1":"0"} onClick={()=>setTab("home")}>
+          <i>🏠</i>البيت</button>
+        <button className="tab" data-on={tab==="weekly"?"1":"0"} onClick={()=>setTab("weekly")}>
+          <i>💌</i>رسالتي</button>
+        <button className="tab" data-on={tab==="letters"?"1":"0"} onClick={()=>setTab("letters")}>
+          <i>🤍</i>احكيلو</button>
+        <button className="tab" data-on={tab==="billing"?"1":"0"} onClick={()=>setTab("billing")}>
+          <i>⭐</i>اشتراكك</button>
+        <button className="tab" data-on={tab==="me"?"1":"0"} onClick={()=>setTab("me")}>
+          <i>⚙️</i>حسابك</button>
+        {isAdmin &&
+          <button className="tab" onClick={()=>setAsUser(false)}>
+            <i>📊</i>رجوع للوحة</button>}
+      </div>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+
+<script>
+  const code = document.getElementById("src").textContent;
+  const out = Babel.transform(code, { presets: [["react", { runtime: "classic" }]] }).code;
+  const s = document.createElement("script");
+  s.textContent = out;
+  document.body.appendChild(s);
+</script>
+</body>
+</html>
