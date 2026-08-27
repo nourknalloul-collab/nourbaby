@@ -1,0 +1,3987 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>نور — رفيقة حملك</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FDF8F3; --ink:#2C3E50; --ink-soft:#6B7C8C;
+  --accent:#E8B65A; --accent-soft:#FBF0DC;
+  --sage:#7BA098; --danger:#D9634F;
+  --card:#FFFFFF; --line:#EFE6DA;
+  --shadow:0 2px 14px rgba(44,62,80,.06);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--ink);
+  -webkit-font-smoothing:antialiased;line-height:1.7}
+#root{max-width:520px;margin:0 auto;min-height:100vh;position:relative}
+
+.screen{padding:22px 18px 100px}
+.center-screen{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:28px 22px}
+
+h1{font-size:30px;font-weight:700;letter-spacing:-.5px}
+h2{font-size:21px;font-weight:700;margin-bottom:4px}
+.muted{color:var(--ink-soft);font-size:15px}
+.tiny{font-size:13px;color:var(--ink-soft)}
+
+.brand{font-size:44px;font-weight:700;color:var(--accent);text-align:center;letter-spacing:-1px}
+.brand-sub{text-align:center;color:var(--ink-soft);margin-bottom:34px;font-size:16px}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;
+  padding:20px;margin-bottom:14px;box-shadow:var(--shadow)}
+
+label{display:block;font-size:14px;color:var(--ink-soft);margin-bottom:7px;font-weight:500}
+input,textarea,select{width:100%;font-family:inherit;font-size:16px;color:var(--ink);
+  background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 14px;margin-bottom:16px}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--accent);outline-offset:1px}
+textarea{resize:vertical;min-height:130px;line-height:1.9}
+
+.btn{width:100%;background:var(--accent);color:#fff;border:none;border-radius:14px;
+  padding:15px;font-family:inherit;font-size:17px;font-weight:700;cursor:pointer;margin-bottom:10px}
+.btn:disabled{opacity:.45}
+.btn-ghost{background:transparent;color:var(--ink-soft);border:1px solid var(--line)}
+.btn-sage{background:var(--sage)}
+.btn-danger{background:transparent;color:var(--danger);border:1px solid var(--danger)}
+.btn-sm{padding:10px;font-size:15px;width:auto;flex:1}
+
+.row{display:flex;gap:9px}
+.pill{flex:1;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 8px;
+  font-family:inherit;font-size:15px;color:var(--ink);cursor:pointer;text-align:center}
+.pill[data-on="1"]{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}
+
+/* الشاشة الرئيسية */
+.hero{background:linear-gradient(160deg,var(--accent-soft),#fff);
+  border:1px solid var(--line);border-radius:22px;padding:26px 20px;text-align:center;
+  margin-bottom:14px;box-shadow:var(--shadow)}
+.week-num{font-size:60px;font-weight:700;color:var(--accent);line-height:1}
+.size-note{font-size:19px;font-weight:500;margin-top:8px}
+.bar{height:7px;background:var(--line);border-radius:99px;overflow:hidden;margin:18px 0 8px}
+.bar span{display:block;height:100%;background:var(--accent);border-radius:99px;transition:width .6s}
+
+.stats{display:flex;gap:10px;margin-bottom:14px}
+.stat{flex:1;background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:15px 8px;text-align:center;box-shadow:var(--shadow)}
+.stat b{display:block;font-size:24px;color:var(--accent)}
+.stat span{font-size:12px;color:var(--ink-soft)}
+
+.letter{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px 20px;
+  box-shadow:var(--shadow);margin-bottom:14px}
+.letter p{font-size:17.5px;line-height:2.1;white-space:pre-wrap}
+.letter .from{margin-top:16px;font-size:14px;color:var(--accent);font-weight:700}
+
+.saved{background:var(--accent-soft);border:1px dashed var(--accent);border-radius:14px;
+  padding:15px;margin-bottom:10px}
+.saved .meta{font-size:12px;color:var(--ink-soft);margin-bottom:6px}
+.locked{filter:blur(5px);user-select:none}
+
+.plan{border:1.5px solid var(--line);border-radius:18px;padding:18px;margin-bottom:12px;background:#fff}
+.plan[data-on="1"]{border-color:var(--accent);background:var(--accent-soft)}
+.plan .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.plan .price{font-size:22px;font-weight:700;color:var(--accent)}
+.plan ul{list-style:none;font-size:14px;color:var(--ink-soft)}
+.plan li{padding-right:16px;position:relative;margin-bottom:3px}
+.plan li:before{content:"•";position:absolute;right:0;color:var(--accent)}
+
+.alert{border-radius:14px;padding:14px;font-size:15px;margin-bottom:14px}
+.alert-warn{background:#FDF0ED;border:1px solid var(--danger);color:var(--danger)}
+.alert-ok{background:#EFF5F3;border:1px solid var(--sage);color:#4A7266}
+.alert-info{background:var(--accent-soft);border:1px solid var(--accent);color:#8A6A22}
+
+.tabs{position:fixed;bottom:0;right:0;left:0;max-width:520px;margin:0 auto;
+  background:#fff;border-top:1px solid var(--line);display:flex;padding:9px 4px 14px;z-index:50}
+.tab{flex:1;background:none;border:none;font-family:inherit;font-size:12px;
+  color:var(--ink-soft);cursor:pointer;padding:5px 2px}
+.tab i{display:block;font-size:21px;font-style:normal;margin-bottom:2px;opacity:.5}
+.tab[data-on="1"]{color:var(--accent);font-weight:700}
+.tab[data-on="1"] i{opacity:1}
+
+.hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.spin{width:26px;height:26px;border:3px solid var(--line);border-top-color:var(--accent);
+  border-radius:50%;animation:sp .8s linear infinite;margin:32px auto}
+@keyframes sp{to{transform:rotate(360deg)}}
+.req{background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px;margin-bottom:12px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ===== قائمة الموبايل المنسدلة ===== */
+.menu-btn{display:none}
+@media(max-width:899px){
+  .tabs{gap:2px;padding:9px 2px 14px}
+  .tab{font-size:11px;padding:5px 1px}
+  .tab i{font-size:19px}
+  .tab.extra{display:none}
+  .menu-btn{display:block}
+  .drawer{position:fixed;inset:0;background:rgba(44,62,80,.5);z-index:150}
+  .drawer-panel{position:absolute;top:0;bottom:0;right:0;width:74%;max-width:290px;
+    background:#fff;padding:26px 16px;overflow-y:auto;
+    box-shadow:-4px 0 22px rgba(44,62,80,.14)}
+  .drawer-panel h3{font-size:24px;color:var(--accent);padding:0 12px 18px;font-weight:700}
+  .drawer-item{width:100%;display:flex;align-items:center;gap:12px;background:none;
+    border:none;font-family:inherit;font-size:16px;color:var(--ink);text-align:start;
+    padding:14px 12px;border-radius:12px;cursor:pointer}
+  .drawer-item i{font-style:normal;font-size:20px}
+  .drawer-item[data-on="1"]{background:var(--accent-soft);color:var(--accent);font-weight:700}
+  .drawer-sep{font-size:12px;color:var(--ink-soft);padding:16px 12px 6px;font-weight:700}
+}
+@media(min-width:900px){ .drawer{display:none} }
+
+/* ===== لابتوب: قائمة جانبية ثابتة على اليمين ===== */
+@media(min-width:900px){
+  html,body{overflow-x:hidden}
+  #root{max-width:none;display:block;width:auto;
+    margin-right:260px;margin-left:0;padding:0}
+  .screen{max-width:820px;margin:0 auto;padding:34px 30px 70px}
+  .center-screen{max-width:520px;margin:0 auto}
+
+  .tabs{position:fixed;top:0;bottom:0;right:0;left:auto;width:260px;max-width:none;
+    margin:0;flex-direction:column;gap:4px;overflow-y:auto;
+    border-top:none;border-left:1px solid var(--line);
+    padding:28px 14px;background:#fff;z-index:60}
+
+  .tabs:before{content:"نور";display:block;font-size:29px;font-weight:700;
+    color:var(--accent);padding:0 14px 20px;letter-spacing:-1px}
+
+  .tab{flex:none;display:flex;align-items:center;gap:11px;width:100%;
+    text-align:right;font-size:15.5px;padding:12px 14px;border-radius:12px}
+  .tab i{margin:0;font-size:19px}
+  .tab:hover{background:var(--accent-soft)}
+  .tab[data-on="1"]{background:var(--accent-soft)}
+  .nav-sep{font-size:12px;color:var(--ink-soft);padding:16px 14px 6px;font-weight:700}
+
+  .stats{gap:14px}
+  .row{gap:12px}
+  .admin-pills{display:none}
+}
+.nav-sep{display:none}
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js" crossorigin></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.7/babel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script type="text/plain" id="src">
+const { useState, useEffect, useRef } = React;
+
+const SUPABASE_URL = "https://bxoraepjhbpmtkspiwqw.supabase.co";
+const SUPABASE_KEY = "sb_publishable_kjZO4nGETTy0NlkobuhfAA_J0fiy6hC";
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const DAY = 86400000;
+
+const PLAN_INFO = {
+  basic:    { name:"الاساسية", items:["الرسالة الاسبوعية من جنينك","صندوق صندوق الرسائل","عدّاد الركلات والطلق","حقيبة المستشفى"] },
+  family:   { name:"العائلية",  items:["كل ما سبق","حساب الاب ورسالة خاصة له","ألبوم التصوير الاسبوعي"] },
+  full:     { name:"الكاملة",   items:["كل ما سبق","حساب الاب والالبوم","جنينك يردّ عليكي","دردشة بلا حدود"] },
+  lifetime: { name:"الحمل كله", items:["كل ميزات الكاملة","لحد يوم الولادة","دفعة وحدة وبتنسي الموضوع"] }
+};
+
+/* ---------- أدوات ---------- */
+function weekFrom(due){
+  if(!due) return 1;
+  const left = Math.ceil((new Date(due) - new Date()) / DAY);
+  const w = 40 - Math.ceil(left / 7);
+  return Math.min(42, Math.max(1, w + 1));
+}
+function daysLeft(due){
+  if(!due) return 0;
+  return Math.max(0, Math.ceil((new Date(due) - new Date()) / DAY));
+}
+function dueFromLmp(lmp){
+  const d = new Date(lmp);
+  d.setDate(d.getDate() + 280);
+  return d.toISOString().slice(0,10);
+}
+function fillName(text, name){
+  return (text||"").replace(/\{\{name\}\}/g, name ? " " + name : "");
+}
+function accentFor(gender){
+  if(gender === "boy")  return "#6B95B8";
+  if(gender === "girl") return "#D48A96";
+  return "#E8B65A";
+}
+function softFor(gender){
+  if(gender === "boy")  return "#EAF1F7";
+  if(gender === "girl") return "#FAEEF0";
+  return "#FBF0DC";
+}
+
+/* ============ تسجيل الدخول ============ */
+function Auth(){
+  const [mode,setMode] = useState("in");
+  const [email,setEmail] = useState("");
+  const [pass,setPass] = useState("");
+  const [err,setErr] = useState("");
+  const [busy,setBusy] = useState(false);
+
+  async function go(){
+    setErr(""); setBusy(true);
+    try{
+      const fn = mode === "in" ? "signInWithPassword" : "signUp";
+      const { error } = await db.auth[fn]({ email: email.trim(), password: pass });
+      if(error) throw error;
+      if(mode === "up") setErr("تم إنشاء حسابك! سجّلي دخولك الآن.");
+    }catch(e){
+      setErr(e.message === "Invalid login credentials"
+        ? "البريد أو كلمة السر غير صحيحة"
+        : e.message);
+    }
+    setBusy(false);
+  }
+
+  return (
+    <div className="center-screen">
+      <div className="brand">نور</div>
+      <div className="brand-sub">رفيقة حملك، من أول أسبوع إلى آخر يوم</div>
+
+      <div className="card">
+        <label>الإيميل</label>
+        <input type="email" value={email} onChange={e=>setEmail(e.target.value)}
+          placeholder="you@mail.com" autoComplete="email" />
+        <label>كلمة السر</label>
+        <input type="password" value={pass} onChange={e=>setPass(e.target.value)}
+          placeholder="٦ أحرف على الاقل" autoComplete="current-password" />
+
+        {err && <div className={"alert " + (err.includes("تم") ? "alert-ok" : "alert-warn")}>{err}</div>}
+
+        <button className="btn" onClick={go} disabled={busy || !email || pass.length < 6}>
+          {busy ? "لحظة..." : mode === "in" ? "دخول" : "إنشاء حساب"}
+        </button>
+        <button className="btn btn-ghost" onClick={()=>{setMode(mode==="in"?"up":"in");setErr("")}}>
+          {mode === "in" ? "ليس لدي حساب — سجّليني" : "لدي حساب — دخول"}
+        </button>
+      </div>
+      <p className="tiny" style={{textAlign:"center"}}>
+        نور يرافقك ويطمئنك، لكنه لا يغني عن طبيبك أبداً.
+      </p>
+    </div>
+  );
+}
+
+/* ============ الإعداد الاول ============ */
+function Onboard({ user, done }){
+  const [step,setStep] = useState(0);
+  const [name,setName] = useState("");
+  const [country,setCountry] = useState("LB");
+  const [dialect,setDialect] = useState("lb");
+  const [mode,setMode] = useState("due");
+  const [dateVal,setDate] = useState("");
+  const [busy,setBusy] = useState(false);
+  const [err,setErr] = useState("");
+  const [joinCode,setJoin] = useState("");
+  const [joining,setJoining] = useState(false);
+
+  async function join(){
+    setBusy(true); setErr("");
+    try{
+      await db.from("profiles").update({ display_name: name.trim() || "بابا" }).eq("id", user.id);
+      const { error } = await db.rpc("join_with_code", { p_code: joinCode });
+      if(error) throw error;
+      done();
+    }catch(e){ setErr(e.message); setBusy(false); }
+  }
+
+  async function save(){
+    setBusy(true); setErr("");
+    try{
+      const due = mode === "lmp" ? dueFromLmp(dateVal) : dateVal;
+
+      await db.from("profiles").update({
+        display_name: name.trim(), country, dialect
+      }).eq("id", user.id);
+
+      const { data: preg, error } = await db.from("pregnancies")
+        .insert({ owner_id:user.id, due_date:due, mother_name:name.trim() })
+        .select().single();
+      if(error) throw error;
+
+      await db.from("pregnancy_members")
+        .insert({ pregnancy_id: preg.id, user_id: user.id, member_role:"mother" });
+
+      done();
+    }catch(e){ setErr(e.message); setBusy(false); }
+  }
+
+  if(joining) return (
+    <div className="center-screen">
+      <h1>معك كود دعوة؟</h1>
+      <p className="muted" style={{marginBottom:26}}>اكتب اسمك والكود الذي وصلك.</p>
+      <div className="card">
+        <label>اسمك</label>
+        <input value={name} maxLength={20} onChange={e=>setName(e.target.value)}
+          placeholder="مثلاً: كريم" />
+        <label>كود الدعوة</label>
+        <input value={joinCode} maxLength={8}
+          onChange={e=>setJoin(e.target.value.toUpperCase())}
+          placeholder="ABC123" style={{letterSpacing:3,textAlign:"center",fontSize:20}} />
+        {err && <div className="alert alert-warn">{err}</div>}
+        <button className="btn" disabled={!joinCode.trim() || busy} onClick={join}>
+          {busy ? "لحظة..." : "ادخل"}
+        </button>
+        <button className="btn btn-ghost" onClick={()=>{setJoining(false);setErr("")}}>رجوع</button>
+      </div>
+    </div>
+  );
+
+  if(step === 0) return (
+    <div className="center-screen">
+      <h1>أهلاً بك 🤍</h1>
+      <p className="muted" style={{marginBottom:26}}>ما اسمك؟ جنينك سيناديك به.</p>
+      <div className="card">
+        <label>اسمك</label>
+        <input value={name} maxLength={20} onChange={e=>setName(e.target.value)} placeholder="مثلاً: آية" />
+        <label>من أين أنت؟</label>
+        <div className="row" style={{marginBottom:18}}>
+          <button className="pill" data-on={country==="LB"?"1":"0"}
+            onClick={()=>{setCountry("LB");setDialect("lb")}}>لبنان</button>
+          <button className="pill" data-on={country==="EG"?"1":"0"}
+            onClick={()=>{setCountry("EG");setDialect("eg")}}>مصر</button>
+          <button className="pill" data-on={country==="OTHER"?"1":"0"}
+            onClick={()=>setCountry("OTHER")}>مكان آخر</button>
+        </div>
+        <button className="btn" disabled={!name.trim()} onClick={()=>setStep(1)}>لنكمل</button>
+        <button className="btn btn-ghost" onClick={()=>setJoining(true)}>معي كود دعوة</button>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="center-screen">
+      <h1>متى موعدك؟</h1>
+      <p className="muted" style={{marginBottom:26}}>اختاري الطريقة التي تعرفينها.</p>
+      <div className="card">
+        <div className="row" style={{marginBottom:18}}>
+          <button className="pill" data-on={mode==="due"?"1":"0"} onClick={()=>setMode("due")}>
+            الطبيب أخبرني بموعد الولادة
+          </button>
+          <button className="pill" data-on={mode==="lmp"?"1":"0"} onClick={()=>setMode("lmp")}>
+            أعرف أول يوم في آخر دورة
+          </button>
+        </div>
+
+        <label>{mode==="due" ? "تاريخ الولادة المتوقع" : "أول يوم في آخر دورة"}</label>
+        <input type="date" value={dateVal} onChange={e=>setDate(e.target.value)} />
+
+        {mode==="lmp" && dateVal &&
+          <div className="alert alert-info">
+            موعد ولادتك المتوقع: <b>{dueFromLmp(dateVal)}</b>
+          </div>}
+
+        {err && <div className="alert alert-warn">{err}</div>}
+
+        <button className="btn" disabled={!dateVal || busy} onClick={save}>
+          {busy ? "لحظة..." : "ابدئي رحلتك"}
+        </button>
+        <button className="btn btn-ghost" onClick={()=>setStep(0)}>رجوع</button>
+        <p className="tiny">يمكنك تعديل التاريخ في أي وقت من إعداداتك.</p>
+      </div>
+    </div>
+  );
+}
+
+/* ============ الشاشة الرئيسية ============ */
+function Home({ profile, preg, week, sub, go }){
+  const left = daysLeft(preg.due_date);
+  const pct = Math.min(100, Math.round((week / 40) * 100));
+  const [size,setSize] = useState("");
+  const [ann,setAnn] = useState([]);
+  const trial = trialDaysLeft(sub);
+  const expired = sub && new Date(sub.expires_at) <= new Date();
+
+  useEffect(()=>{
+    db.from("announcements").select("*").eq("is_active", true)
+      .order("created_at",{ascending:false}).limit(2)
+      .then(({data})=>setAnn(data||[]));
+  },[]);
+
+  useEffect(()=>{
+    db.from("weekly_messages").select("size_note")
+      .eq("week", week).eq("audience","mother").eq("dialect", profile.dialect)
+      .limit(1).then(({data})=>{ if(data && data[0]) setSize(data[0].size_note || ""); });
+  },[week]);
+
+  return (
+    <div className="screen">
+      <div className="hdr">
+        <div>
+          <h2>أهلاً {profile.display_name} 🤍</h2>
+          <p className="muted">كل يوم يقرّبك أكثر</p>
+        </div>
+      </div>
+
+      {trial !== null &&
+        <div className="alert alert-info" onClick={go} style={{cursor:"pointer"}}>
+          🎁 <b>تجربتك المجانية — باقٍ {trial === 0 ? "أقل من يوم" : trial + " يوم"}</b>
+          <br/>اضغطي هنا لرؤية الباقات وإكمال رحلتك.
+        </div>}
+
+      {expired &&
+        <div className="alert alert-warn" onClick={go} style={{cursor:"pointer"}}>
+          ⭐ <b>انتهت تجربتك</b><br/>اختاري باقتك لتكملي مع جنينك.
+        </div>}
+
+      {ann.map(a=>(
+        <div className="alert alert-info" key={a.id}>
+          <b>{a.title}</b><br/>{a.body}
+        </div>
+      ))}
+
+      <div className="hero">
+        <p className="muted">أنت في الاسبوع</p>
+        <div className="week-num">{week}</div>
+        {size && <div className="size-note">جنينك الآن بحجم {size}</div>}
+        <div className="bar"><span style={{width: pct + "%"}}></span></div>
+        <p className="tiny">{pct}% من الرحلة</p>
+      </div>
+
+      <div className="stats">
+        <div className="stat"><b>{left}</b><span>يوم متبقٍ</span></div>
+        <div className="stat"><b>{Math.max(0, 40 - week)}</b><span>أسبوع متبقٍ</span></div>
+        <div className="stat"><b>{Math.ceil(week/13.4)}</b><span>الثلث الحالي</span></div>
+      </div>
+
+      <div className="card" style={{textAlign:"center",background:"var(--accent-soft)",
+        borderColor:"var(--accent)"}}>
+        <p style={{fontSize:17,lineHeight:2}}>
+          {left > 0
+            ? "باقٍ " + left + " يوم ونلتقي 🤍"
+            : "أصبحنا جاهزين... في أي لحظة 🤍"}
+        </p>
+        <p className="tiny" style={{marginTop:6}}>— {preg.baby_name || "جنينك"}</p>
+      </div>
+
+      <div className="card">
+        <h2>موعد ولادتك</h2>
+        <p className="muted">{preg.due_date}</p>
+      </div>
+
+      <div className="alert alert-warn">
+        ⚠️ إذا حدث نزيف، أو ألم بطن شديد، أو لم تعودي تشعرين بحركة الجنين، أو صداع شديد مع تشوّش في الرؤية —
+        توجّهي إلى الطوارئ فوراً. لا تنتظري.
+      </div>
+    </div>
+  );
+}
+
+/* ============ رحلة السنة الأولى ============ */
+function monthsSince(d){
+  const b = new Date(d), n = new Date();
+  return Math.max(0, (n.getFullYear()-b.getFullYear())*12 + (n.getMonth()-b.getMonth())
+    - (n.getDate() < b.getDate() ? 1 : 0));
+}
+function daysSince(d){
+  return Math.max(0, Math.floor((new Date() - new Date(d)) / DAY));
+}
+
+function BirthForm({ user, preg, done }){
+  const [date,setDate] = useState(new Date().toISOString().slice(0,10));
+  const [name,setName] = useState(preg.baby_name || "");
+  const [weight,setWeight] = useState("");
+  const [busy,setBusy] = useState(false);
+  const [err,setErr] = useState("");
+
+  async function save(){
+    setBusy(true); setErr("");
+    const { error } = await db.from("babies").insert({
+      pregnancy_id: preg.id, owner_id: user.id,
+      name: name.trim() || null, gender: preg.baby_gender,
+      birth_date: date, birth_weight: weight ? Number(weight) : null });
+    if(error){ setErr(error.message); setBusy(false); return; }
+    done();
+  }
+
+  return (
+    <div className="screen">
+      <div className="hdr"><div>
+        <h2>مبروك 🤍</h2>
+        <p className="muted">سجّلي يوم الولادة لتبدأ رحلة السنة الأولى</p>
+      </div></div>
+      <div className="card">
+        <label>تاريخ الولادة</label>
+        <input type="date" value={date} onChange={e=>setDate(e.target.value)} />
+        <label>اسم المولود</label>
+        <input value={name} maxLength={24} onChange={e=>setName(e.target.value)} />
+        <label>الوزن بالكيلو (اختياري)</label>
+        <input type="number" step="0.01" value={weight}
+          onChange={e=>setWeight(e.target.value)} placeholder="3.2" />
+        {err && <div className="alert alert-warn">{err}</div>}
+        <button className="btn" onClick={save} disabled={busy}>
+          {busy ? "لحظة..." : "ابدئي رحلة السنة الأولى"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+const BABY_MILESTONES = [
+  ["first_smile","أول ابتسامة","😊"],["first_laugh","أول ضحكة","😄"],
+  ["head_up","رفع رأسه","🙂"],["roll","أول تقلّبة","🔄"],
+  ["sit","أول جلسة","🪑"],["tooth","أول سنّة","🦷"],
+  ["crawl","أول حبوة","🐛"],["stand","أول وقفة","🧍"],
+  ["word","أول كلمة","💬"],["step","أول خطوة","👣"],
+  ["food","أول أكلة","🥣"],["custom","لحظة أخرى","⭐"]
+];
+
+function BabyHome({ user, profile, baby, reload }){
+  const [msg,setMsg] = useState(null);
+  const m = monthsSince(baby.birth_date);
+  const d = daysSince(baby.birth_date);
+
+  useEffect(()=>{
+    db.from("monthly_messages").select("*")
+      .eq("month_no", Math.min(12, m)).eq("dialect", profile.dialect)
+      .limit(1).then(({data})=>{ if(data && data[0]) setMsg(data[0]); });
+  },[m]);
+
+  return (
+    <div className="screen">
+      <div className="hdr"><div>
+        <h2>{baby.name || "مولودك"} 🤍</h2>
+        <p className="muted">أهلاً {profile.display_name}</p>
+      </div></div>
+
+      <div className="hero">
+        <p className="muted">عمره</p>
+        <div className="week-num">{m}</div>
+        <div className="size-note">{m === 0 ? "أقل من شهر" : m === 1 ? "شهر" : m + " شهور"}</div>
+        <div className="bar"><span style={{width: Math.min(100, m/12*100) + "%"}}></span></div>
+        <p className="tiny">{d} يوم من الحياة</p>
+      </div>
+
+      <div className="stats">
+        <div className="stat"><b>{d}</b><span>يوم</span></div>
+        <div className="stat"><b>{Math.floor(d/7)}</b><span>أسبوع</span></div>
+        <div className="stat"><b>{Math.max(0,12-m)}</b><span>شهر للسنة</span></div>
+      </div>
+
+      {msg &&
+        <div className="letter">
+          {msg.title && <h2 style={{marginBottom:10}}>{msg.title}</h2>}
+          <p>{msg.body}</p>
+          <div className="from">— {baby.name || "مولودك"} 🤍</div>
+        </div>}
+
+      <div className="alert alert-warn">
+        ⚠️ إذا ارتفعت حرارته، أو رفض الرضاعة، أو تغيّر لون بشرته، أو بدا خاملاً بشكل غير معتاد —
+        اتصلي بطبيب الأطفال فوراً.
+      </div>
+    </div>
+  );
+}
+
+function BabyAlbum({ user, baby }){
+  const [rows,setRows] = useState([]);
+  const [urls,setUrls] = useState({});
+  const [busy,setBusy] = useState(false);
+  const [month,setMonth] = useState(monthsSince(baby.birth_date));
+  const fileRef = useRef(null);
+
+  async function load_(){
+    const { data } = await db.from("baby_photos").select("*")
+      .eq("baby_id", baby.id).order("month_no");
+    setRows(data || []);
+    const map = {};
+    for(const r of (data||[])){
+      const { data:s } = await db.storage.from("baby").createSignedUrl(r.photo_path, 3600);
+      if(s) map[r.id] = s.signedUrl;
+    }
+    setUrls(map);
+  }
+  useEffect(()=>{ load_(); },[]);
+
+  async function upload(e){
+    const f = e.target.files[0];
+    if(!f) return;
+    setBusy(true);
+    try{
+      const small = await shrink(f, 1200);
+      const path = user.id + "/baby-" + baby.id + "-m" + month + "-" + Date.now() + ".jpg";
+      const { error } = await db.storage.from("baby").upload(path, small);
+      if(error) throw error;
+      await db.from("baby_photos").insert({
+        baby_id: baby.id, user_id: user.id, month_no: month, photo_path: path });
+      load_();
+    }catch(err){ console.error(err); }
+    setBusy(false);
+    if(fileRef.current) fileRef.current.value = "";
+  }
+
+  async function del(r){
+    await db.storage.from("baby").remove([r.photo_path]);
+    await db.from("baby_photos").delete().eq("id", r.id);
+    load_();
+  }
+
+  const done = new Set(rows.map(r=>r.month_no));
+
+  return (
+    <div className="screen">
+      <div className="hdr"><div>
+        <h2>ألبوم السنة الأولى</h2>
+        <p className="muted">{rows.length} من ١٣ صورة</p>
+      </div></div>
+
+      <div className="card">
+        <h2>صورة الشهر</h2>
+        <p className="muted" style={{marginBottom:12}}>
+          صوّريه كل شهر في نفس الوضعية — يصير الألبوم في النهاية قصة كاملة.
+        </p>
+        <div style={{display:"flex",flexWrap:"wrap",gap:7,marginBottom:16}}>
+          {Array.from({length:13},(_,i)=>i).map(i=>(
+            <button key={i} className="pill" data-on={month===i?"1":"0"}
+              style={{flex:"none",minWidth:48,padding:"9px 10px",
+                opacity: done.has(i) ? 1 : .75}}
+              onClick={()=>setMonth(i)}>
+              {done.has(i) ? "✓" : ""} {i === 0 ? "ولادة" : i}
+            </button>
+          ))}
+        </div>
+        <input ref={fileRef} type="file" accept="image/*" onChange={upload} disabled={busy} />
+        {busy && <div className="spin"></div>}
+      </div>
+
+      {rows.length === 13 &&
+        <div className="card" style={{textAlign:"center",borderColor:"var(--accent)"}}>
+          <div style={{fontSize:38}}>🎂</div>
+          <h2>ألبومك اكتمل!</h2>
+          <p className="muted">سنة كاملة موثّقة، من أول يوم لعيد ميلاده الأول.</p>
+        </div>}
+
+      {rows.map(r=>(
+        <div className="card" key={r.id}>
+          <b style={{display:"block",marginBottom:10}}>
+            {r.month_no === 0 ? "يوم الولادة" : "الشهر " + r.month_no}
+          </b>
+          {urls[r.id]
+            ? <img src={urls[r.id]} alt="" style={{width:"100%",borderRadius:14}} />
+            : <div className="spin"></div>}
+          <button className="btn btn-ghost btn-sm" style={{width:"100%",marginTop:10}}
+            onClick={()=>del(r)}>احذفيها</button>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function BabyMoments({ user, baby }){
+  const [rows,setRows] = useState([]);
+  const [pick,setPick] = useState(null);
+  const [note,setNote] = useState("");
+
+  async function load_(){
+    const { data } = await db.from("baby_milestones").select("*")
+      .eq("baby_id", baby.id).order("happened_on",{ascending:false});
+    setRows(data || []);
+  }
+  useEffect(()=>{ load_(); },[]);
+
+  async function save(){
+    if(!pick) return;
+    await db.from("baby_milestones").insert({
+      baby_id: baby.id, user_id: user.id, kind: pick[0],
+      title: pick[1], note: note.trim() || null });
+    setPick(null); setNote(""); load_();
+  }
+
+  return (
+    <div className="screen">
+      <div className="hdr"><div>
+        <h2>أوّل مرات</h2>
+        <p className="muted">سجّلي كل أول مرة — لن تتكرر</p>
+      </div></div>
+
+      {!pick
+        ? <div className="card">
+            <h2>ماذا فعل؟</h2>
+            <div style={{display:"flex",flexWrap:"wrap",gap:9,marginTop:14}}>
+              {BABY_MILESTONES.map(m=>(
+                <button key={m[0]} className="pill" style={{flex:"none",padding:"11px 15px"}}
+                  onClick={()=>setPick(m)}>{m[2]} {m[1]}</button>
+              ))}
+            </div>
+          </div>
+        : <div className="card">
+            <h2>{pick[2]} {pick[1]}</h2>
+            <label style={{marginTop:12}}>اكتبي شيئاً عنها (اختياري)</label>
+            <textarea style={{minHeight:80}} value={note} maxLength={400}
+              onChange={e=>setNote(e.target.value)} />
+            <button className="btn" onClick={save}>سجّليها</button>
+            <button className="btn btn-ghost" onClick={()=>{setPick(null);setNote("")}}>رجوع</button>
+          </div>}
+
+      {rows.map(r=>{
+        const m = BABY_MILESTONES.find(x=>x[0]===r.kind);
+        return (
+          <div className="saved" key={r.id}>
+            <div className="meta">{new Date(r.happened_on).toLocaleDateString("ar-EG")}</div>
+            <b>{m?.[2]} {r.title}</b>
+            {r.note && <p style={{marginTop:6}}>{r.note}</p>}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+/* ============ بطاقات التهنئة ============ */
+function Cards({ preg, baby }){
+  const [rows,setRows] = useState([]);
+  const [open,setOpen] = useState(null);
+  const THEME = {
+    gold:{bg:"#FBF0DC",fg:"#8A6A22",bd:"#E8B65A"},
+    blue:{bg:"#EAF1F7",fg:"#3D5F7D",bd:"#6B95B8"},
+    pink:{bg:"#FAEEF0",fg:"#8E4A55",bd:"#D48A96"},
+    sage:{bg:"#EFF5F3",fg:"#4A7266",bd:"#7BA098"}
+  };
+
+  useEffect(()=>{
+    const kind = baby ? "birth" : "pregnancy";
+    db.from("cards").select("*").eq("is_active", true).order("sort_order")
+      .then(({data})=>setRows((data||[]).filter(c => c.kind === kind || c.kind === "month")));
+  },[]);
+
+  function fill(t){
+    const name = baby ? (baby.name || "مولودنا") : (preg.baby_name || "مولودنا");
+    const date = baby
+      ? new Date(baby.birth_date).toLocaleDateString("ar-EG")
+      : new Date(preg.due_date).toLocaleDateString("ar-EG");
+    return t.replace(/\{\{name\}\}/g, name).replace(/\{\{date\}\}/g, date);
+  }
+
+  if(open){
+    const th = THEME[open.theme] || THEME.gold;
+    return (
+      <div className="screen">
+        <div className="hdr"><div><h2>{open.title}</h2></div></div>
+        <div style={{background:th.bg,border:"2px solid "+th.bd,borderRadius:20,
+          padding:"46px 26px",textAlign:"center",marginBottom:16}}>
+          <div style={{fontSize:36,marginBottom:14}}>🤍</div>
+          <p style={{fontSize:20,lineHeight:2.3,color:th.fg,fontWeight:500,
+            whiteSpace:"pre-wrap"}}>{fill(open.body)}</p>
+          <p style={{marginTop:22,fontSize:13,color:th.fg,opacity:.65}}>نور</p>
+        </div>
+        <p className="tiny" style={{marginBottom:14}}>
+          صوّري الشاشة وشاركيها مع من تحبين 🤍
+        </p>
+        <button className="btn btn-ghost" onClick={()=>setOpen(null)}>العودة للبطاقات</button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="screen">
+      <div className="hdr"><div>
+        <h2>بطاقات</h2>
+        <p className="muted">شاركي الخبر الجميل</p>
+      </div></div>
+      {rows.map(c=>{
+        const th = THEME[c.theme] || THEME.gold;
+        return (
+          <div key={c.id} onClick={()=>setOpen(c)}
+            style={{background:th.bg,border:"1.5px solid "+th.bd,borderRadius:18,
+              padding:20,marginBottom:12,cursor:"pointer"}}>
+            <b style={{color:th.fg}}>{c.title}</b>
+            <p style={{color:th.fg,opacity:.8,fontSize:15,marginTop:6}}>
+              {fill(c.body).split("\n")[0]}
+            </p>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+/* ============ النصائح والأطعمة ============ */
+function Guide({ profile, week }){
+  const [tab,setTab] = useState("tips");
+  const [tips,setTips] = useState([]);
+  const [foods,setFoods] = useState([]);
+
+  useEffect(()=>{
+    db.from("weekly_tips").select("*").eq("dialect", profile.dialect)
+      .lte("week", week).order("week",{ascending:false}).limit(12)
+      .then(({data})=>setTips(data||[]));
+    db.from("foods").select("*").eq("is_active", true).order("sort_order")
+      .then(({data})=>setFoods(data||[]));
+  },[week]);
+
+  const CAT = { general:"💡", rest:"😴", movement:"🚶", prep:"🎒", food:"🍎" };
+
+  return (
+    <div className="screen">
+      <div className="hdr"><div>
+        <h2>دليلك</h2>
+        <p className="muted">معلومات عامة تساعدك</p>
+      </div></div>
+
+      <div className="row" style={{marginBottom:18}}>
+        <button className="pill" data-on={tab==="tips"?"1":"0"}
+          onClick={()=>setTab("tips")}>نصائح</button>
+        <button className="pill" data-on={tab==="food"?"1":"0"}
+          onClick={()=>setTab("food")}>أطعمة مفيدة</button>
+      </div>
+
+      {tab === "tips" && <>
+        {tips.length === 0 && <div className="card"><p className="muted">لا توجد نصائح بعد.</p></div>}
+        {tips.map(t=>(
+          <div className="card" key={t.id}>
+            <div className="meta tiny">أسبوع {t.week}</div>
+            <p style={{fontSize:17,marginTop:6}}>{CAT[t.category] || "💡"} {t.body}</p>
+          </div>
+        ))}
+      </>}
+
+      {tab === "food" && <>
+        <div className="alert alert-info">
+          معلومات عامة فقط. الكميات والممنوعات تختلف من حالة لأخرى — طبيبك هو المرجع.
+        </div>
+        {foods.map(f=>(
+          <div className="card" key={f.id}>
+            <div style={{display:"flex",justifyContent:"space-between"}}>
+              <b>{f.name}</b>
+              {f.nutrient && <span className="tiny" style={{color:"var(--accent)"}}>{f.nutrient}</span>}
+            </div>
+            <p className="muted" style={{marginTop:6}}>{f.benefit}</p>
+          </div>
+        ))}
+      </>}
+    </div>
+  );
+}
+
+/* ============ اختيار الاسم ============ */
+function Names({ user, preg }){
+  const [rows,setRows] = useState([]);
+  const [votes,setVotes] = useState([]);
+  const [name,setName] = useState("");
+  const [gender,setGender] = useState("any");
+  const [meaning,setMeaning] = useState("");
+
+  async function load_(){
+    const { data } = await db.from("name_ideas").select("*")
+      .eq("pregnancy_id", preg.id).order("created_at",{ascending:false});
+    setRows(data || []);
+    const ids = (data||[]).map(r=>r.id);
+    if(ids.length){
+      const v = await db.from("name_votes").select("*").in("name_id", ids);
+      setVotes(v.data || []);
+    } else setVotes([]);
+  }
+  useEffect(()=>{ load_(); },[]);
+
+  async function add(){
+    if(!name.trim()) return;
+    await db.from("name_ideas").insert({
+      pregnancy_id: preg.id, suggested_by: user.id,
+      name: name.trim(), gender, meaning: meaning.trim() || null });
+    setName(""); setMeaning(""); load_();
+  }
+  async function vote(id, v){
+    await db.from("name_votes").upsert(
+      { name_id:id, user_id:user.id, vote:v }, { onConflict:"name_id,user_id" });
+    load_();
+  }
+  async function del(id){
+    await db.from("name_ideas").delete().eq("id", id); load_();
+  }
+
+  function score(id){
+    return votes.filter(v=>v.name_id===id).reduce((a,b)=>a+b.vote, 0);
+  }
+  function mine(id){
+    return votes.find(v=>v.name_id===id && v.user_id===user.id)?.vote;
+  }
+  const agreed = rows.filter(r => score(r.id) >= 2);
+
+  return (
+    <div className="screen">
+      <div className="hdr"><div>
+        <h2>اسم المولود</h2>
+        <p className="muted">اقترحا أسماء وصوّتا معاً</p>
+      </div></div>
+
+      {agreed.length > 0 &&
+        <div className="card" style={{borderColor:"var(--accent)"}}>
+          <h2>🤍 اتفقتما على</h2>
+          <div style={{display:"flex",flexWrap:"wrap",gap:9,marginTop:12}}>
+            {agreed.map(a=>(
+              <span key={a.id} className="pill" data-on="1"
+                style={{flex:"none",padding:"11px 18px",fontSize:17}}>{a.name}</span>
+            ))}
+          </div>
+        </div>}
+
+      <div className="card">
+        <h2>اقترحي اسماً</h2>
+        <label>الاسم</label>
+        <input value={name} maxLength={24} onChange={e=>setName(e.target.value)} />
+        <label>لمن؟</label>
+        <div className="row" style={{marginBottom:14}}>
+          <button className="pill" data-on={gender==="any"?"1":"0"}
+            onClick={()=>setGender("any")}>للاثنين</button>
+          <button className="pill" data-on={gender==="boy"?"1":"0"}
+            onClick={()=>setGender("boy")}>ولد</button>
+          <button className="pill" data-on={gender==="girl"?"1":"0"}
+            onClick={()=>setGender("girl")}>بنت</button>
+        </div>
+        <label>معناه (اختياري)</label>
+        <input value={meaning} maxLength={80} onChange={e=>setMeaning(e.target.value)} />
+        <button className="btn" onClick={add} disabled={!name.trim()}>أضيفيه</button>
+      </div>
+
+      {rows.map(r=>(
+        <div className="card" key={r.id}>
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+            <b style={{fontSize:19}}>{r.name}</b>
+            <span style={{color: score(r.id) > 0 ? "var(--sage)" : "var(--ink-soft)",
+              fontWeight:700}}>{score(r.id) > 0 ? "+" : ""}{score(r.id)}</span>
+          </div>
+          {r.meaning && <p className="tiny">{r.meaning}</p>}
+          <div className="row" style={{marginTop:10}}>
+            <button className="pill" data-on={mine(r.id)===1?"1":"0"}
+              onClick={()=>vote(r.id,1)}>يعجبني 🤍</button>
+            <button className="pill" data-on={mine(r.id)===-1?"1":"0"}
+              onClick={()=>vote(r.id,-1)}>لا</button>
+            {r.suggested_by === user.id &&
+              <button className="btn btn-ghost btn-sm" onClick={()=>del(r.id)}>حذف</button>}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ============ أسئلة الطبيب ============ */
+function DoctorQ({ preg }){
+  const [rows,setRows] = useState([]);
+  const [q,setQ] = useState("");
+
+  async function load_(){
+    const { data } = await db.from("doctor_questions").select("*")
+      .eq("pregnancy_id", preg.id).order("created_at",{ascending:false});
+    setRows(data || []);
+  }
+  useEffect(()=>{ load_(); },[]);
+
+  async function add(){
+    if(!q.trim()) return;
+    await db.from("doctor_questions").insert({
+      pregnancy_id: preg.id, question: q.trim() });
+    setQ(""); load_();
+  }
+  async function toggle(r){
+    await db.from("doctor_questions").update({ is_answered: !r.is_answered }).eq("id", r.id);
+    load_();
+  }
+  async function del(id){
+    await db.from("doctor_questions").delete().eq("id", id); load_();
+  }
+
+  const open = rows.filter(r=>!r.is_answered);
+
+  return (
+    <div className="screen">
+      <div className="hdr"><div>
+        <h2>أسئلة للطبيب</h2>
+        <p className="muted">اكتبيها وقت ما تخطر ببالك — تنسى في العيادة</p>
+      </div></div>
+
+      <div className="card">
+        <textarea style={{minHeight:80}} value={q} maxLength={300}
+          onChange={e=>setQ(e.target.value)} placeholder="ما الذي تريدين سؤاله؟" />
+        <button className="btn" onClick={add} disabled={!q.trim()}>أضيفيه</button>
+      </div>
+
+      {open.length > 0 &&
+        <div className="card" style={{borderColor:"var(--accent)"}}>
+          <h2>📋 خذيها معك ({open.length})</h2>
+          <div style={{marginTop:12}}>
+            {open.map((r,i)=>(
+              <p key={r.id} style={{padding:"9px 0",borderBottom:"1px solid var(--line)"}}>
+                {i+1}. {r.question}
+              </p>
+            ))}
+          </div>
+        </div>}
+
+      {rows.map(r=>(
+        <div className="saved" key={r.id} style={r.is_answered ? {opacity:.5} : {}}>
+          <div style={{textDecoration: r.is_answered ? "line-through" : "none"}}>{r.question}</div>
+          <div className="row" style={{marginTop:10}}>
+            <button className="btn btn-ghost btn-sm" onClick={()=>toggle(r)}>
+              {r.is_answered ? "لم أسأله" : "سألته ✓"}
+            </button>
+            <button className="btn btn-ghost btn-sm" onClick={()=>del(r.id)}>حذف</button>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ============ قصة حملك ============ */
+function Journey({ user, preg, week, profile }){
+  const [bond,setBond] = useState(null);
+  const [letters,setLetters] = useState([]);
+  const [moments,setMoments] = useState([]);
+  const [photos,setPhotos] = useState(0);
+
+  useEffect(()=>{
+    db.rpc("my_bond", { p_pregnancy: preg.id }).then(({data})=>setBond(data));
+    db.from("letters_to_baby").select("*").eq("pregnancy_id", preg.id)
+      .order("week").then(({data})=>setLetters(data||[]));
+    db.from("milestones").select("*").eq("pregnancy_id", preg.id)
+      .order("happened_on").then(({data})=>setMoments(data||[]));
+    db.from("album_photos").select("id",{count:"exact",head:true})
+      .eq("pregnancy_id", preg.id).then(({count})=>setPhotos(count||0));
+  },[]);
+
+  if(!bond) return <div className="spin"></div>;
+
+  const items = [
+    ...moments.map(m=>({ d:m.happened_on, t:m.title, k:"⭐", n:m.note })),
+    ...letters.map(l=>({ d:l.created_at, t:"كتبتِ رسالة له", k:"✉️", n:null }))
+  ].sort((a,b)=> new Date(a.d) - new Date(b.d));
+
+  return (
+    <div className="screen">
+      <div className="hdr"><div>
+        <h2>قصة حملك</h2>
+        <p className="muted">كل ما فعلتِه حتى الآن 🤍</p>
+      </div></div>
+
+      <div className="hero">
+        <p className="muted">أنتِ في الأسبوع</p>
+        <div className="week-num">{week}</div>
+        <p className="tiny">وهذه رحلتك حتى الآن</p>
+      </div>
+
+      <div className="stats">
+        <div className="stat"><b>{bond.letters}</b><span>رسالة كتبتِها</span></div>
+        <div className="stat"><b>{photos}</b><span>صورة</span></div>
+        <div className="stat"><b>{bond.moments}</b><span>لحظة</span></div>
+      </div>
+
+      <div className="stats">
+        <div className="stat"><b>{bond.kicks}</b><span>ركلة عددتِها</span></div>
+        <div className="stat"><b>{bond.chats}</b><span>حديث معه</span></div>
+        <div className="stat"><b>{week}</b><span>أسبوع معاً</span></div>
+      </div>
+
+      {items.length > 0 && <div className="card">
+        <h2>خط رحلتك</h2>
+        <div style={{marginTop:14}}>
+          {items.map((it,i)=>(
+            <div key={i} style={{display:"flex",gap:12,paddingBottom:16,
+              borderInlineStart:"2px solid var(--line)",paddingInlineStart:14,
+              marginInlineStart:6}}>
+              <div>
+                <div style={{fontSize:19}}>{it.k}</div>
+              </div>
+              <div style={{flex:1}}>
+                <b>{it.t}</b>
+                <p className="tiny">{new Date(it.d).toLocaleDateString("ar-EG")}</p>
+                {it.n && <p style={{fontSize:15,marginTop:4}}>{it.n}</p>}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>}
+
+      {items.length === 0 &&
+        <div className="card"><p className="muted">
+          ابدئي بتسجيل لحظاتك وكتابة رسائلك — وستتحوّل إلى قصة كاملة 🤍
+        </p></div>}
+    </div>
+  );
+}
+
+/* ============ الرسالة المفاجئة ============ */
+function Surprise({ user, week, role, onClose }){
+  const [msg,setMsg] = useState(null);
+
+  useEffect(()=>{
+    db.rpc("next_surprise", { p_week: week, p_audience: role === "father" ? "father" : "mother" })
+      .then(({data})=>{
+        if(data && data.length){
+          setMsg(data[0]);
+          db.from("surprise_log").insert({
+            user_id: user.id, surprise_id: data[0].id, seen_at: new Date().toISOString() });
+        }
+      });
+  },[]);
+
+  if(!msg) return null;
+
+  return (
+    <div style={{position:"fixed",inset:0,background:"rgba(44,62,80,.55)",zIndex:200,
+      display:"flex",alignItems:"center",justifyContent:"center",padding:22}}
+      onClick={onClose}>
+      <div className="card" style={{maxWidth:420,textAlign:"center",margin:0}}
+        onClick={e=>e.stopPropagation()}>
+        <div style={{fontSize:40}}>💌</div>
+        <h2 style={{marginTop:8}}>لديك رسالة سرّية</h2>
+        <p style={{fontSize:18,lineHeight:2.1,margin:"16px 0",whiteSpace:"pre-wrap"}}>
+          {msg.body}
+        </p>
+        <p className="tiny" style={{marginBottom:16}}>— جنينك 🤍</p>
+        <button className="btn" onClick={onClose}>إغلاقي</button>
+      </div>
+    </div>
+  );
+}
+
+/* ============ اللحظات المهمة ============ */
+const MILESTONES = [
+  { k:"first_visit",  t:"أول زيارة للطبيب", i:"🩺" },
+  { k:"first_scan",   t:"أول سونار",          i:"🖼️" },
+  { k:"heartbeat",    t:"سمعت نبضه",          i:"💓" },
+  { k:"first_move",   t:"أول حركة",           i:"🦶" },
+  { k:"gender_known", t:"عرفت الجنس",         i:"💙" },
+  { k:"name_chosen",  t:"اخترنا الاسم",       i:"✨" },
+  { k:"new_month",    t:"دخلنا شهراً جديداً",     i:"🌙" },
+  { k:"last_week",    t:"آخر أسبوع",          i:"🤍" },
+  { k:"custom",       t:"لحظة أخرى",         i:"⭐" }
+];
+
+function Moments({ user, profile, preg, week }){
+  const [rows,setRows] = useState([]);
+  const [pick,setPick] = useState(null);
+  const [note,setNote] = useState("");
+  const [reply,setReply] = useState(null);
+  const [replies,setReplies] = useState({});
+
+  async function load_(){
+    const { data } = await db.from("milestones").select("*")
+      .eq("pregnancy_id", preg.id).order("happened_on",{ascending:false});
+    setRows(data || []);
+    const r = await db.from("milestone_replies").select("*").eq("dialect", profile.dialect);
+    const map = {};
+    (r.data||[]).forEach(x => map[x.kind] = x.body);
+    setReplies(map);
+  }
+  useEffect(()=>{ load_(); },[]);
+
+  async function save(){
+    if(!pick) return;
+    await db.from("milestones").insert({
+      pregnancy_id: preg.id, user_id: user.id, kind: pick.k,
+      title: pick.t, note: note.trim() || null, week });
+    setReply(replies[pick.k] || null);
+    setPick(null); setNote(""); load_();
+  }
+
+  return (
+    <div className="screen">
+      <div className="hdr"><div>
+        <h2>لحظاتي</h2>
+        <p className="muted">سجّلي اللحظات التي لا تتكرر 🤍</p>
+      </div></div>
+
+      {reply &&
+        <div className="letter" style={{marginBottom:16}}>
+          <p>{reply}</p>
+          <div className="from">— {preg.baby_name || "جنينك"} 🤍</div>
+          <button className="btn btn-ghost btn-sm" style={{width:"100%",marginTop:12}}
+            onClick={()=>setReply(null)}>إغلاقي</button>
+        </div>}
+
+      {!pick
+        ? <div className="card">
+            <h2>ماذا حدث؟</h2>
+            <div style={{display:"flex",flexWrap:"wrap",gap:9,marginTop:14}}>
+              {MILESTONES.map(m=>(
+                <button key={m.k} className="pill" style={{flex:"none",padding:"11px 15px"}}
+                  onClick={()=>setPick(m)}>{m.i} {m.t}</button>
+              ))}
+            </div>
+          </div>
+        : <div className="card">
+            <h2>{pick.i} {pick.t}</h2>
+            <label style={{marginTop:12}}>هل تحبين كتابة شيء عنها؟ (اختياري)</label>
+            <textarea style={{minHeight:80}} value={note} maxLength={500}
+              onChange={e=>setNote(e.target.value)} placeholder="بماذا شعرت؟" />
+            <button className="btn" onClick={save}>سجّليها</button>
+            <button className="btn btn-ghost" onClick={()=>{setPick(null);setNote("")}}>رجوع</button>
+          </div>}
+
+      {rows.length > 0 && <>
+        <h2 style={{margin:"22px 0 12px"}}>رحلتك ({rows.length})</h2>
+        {rows.map(r=>{
+          const m = MILESTONES.find(x=>x.k===r.kind);
+          return (
+            <div className="saved" key={r.id}>
+              <div className="meta">
+                أسبوع {r.week} · {new Date(r.happened_on).toLocaleDateString("ar-EG")}
+              </div>
+              <b>{m?.i} {r.title}</b>
+              {r.note && <p style={{marginTop:6}}>{r.note}</p>}
+            </div>
+          );
+        })}
+      </>}
+    </div>
+  );
+}
+
+/* ============ القصص ============ */
+function Stories({ profile }){
+  const [rows,setRows] = useState([]);
+  const [open,setOpen] = useState(null);
+
+  useEffect(()=>{
+    db.from("stories").select("*").eq("dialect", profile.dialect)
+      .eq("is_active", true).order("sort_order")
+      .then(({data})=>setRows(data||[]));
+  },[]);
+
+  if(open) return (
+    <div className="screen">
+      <div className="hdr"><div>
+        <h2>{open.title}</h2>
+        <p className="muted">اقرئيها بصوت عالٍ — جنينك يسمعك 🤍</p>
+      </div></div>
+      <div className="letter">
+        <p style={{fontSize:18,lineHeight:2.3}}>{open.body}</p>
+      </div>
+      <button className="btn btn-ghost" onClick={()=>setOpen(null)}>العودة للقصص</button>
+    </div>
+  );
+
+  return (
+    <div className="screen">
+      <div className="hdr"><div>
+        <h2>قصص قبل النوم</h2>
+        <p className="muted">اقرئيها بصوتك — يسمعك من الاسبوع ١٥</p>
+      </div></div>
+
+      {rows.length === 0 && <div className="card"><p className="muted">القصص قادمة قريباً 🤍</p></div>}
+
+      {rows.map(s=>(
+        <div className="card" key={s.id} onClick={()=>setOpen(s)} style={{cursor:"pointer"}}>
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+            <b>{s.title}</b>
+            <span className="tiny">{s.minutes} دقائق</span>
+          </div>
+          <p className="muted" style={{fontSize:15,marginTop:6}}>
+            {s.body.slice(0,70)}...
+          </p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ============ لحظة سكينة ============ */
+function Serenity({ profile }){
+  const [rows,setRows] = useState([]);
+  const [i,setI] = useState(0);
+
+  useEffect(()=>{
+    db.from("serenity").select("*").eq("is_active", true).order("sort_order")
+      .then(({data})=>setRows(data||[]));
+  },[]);
+
+  if(!rows.length) return (
+    <div className="screen">
+      <div className="hdr"><div><h2>لحظة سكينة</h2></div></div>
+      <div className="card"><p className="muted">لم يُضف شيء هنا بعد.</p></div>
+    </div>
+  );
+
+  const cur = rows[i % rows.length];
+
+  return (
+    <div className="screen">
+      <div className="hdr"><div>
+        <h2>لحظة سكينة</h2>
+        <p className="muted">خذي نفساً، واقرئي بهدوء</p>
+      </div></div>
+
+      <div className="card" style={{textAlign:"center",padding:"34px 24px"}}>
+        <p style={{fontSize:21,lineHeight:2.4,fontWeight:500}}>{cur.body}</p>
+        {cur.reference &&
+          <p className="tiny" style={{marginTop:16,color:"var(--accent)"}}>{cur.reference}</p>}
+      </div>
+
+      <button className="btn" onClick={()=>setI(i+1)}>واحدة أخرى</button>
+      <p className="tiny" style={{textAlign:"center"}}>
+        يمكنك إخفاء هذا القسم من إعداداتك
+      </p>
+    </div>
+  );
+}
+
+/* ============ رحلة السنة الأولى ============ */
+function monthsSince(d){
+  if(!d) return 0;
+  const b = new Date(d), n = new Date();
+  let m = (n.getFullYear()-b.getFullYear())*12 + (n.getMonth()-b.getMonth());
+  if(n.getDate() < b.getDate()) m--;
+  return Math.max(0, Math.min(12, m));
+}
+function daysSince(d){
+  if(!d) return 0;
+  return Math.max(0, Math.floor((new Date() - new Date(d)) / DAY));
+}
+
+const BABY_MILESTONES = [
+  { k:"first_smile", t:"أول ابتسامة", i:"😊" },
+  { k:"first_laugh", t:"أول ضحكة",    i:"😄" },
+  { k:"rolled",      t:"أول تقلّب",    i:"🔄" },
+  { k:"sat",         t:"أول جلسة",     i:"🪑" },
+  { k:"first_food",  t:"أول أكلة",     i:"🥄" },
+  { k:"first_tooth", t:"أول سنّة",     i:"🦷" },
+  { k:"crawled",     t:"أول حبوة",     i:"🐾" },
+  { k:"first_word",  t:"أول كلمة",     i:"💬" },
+  { k:"stood",       t:"أول وقفة",     i:"🧍" },
+  { k:"first_step",  t:"أول خطوة",     i:"👣" },
+  { k:"custom",      t:"لحظة أخرى",    i:"⭐" }
+];
+
+function BirthScreen({ preg, done }){
+  const [date,setDate] = useState(new Date().toISOString().slice(0,10));
+  const [weight,setWeight] = useState("");
+  const [note,setNote] = useState("");
+  const [busy,setBusy] = useState(false);
+  const [err,setErr] = useState("");
+
+  async function save(){
+    setBusy(true); setErr("");
+    const { error } = await db.rpc("mark_born", {
+      p_pregnancy: preg.id, p_date: date,
+      p_weight: weight ? Number(weight) : null,
+      p_note: note.trim() || null });
+    if(error){ setErr(error.message); setBusy(false); return; }
+    done();
+  }
+
+  return (
+    <div className="screen">
+      <div className="hdr"><div>
+        <h2>مبروك 🤍</h2>
+        <p className="muted">سجّلي يوم الولادة، وتبدأ رحلة جديدة</p>
+      </div></div>
+
+      <div className="card">
+        <label>تاريخ الولادة</label>
+        <input type="date" value={date} onChange={e=>setDate(e.target.value)} />
+        <label>الوزن بالكيلو (اختياري)</label>
+        <input type="number" step="0.01" value={weight}
+          onChange={e=>setWeight(e.target.value)} placeholder="3.2" />
+        <label>كلمة تحبين حفظها (اختياري)</label>
+        <textarea style={{minHeight:80}} value={note} maxLength={400}
+          onChange={e=>setNote(e.target.value)} placeholder="أول شيء شعرت به..." />
+        {err && <div className="alert alert-warn">{err}</div>}
+        <button className="btn" onClick={save} disabled={busy}>
+          {busy ? "لحظة..." : "ابدئي رحلة الأمومة"}
+        </button>
+      </div>
+      <p className="tiny" style={{textAlign:"center"}}>
+        بعدها تصلك رسالة شهرية من طفلك، وألبوم كل شهر حتى عامه الأول.
+      </p>
+    </div>
+  );
+}
+
+function BabyHome({ profile, preg, go }){
+  const m = monthsSince(preg.birth_date);
+  const d = daysSince(preg.birth_date);
+  const [msg,setMsg] = useState(null);
+
+  useEffect(()=>{
+    db.from("monthly_messages").select("*")
+      .eq("month_no", m).eq("dialect", profile.dialect).eq("audience","mother")
+      .limit(1).then(({data})=>{ if(data && data[0]) setMsg(data[0]); });
+  },[m]);
+
+  const name = preg.baby_name || "طفلك";
+
+  return (
+    <div className="screen">
+      <div className="hdr"><div>
+        <h2>أهلاً {profile.display_name} 🤍</h2>
+        <p className="muted">رحلتك مع {name}</p>
+      </div></div>
+
+      <div className="hero">
+        <p className="muted">عمر {name}</p>
+        <div className="week-num">{m}</div>
+        <div className="size-note">{m === 0 ? "أقل من شهر" : m === 1 ? "شهر" : m + " أشهر"}</div>
+        <div className="bar"><span style={{width:(m/12*100)+"%"}}></span></div>
+        <p className="tiny">{d} يوماً منذ الولادة</p>
+      </div>
+
+      {msg && <div className="letter">
+        {msg.dev_note && <p className="tiny" style={{color:"var(--accent)",marginBottom:10}}>
+          {msg.dev_note}</p>}
+        <p>{fillName(msg.body, profile.display_name)}</p>
+        <div className="from">— {name} 🤍</div>
+      </div>}
+
+      <div className="stats">
+        <div className="stat" onClick={()=>go("babyalbum")} style={{cursor:"pointer"}}>
+          <b>📸</b><span>ألبوم الشهور</span></div>
+        <div className="stat" onClick={()=>go("babymoments")} style={{cursor:"pointer"}}>
+          <b>⭐</b><span>أول مرات</span></div>
+        <div className="stat" onClick={()=>go("babystories")} style={{cursor:"pointer"}}>
+          <b>📖</b><span>قصة الشهر</span></div>
+      </div>
+
+      <CongratsCard preg={preg} profile={profile} />
+    </div>
+  );
+}
+
+function BabyAlbum({ user, preg }){
+  const [rows,setRows] = useState([]);
+  const [urls,setUrls] = useState({});
+  const [busy,setBusy] = useState(false);
+  const cur = monthsSince(preg.birth_date);
+  const [pick,setPick] = useState(cur);
+
+  async function load_(){
+    const { data } = await db.from("baby_album").select("*")
+      .eq("pregnancy_id", preg.id).order("month_no");
+    setRows(data || []);
+    const map = {};
+    for(const r of (data||[])){
+      const { data:s } = await db.storage.from("album").createSignedUrl(r.photo_path, 3600);
+      if(s) map[r.month_no] = s.signedUrl;
+    }
+    setUrls(map);
+  }
+  useEffect(()=>{ load_(); },[]);
+
+  async function upload(e){
+    const f = e.target.files[0];
+    if(!f) return;
+    setBusy(true);
+    try{
+      const small = await shrink(f, 1200);
+      const path = user.id + "/baby-" + preg.id + "-m" + pick + "-" + Date.now() + ".jpg";
+      const { error } = await db.storage.from("album").upload(path, small);
+      if(error) throw error;
+      await db.from("baby_album").upsert({
+        pregnancy_id: preg.id, user_id: user.id, month_no: pick, photo_path: path
+      }, { onConflict: "pregnancy_id,month_no" });
+      load_();
+    }catch(err){}
+    setBusy(false);
+  }
+
+  const done = rows.length;
+
+  return (
+    <div className="screen">
+      <div className="hdr"><div>
+        <h2>ألبوم الشهور</h2>
+        <p className="muted">صورة كل شهر — حتى يكتمل العام</p>
+      </div></div>
+
+      <div className="hero" style={{padding:"20px 16px"}}>
+        <div className="week-num">{done}<span style={{fontSize:24}}>/13</span></div>
+        <div className="bar"><span style={{width:(done/13*100)+"%"}}></span></div>
+        <p className="tiny">صورة محفوظة</p>
+      </div>
+
+      <div className="card">
+        <label>أي شهر؟</label>
+        <div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:14}}>
+          {Array.from({length:13},(_,i)=>i).map(i=>(
+            <button key={i} className="pill" data-on={pick===i?"1":"0"}
+              disabled={i > cur}
+              style={{flex:"none",minWidth:52,padding:"9px 11px",
+                opacity: i > cur ? .35 : 1}}
+              onClick={()=>setPick(i)}>
+              {i === 0 ? "الولادة" : i}
+            </button>
+          ))}
+        </div>
+        <input type="file" accept="image/*" onChange={upload} disabled={busy} />
+        {busy && <div className="spin"></div>}
+        <p className="tiny">الشهور القادمة تُفتح مع الوقت</p>
+      </div>
+
+      {rows.map(r=>(
+        <div className="card" key={r.id}>
+          <b style={{display:"block",marginBottom:10}}>
+            {r.month_no === 0 ? "يوم الولادة" : "الشهر " + r.month_no}
+          </b>
+          {urls[r.month_no]
+            ? <img src={urls[r.month_no]} alt="" style={{width:"100%",borderRadius:14}} />
+            : <div className="spin"></div>}
+        </div>
+      ))}
+
+      {done >= 13 &&
+        <div className="card" style={{textAlign:"center",borderColor:"var(--accent)"}}>
+          <div style={{fontSize:40}}>🎂</div>
+          <h2>ألبوم عامه الأول اكتمل</h2>
+          <p className="muted">١٣ صورة تحكي سنة كاملة 🤍</p>
+        </div>}
+    </div>
+  );
+}
+
+function BabyMoments({ user, preg }){
+  const [rows,setRows] = useState([]);
+  const [pick,setPick] = useState(null);
+  const [note,setNote] = useState("");
+
+  async function load_(){
+    const { data } = await db.from("baby_milestones").select("*")
+      .eq("pregnancy_id", preg.id).order("happened_on",{ascending:false});
+    setRows(data || []);
+  }
+  useEffect(()=>{ load_(); },[]);
+
+  async function save(){
+    if(!pick) return;
+    await db.from("baby_milestones").insert({
+      pregnancy_id: preg.id, user_id: user.id, kind: pick.k,
+      title: pick.t, note: note.trim() || null });
+    setPick(null); setNote(""); load_();
+  }
+
+  return (
+    <div className="screen">
+      <div className="hdr"><div>
+        <h2>أول مرات</h2>
+        <p className="muted">اللحظات التي تحدث مرة واحدة</p>
+      </div></div>
+
+      {!pick
+        ? <div className="card">
+            <h2>ماذا حدث؟</h2>
+            <div style={{display:"flex",flexWrap:"wrap",gap:9,marginTop:14}}>
+              {BABY_MILESTONES.map(m=>(
+                <button key={m.k} className="pill" style={{flex:"none",padding:"11px 15px"}}
+                  onClick={()=>setPick(m)}>{m.i} {m.t}</button>
+              ))}
+            </div>
+          </div>
+        : <div className="card">
+            <h2>{pick.i} {pick.t}</h2>
+            <textarea style={{minHeight:80}} value={note} maxLength={400}
+              onChange={e=>setNote(e.target.value)} placeholder="اكتبي عنها (اختياري)" />
+            <button className="btn" onClick={save}>سجّليها</button>
+            <button className="btn btn-ghost" onClick={()=>setPick(null)}>رجوع</button>
+          </div>}
+
+      {rows.map(r=>{
+        const m = BABY_MILESTONES.find(x=>x.k===r.kind);
+        return (
+          <div className="saved" key={r.id}>
+            <div className="meta">{new Date(r.happened_on).toLocaleDateString("ar-EG")}</div>
+            <b>{m && m.i} {r.title}</b>
+            {r.note && <p style={{marginTop:6}}>{r.note}</p>}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function BabyStories({ profile, preg }){
+  const [rows,setRows] = useState([]);
+  const [open,setOpen] = useState(null);
+  const cur = monthsSince(preg.birth_date);
+
+  useEffect(()=>{
+    db.from("baby_stories").select("*").eq("dialect", profile.dialect)
+      .eq("is_active", true).order("month_no")
+      .then(({data})=>setRows(data||[]));
+  },[]);
+
+  if(open) return (
+    <div className="screen">
+      <div className="hdr"><div>
+        <h2>{open.title}</h2>
+        <p className="muted">الشهر {open.month_no}</p>
+      </div></div>
+      <div className="letter"><p style={{fontSize:18,lineHeight:2.3}}>{open.body}</p></div>
+      <button className="btn btn-ghost" onClick={()=>setOpen(null)}>العودة للقصص</button>
+    </div>
+  );
+
+  return (
+    <div className="screen">
+      <div className="hdr"><div>
+        <h2>قصص الشهور</h2>
+        <p className="muted">قصة لكل شهر من عامه الأول</p>
+      </div></div>
+
+      {rows.map(s=>{
+        const locked = s.month_no > Math.max(1, cur);
+        return (
+          <div className="card" key={s.id}
+            onClick={()=>{ if(!locked) setOpen(s); }}
+            style={{cursor: locked ? "default":"pointer", opacity: locked ? .45 : 1}}>
+            <div style={{display:"flex",justifyContent:"space-between"}}>
+              <b>{locked ? "🔒 " : ""}{s.title}</b>
+              <span className="tiny">الشهر {s.month_no}</span>
+            </div>
+            {!locked && <p className="muted" style={{fontSize:15,marginTop:6}}>
+              {s.body.slice(0,70)}...</p>}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function CongratsCard({ preg }){
+  const [style,setStyle] = useState(0);
+  const ref = useRef(null);
+  const name = preg.baby_name || "مولودنا";
+  const born = preg.birth_date;
+
+  const STYLES = [
+    { bg:"#FDF8F3", fg:"#2C3E50", ac:"#E8B65A", label:"ذهبي" },
+    { bg:"#EAF1F7", fg:"#24405A", ac:"#6B95B8", label:"أزرق" },
+    { bg:"#FAEEF0", fg:"#5A2733", ac:"#D48A96", label:"وردي" },
+    { bg:"#EFF5F3", fg:"#274038", ac:"#7BA098", label:"أخضر" }
+  ];
+  const s = STYLES[style];
+
+  function download(){
+    const svg = ref.current.outerHTML;
+    const blob = new Blob([svg], {type:"image/svg+xml"});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "congrats.svg";
+    a.click();
+  }
+
+  return (
+    <div className="card">
+      <h2>بطاقة تهنئة</h2>
+      <p className="muted" style={{marginBottom:14}}>شاركيها مع من تحبين 🤍</p>
+
+      <div style={{display:"flex",gap:8,marginBottom:14,flexWrap:"wrap"}}>
+        {STYLES.map((x,i)=>(
+          <button key={i} className="pill" data-on={style===i?"1":"0"}
+            style={{flex:"none",padding:"9px 14px"}} onClick={()=>setStyle(i)}>{x.label}</button>
+        ))}
+      </div>
+
+      <svg ref={ref} viewBox="0 0 400 500" style={{width:"100%",borderRadius:14}}
+        xmlns="http://www.w3.org/2000/svg">
+        <rect width="400" height="500" fill={s.bg}/>
+        <circle cx="200" cy="150" r="62" fill="none" stroke={s.ac} strokeWidth="2"/>
+        <text x="200" y="168" textAnchor="middle" fontSize="52">🤍</text>
+        <text x="200" y="262" textAnchor="middle" fill={s.ac}
+          fontSize="26" fontFamily="Tajawal, sans-serif" fontWeight="700">
+          الحمد لله على السلامة
+        </text>
+        <text x="200" y="316" textAnchor="middle" fill={s.fg}
+          fontSize="38" fontFamily="Tajawal, sans-serif" fontWeight="700">
+          {name}
+        </text>
+        {born && <text x="200" y="352" textAnchor="middle" fill={s.fg} opacity="0.6"
+          fontSize="16" fontFamily="Tajawal, sans-serif">
+          {new Date(born).toLocaleDateString("ar-EG")}
+        </text>}
+        {preg.birth_weight && <text x="200" y="378" textAnchor="middle" fill={s.fg} opacity="0.6"
+          fontSize="16" fontFamily="Tajawal, sans-serif">
+          {preg.birth_weight} كجم
+        </text>}
+        <line x1="140" y1="410" x2="260" y2="410" stroke={s.ac} strokeWidth="1.5"/>
+        <text x="200" y="446" textAnchor="middle" fill={s.ac} opacity="0.75"
+          fontSize="15" fontFamily="Tajawal, sans-serif">نور</text>
+      </svg>
+
+      <button className="btn" style={{marginTop:14}} onClick={download}>نزّلي البطاقة</button>
+    </div>
+  );
+}
+
+/* ============ الرسالة الاسبوعية ============ */
+
+function Weekly({ profile, preg, week, role, sub, go }){
+  const [msg,setMsg] = useState(null);
+  const [load,setLoad] = useState(true);
+  const [shown,setShown] = useState(week);
+  const [openList,setOpenList] = useState(false);
+
+  /* المشترك بيشوف كل الارشيف · غير المشترك آخر أسبوعين بس */
+  const paid = RANK[planOf(sub)] >= 1 && planOf(sub) !== "trial";
+  const minWeek = paid ? 1 : Math.max(1, week - 2);
+
+  useEffect(()=>{ setShown(week); },[week]);
+
+  useEffect(()=>{
+    if(shown < minWeek){ setShown(week); return; }
+    setLoad(true);
+    db.from("weekly_messages").select("*")
+      .eq("week", shown)
+      .eq("audience", role === "father" ? "father" : "mother")
+      .eq("dialect", profile.dialect)
+      .then(({data})=>{
+        if(data && data.length){
+          const pick = data.find(r => r.variant === profile.variant_no) || data[0];
+          setMsg(pick);
+        } else setMsg(null);
+        setLoad(false);
+      });
+  },[shown, role]);
+
+  const who = role === "father"
+    ? (preg.father_name || "بابا")
+    : (preg.mother_name || profile.display_name);
+
+  const open = [];
+  for(let w = week; w >= minWeek; w--) open.push(w);
+  const lockedPast = [];
+  for(let w = minWeek - 1; w >= 1; w--) lockedPast.push(w);
+  const future = [];
+  for(let w = week + 1; w <= 40; w++) future.push(w);
+
+  return (
+    <div className="screen">
+      <div className="hdr"><div>
+        <h2>رسالة الاسبوع {shown}</h2>
+        <p className="muted">
+          {shown === week ? "من جنينك إليك · رسالة هذا الاسبوع"
+                          : "رسالة سابقة · أنت الآن في الاسبوع " + week}
+        </p>
+      </div></div>
+
+      {load ? <div className="spin"></div> :
+       !msg ? <div className="card"><p className="muted">
+          لا توجد رسالة لهذا الاسبوع بعد. ستكون جاهزة قريباً 🤍
+       </p></div> :
+      <div className="letter">
+        <p>{fillName(msg.body, who)}</p>
+        {msg.size_note && shown === week &&
+          <p className="tiny" style={{marginTop:12}}>جنينك الآن بحجم {msg.size_note}</p>}
+        <div className="from">— {preg.baby_name || "جنينك"} 🤍</div>
+      </div>}
+
+      {shown !== week &&
+        <button className="btn" onClick={()=>setShown(week)}>العودة لرسالة هذا الاسبوع</button>}
+
+      <button className="btn btn-ghost" onClick={()=>setOpenList(!openList)}>
+        {openList ? "إغلاق الرسائل" : "📬 رسائلك السابقة"}
+      </button>
+
+      {openList && <>
+        <div className="card">
+          <h2>رسائل يمكنك قراءتها</h2>
+          <div style={{display:"flex",flexWrap:"wrap",gap:8,marginTop:10}}>
+            {open.map(w=>(
+              <button key={w} className="pill" data-on={shown===w?"1":"0"}
+                style={{flex:"none",minWidth:56,padding:"9px 12px"}}
+                onClick={()=>{ setShown(w); window.scrollTo({top:0,behavior:"smooth"}); }}>
+                {w}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {lockedPast.length > 0 &&
+          <div className="card" style={{borderColor:"var(--accent)"}}>
+            <h2>🔒 {lockedPast.length} رسالة سابقة</h2>
+            <p className="muted" style={{marginBottom:14}}>
+              كل الرسائل التي كتبها جنينك من الاسبوع ١ حتى الآن — تُفتح مع الاشتراك.
+            </p>
+            <div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:14}}>
+              {lockedPast.slice(0,14).map(w=>(
+                <span key={w} className="pill" style={{flex:"none",minWidth:56,
+                  padding:"9px 12px",opacity:.4,display:"inline-block",textAlign:"center"}}>
+                  🔒 {w}
+                </span>
+              ))}
+            </div>
+            <button className="btn" onClick={go}>افتحي كل الرسائل</button>
+          </div>}
+
+        {future.length > 0 && <div className="card">
+          <h2>لم تصل بعد</h2>
+          <p className="muted" style={{marginBottom:12}}>
+            كل أسبوع تصلك رسالة جديدة من جنينك 🤍
+          </p>
+          <div style={{display:"flex",flexWrap:"wrap",gap:8}}>
+            {future.slice(0,16).map(w=>(
+              <span key={w} className="pill" style={{flex:"none",minWidth:56,
+                padding:"9px 12px",opacity:.4,display:"inline-block",textAlign:"center"}}>
+                🔒 {w}
+              </span>
+            ))}
+          </div>
+        </div>}
+      </>}
+    </div>
+  );
+}
+
+/* ============ احكيلي ============ */
+function Letters({ user, preg, week }){
+  const [body,setBody] = useState("");
+  const [list,setList] = useState([]);
+  const [busy,setBusy] = useState(false);
+  const [open,setOpen] = useState({});
+  const [when,setWhen] = useState("birth");
+  const born = daysLeft(preg.due_date) === 0;
+
+  const WHEN = [
+    { k:"birth",  t:"يوم ولادته" },
+    { k:"year1",  t:"عيد ميلاده الاول" },
+    { k:"year3",  t:"عمر ٣ سنوات" },
+    { k:"year10", t:"عمر ١٠ سنوات" },
+    { k:"year18", t:"عمر ١٨ سنة" }
+  ];
+
+  async function load(){
+    const { data } = await db.from("letters_to_baby").select("*")
+      .eq("pregnancy_id", preg.id).order("created_at",{ascending:false});
+    setList(data || []);
+  }
+  useEffect(()=>{ load(); },[]);
+
+  async function save(){
+    if(!body.trim()) return;
+    setBusy(true);
+    await db.from("letters_to_baby").insert({
+      pregnancy_id: preg.id, user_id: user.id, week, body: body.trim(),
+      open_at: preg.due_date, open_kind: when
+    });
+    setBody(""); setBusy(false); load();
+  }
+
+  return (
+    <div className="screen">
+      <div className="hdr"><div>
+        <h2>صندوق الرسائل</h2>
+        <p className="muted">اكتبي له ما تشائين — يُحفظ حتى يأتي</p>
+      </div></div>
+
+      <div className="card">
+        <textarea value={body} onChange={e=>setBody(e.target.value)}
+          placeholder="حبيبي، اليوم..." maxLength={2000} />
+
+        <label>متى يقرأها؟</label>
+        <div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:16}}>
+          {WHEN.map(w=>(
+            <button key={w.k} className="pill" data-on={when===w.k?"1":"0"}
+              style={{flex:"none",padding:"10px 14px",fontSize:14}}
+              onClick={()=>setWhen(w.k)}>{w.t}</button>
+          ))}
+        </div>
+
+        <button className="btn" onClick={save} disabled={busy || !body.trim()}>
+          {busy ? "يُحفظ..." : "احفظيها في الصندوق"}
+        </button>
+        <p className="tiny">صندوقك مغلق — كل رسالة تُفتح في وقتها 🤍</p>
+      </div>
+
+      {list.length > 0 && <>
+        <h2 style={{margin:"22px 0 12px"}}>رسائلك ({list.length})</h2>
+        {list.map(l=>{
+          const w = WHEN.find(x=>x.k===(l.open_kind||"birth"));
+          return (
+            <div className="saved" key={l.id}>
+              <div className="meta">
+                أسبوع {l.week} · {new Date(l.created_at).toLocaleDateString("ar-EG")}
+                {w && " · تُفتح " + w.t}
+              </div>
+              <div className={(!born && !open[l.id]) ? "locked" : ""}>{l.body}</div>
+              {!born && <button className="btn btn-ghost btn-sm" style={{marginTop:10,width:"100%"}}
+                onClick={()=>setOpen({...open,[l.id]:!open[l.id]})}>
+                {open[l.id] ? "أغلقيها" : "🔒 افتحيها الآن"}
+              </button>}
+            </div>
+          );
+        })}
+      </>}
+    </div>
+  );
+}
+
+/* ============ الاشتراك والدفع ============ */
+function Billing({ user, profile, sub, reload }){
+  const [prices,setPrices] = useState([]);
+  const [methods,setMethods] = useState([]);
+  const [plan,setPlan] = useState(null);
+  const [method,setMethod] = useState(null);
+  const [ref,setRef] = useState("");
+  const [file,setFile] = useState(null);
+  const [busy,setBusy] = useState(false);
+  const [msg,setMsg] = useState("");
+  const [reqs,setReqs] = useState([]);
+
+  async function load_(){
+    const c = profile.country;
+    const p = await db.from("plan_prices").select("*")
+      .eq("country", c).eq("is_active", true).order("sort_order");
+    setPrices(p.data || []);
+    const m = await db.from("payment_methods").select("*")
+      .eq("country", c).eq("is_active", true).order("sort_order");
+    setMethods(m.data || []);
+    const r = await db.from("payment_requests").select("*")
+      .eq("user_id", user.id).order("created_at",{ascending:false}).limit(5);
+    setReqs(r.data || []);
+  }
+  useEffect(()=>{ load_(); },[]);
+
+  async function submit(){
+    if(!plan || !method || !ref.trim()) return;
+    setBusy(true); setMsg("");
+    try{
+      let path = null;
+      if(file){
+        path = user.id + "/" + Date.now() + "_receipt.jpg";
+        const small = await shrink(file, 1400);
+        const { error } = await db.storage.from("receipts").upload(path, small);
+        if(error) throw error;
+      }
+      const p = prices.find(x=>x.plan===plan.plan);
+      const { error } = await db.from("payment_requests").insert({
+        user_id:user.id, plan:plan.plan, country:profile.country,
+        method_name:method.method_name,
+        amount: p ? (p.price_local || p.price_usd) : null,
+        currency: p ? p.currency : null,
+        months: p ? p.months : 1,
+        reference: ref.trim(), receipt_path: path, status:"pending" });
+      if(error) throw error;
+      setMsg("وصلنا طلبك! سنفعّل اشتراكك في أقرب وقت 🤍");
+      setPlan(null); setMethod(null); setRef(""); setFile(null);
+      load_();
+    }catch(e){
+      setMsg(String(e.message).includes("duplicate")
+        ? "رقم العملية هذا مستخدم من قبل."
+        : e.message);
+    }
+    setBusy(false);
+  }
+
+  const exp = sub ? new Date(sub.expires_at) : null;
+  const alive = exp && exp > new Date();
+  const pending = reqs.filter(r=>r.status==="pending");
+
+  /* شاشة الدفع بعد اختيار الباقة */
+  if(plan) return (
+    <div className="screen">
+      <div className="hdr"><div>
+        <h2>{PLAN_INFO[plan.plan]?.name}</h2>
+        <p className="muted">{(plan.price_local || plan.price_usd) + " " + plan.currency}</p>
+      </div></div>
+
+      {msg && <div className={"alert " + (msg.includes("وصلنا") ? "alert-ok" : "alert-warn")}>{msg}</div>}
+
+      <div className="card">
+        <h2>حوّلي المبلغ</h2>
+        <p className="muted" style={{marginBottom:14}}>اختاري الطريقة المناسبة لك</p>
+        {methods.length === 0 &&
+          <div className="alert alert-warn">لا توجد وسيلة دفع متاحة لبلدك حالياً.</div>}
+        {methods.map(m=>(
+          <div className="plan" key={m.id} data-on={method?.id===m.id?"1":"0"}
+            onClick={()=>setMethod(m)}>
+            <b>{m.method_name}</b>
+            <p style={{fontSize:16,margin:"6px 0"}}>{m.account_info}</p>
+            {m.instructions && <p className="tiny">{m.instructions}</p>}
+          </div>
+        ))}
+      </div>
+
+      {method && <div className="card">
+        <h2>ثم أكّدي التحويل</h2>
+        <label>رقم العملية / المرجع</label>
+        <input value={ref} onChange={e=>setRef(e.target.value)} placeholder="من إيصال التحويل" />
+        <label>صورة الإيصال (تسرّع التفعيل)</label>
+        <input type="file" accept="image/*" onChange={e=>setFile(e.target.files[0])} />
+        <button className="btn" onClick={submit} disabled={busy || !ref.trim()}>
+          {busy ? "جارٍ الإرسال..." : "أرسلي الطلب"}
+        </button>
+      </div>}
+
+      <button className="btn btn-ghost" onClick={()=>{setPlan(null);setMethod(null)}}>
+        العودة للباقات
+      </button>
+    </div>
+  );
+
+  /* شاشة الباقات */
+  return (
+    <div className="screen">
+      <div className="hdr"><div>
+        <h2>اشتراكك</h2>
+        <p className="muted">
+          {sub && alive
+            ? (sub.status === "trial" ? "تجربة مجانية" : PLAN_INFO[sub.plan]?.name || "مجاني")
+              + " · لحد " + exp.toLocaleDateString("ar-EG")
+            : "ليس لديك اشتراك فعّال"}
+        </p>
+      </div></div>
+
+      {msg && <div className="alert alert-ok">{msg}</div>}
+
+      {pending.length > 0 &&
+        <div className="alert alert-info">⏳ لديك طلب دفع قيد المراجعة — سنفعّله قريباً 🤍</div>}
+
+      {sub && sub.status === "trial" && alive &&
+        <div className="alert alert-info">
+          تجربتك المجانية تنتهي {exp.toLocaleDateString("ar-EG")} — اختاري باقتك قبلها.
+        </div>}
+
+      {prices.length === 0 && <div className="card"><p className="muted">جارٍ تحميل الباقات...</p></div>}
+
+      {prices.map(p=>(
+        <div className="plan" key={p.plan}
+          style={p.badge ? {borderColor:"var(--accent)",borderWidth:2} : {}}>
+          <div className="top">
+            <b>{PLAN_INFO[p.plan]?.name}</b>
+            <span className="price">{(p.price_local || p.price_usd) + " " + p.currency}</span>
+          </div>
+          {p.badge && <p className="tiny" style={{color:"var(--accent)",fontWeight:700}}>⭐ {p.badge}</p>}
+          <p className="tiny">{p.months > 1 ? "لمدة " + p.months + " أشهر" : "شهرياً"}</p>
+          <ul style={{margin:"10px 0"}}>
+            {(PLAN_INFO[p.plan]?.items||[]).map((it,i)=><li key={i}>{it}</li>)}
+          </ul>
+          <button className="btn" style={{marginTop:6}} onClick={()=>{setPlan(p);setMsg("")}}>
+            اشتركي بهذه الباقة
+          </button>
+        </div>
+      ))}
+
+      {reqs.length > 0 && <>
+        <h2 style={{margin:"22px 0 12px"}}>طلباتك السابقة</h2>
+        {reqs.map(r=>(
+          <div className="req" key={r.id}>
+            <b>{PLAN_INFO[r.plan]?.name}</b> · {r.amount} {r.currency}
+            <p className="tiny">
+              {r.status === "pending" ? "⏳ قيد المراجعة"
+               : r.status === "approved" ? "✅ تم التفعيل" : "❌ مرفوض"}
+              {r.admin_note ? " — " + r.admin_note : ""}
+            </p>
+          </div>
+        ))}
+      </>}
+    </div>
+  );
+}
+
+/* ============ الإعدادات ============ */
+function Settings({ user, profile, preg, sub, role, reload, go }){
+  const [gender,setGender] = useState(preg.baby_gender);
+  const [persona,setPersona] = useState(preg.baby_persona || "warm");
+  const [serenity,setSerenity] = useState(profile.show_serenity !== false);
+  const [babyName,setBabyName] = useState(preg.baby_name || "");
+  const [due,setDue] = useState(preg.due_date);
+  const [msg,setMsg] = useState("");
+  const [confirmStop,setConfirm] = useState(false);
+
+  async function save(){
+    await db.from("pregnancies").update({
+      baby_gender: gender, baby_name: babyName.trim() || null,
+      due_date: due, baby_persona: persona
+    }).eq("id", preg.id);
+    await db.from("profiles").update({ show_serenity: serenity }).eq("id", user.id);
+    setMsg("حُفظ 🤍"); reload();
+  }
+
+  async function stop(){
+    await db.from("pregnancies").update({ status:"ended", ended_at:new Date().toISOString() })
+      .eq("id", preg.id);
+    await db.auth.signOut();
+  }
+
+  return (
+    <div className="screen">
+      <div className="hdr"><div><h2>إعداداتك</h2></div></div>
+
+      {msg && <div className="alert alert-ok">{msg}</div>}
+
+      <div className="card">
+        <h2>اشتراكك</h2>
+        <p className="muted" style={{marginBottom:14}}>
+          {sub
+            ? (sub.status === "trial" ? "تجربة مجانية"
+               : PLAN_INFO[sub.plan]?.name || "مجاني")
+              + " · لحد " + new Date(sub.expires_at).toLocaleDateString("ar-EG")
+            : "—"}
+        </p>
+        <button className="btn" onClick={go}>الباقات والدفع</button>
+      </div>
+
+      {role !== "father" && <InviteFather user={user} preg={preg} sub={sub} go={go} />}
+
+      <div className="card">
+        <label>شخصية جنينك</label>
+        <p className="tiny" style={{marginBottom:10}}>تغيّر طريقة كلامه معك في الدردشة</p>
+        <div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:18}}>
+          {[["warm","حنون 🤍"],["playful","مشاغب 😄"],
+            ["calm","هادي 🌙"],["curious","فضولي ✨"]].map(([k,t])=>(
+            <button key={k} className="pill" data-on={persona===k?"1":"0"}
+              style={{flex:"none",padding:"11px 16px"}}
+              onClick={()=>setPersona(k)}>{t}</button>
+          ))}
+        </div>
+
+        <label>جنس الجنين</label>
+        <div className="row" style={{marginBottom:18}}>
+          <button className="pill" data-on={gender==="unknown"?"1":"0"}
+            onClick={()=>setGender("unknown")}>لا أريد أن أعرف</button>
+          <button className="pill" data-on={gender==="boy"?"1":"0"}
+            onClick={()=>setGender("boy")}>صبي</button>
+          <button className="pill" data-on={gender==="girl"?"1":"0"}
+            onClick={()=>setGender("girl")}>بنت</button>
+        </div>
+
+        <label>اسم الجنين (إن اخترتموه)</label>
+        <input value={babyName} maxLength={20} onChange={e=>setBabyName(e.target.value)}
+          placeholder="لم نختر بعد" />
+
+        <label>موعد الولادة</label>
+        <input type="date" value={due} onChange={e=>setDue(e.target.value)} />
+
+        <label>قسم لحظة سكينة</label>
+        <div className="row" style={{marginBottom:18}}>
+          <button className="pill" data-on={serenity?"1":"0"} onClick={()=>setSerenity(true)}>
+            ظاهر</button>
+          <button className="pill" data-on={!serenity?"1":"0"} onClick={()=>setSerenity(false)}>
+            مخفي</button>
+        </div>
+
+        <button className="btn" onClick={save}>احفظي</button>
+      </div>
+
+      <div className="card">
+        <h2>حسابي</h2>
+        <p className="muted" style={{marginBottom:14}}>{user.email}</p>
+        <button className="btn btn-ghost" onClick={()=>db.auth.signOut()}>تسجيل خروج</button>
+      </div>
+
+      <Support user={user} />
+
+      <div className="card">
+        <h2>إيقاف المتابعة</h2>
+        <p className="muted" style={{marginBottom:14}}>
+          يوقف كل الرسائل والتنبيهات فوراً. بيانات صندوقك تبقى محفوظة.
+        </p>
+        {!confirmStop
+          ? <button className="btn btn-danger" onClick={()=>setConfirm(true)}>إيقاف المتابعة</button>
+          : <>
+              <p className="muted" style={{marginBottom:12}}>هل أنت متأكدة؟</p>
+              <div className="row">
+                <button className="btn btn-danger btn-sm" onClick={stop}>نعم، أوقفها</button>
+                <button className="btn btn-ghost btn-sm" onClick={()=>setConfirm(false)}>لا</button>
+              </div>
+            </>}
+      </div>
+
+      <p className="tiny" style={{textAlign:"center",marginTop:20}}>
+        نور يقدّم معلومات عامة فقط، ولا يغني عن طبيبك.
+      </p>
+    </div>
+  );
+}
+
+/* ============ الشات ============ */
+function Chat({ user, profile, preg, week, sub, go }){
+  const [mode,setMode] = useState("assistant");
+  const [msgs,setMsgs] = useState([]);
+  const [text,setText] = useState("");
+  const [busy,setBusy] = useState(false);
+  const [info,setInfo] = useState("");
+  const endRef = useRef(null);
+
+  const babyMode = mode === "baby";
+  const canBaby = can(sub, "babychat");
+
+  async function load_(){
+    const table = babyMode ? "baby_chat" : "chat_messages";
+    const { data } = await db.from(table).select("*")
+      .eq("user_id", user.id).order("created_at",{ascending:true}).limit(40);
+    setMsgs((data||[]).map(m=>({
+      role: (m.role === "assistant" || m.role === "baby") ? "assistant" : "user",
+      content: m.content })));
+  }
+  useEffect(()=>{ load_(); },[mode]);
+  useEffect(()=>{ endRef.current?.scrollIntoView({behavior:"smooth"}); },[msgs,busy]);
+
+  async function send(){
+    const content = text.trim();
+    if(!content || busy) return;
+
+    const next = [...msgs, { role:"user", content }];
+    setMsgs(next); setText(""); setBusy(true); setInfo("");
+
+    const table = babyMode ? "baby_chat" : "chat_messages";
+    await db.from(table).insert({
+      user_id:user.id, pregnancy_id:preg.id, role:"user", content,
+      ...(babyMode ? { week } : {}) });
+
+    try{
+      const { data:{ session } } = await db.auth.getSession();
+      const res = await fetch(SUPABASE_URL + "/functions/v1/chat", {
+        method:"POST",
+        headers:{ "Content-Type":"application/json",
+                  "Authorization":"Bearer " + session.access_token },
+        body: JSON.stringify({
+          message: content,
+          history: next.slice(-6).map(m=>({role:m.role, content:m.content})),
+          week, dialect: profile.dialect,
+          name: profile.display_name,
+          babyName: preg.baby_name || "",
+          persona: preg.baby_persona || "warm",
+          mode })
+      });
+      const out = await res.json();
+
+      if(out.limit_reached){
+        setInfo("انتهت رسائلك لهذا الشهر (" + out.limit + "). يمكنك ترقية باقتك.");
+        setBusy(false); return;
+      }
+      if(out.error) throw new Error(out.error);
+
+      setMsgs(m=>[...m, { role:"assistant", content: out.reply }]);
+      await db.from(table).insert({
+        user_id:user.id, pregnancy_id:preg.id,
+        role: babyMode ? "baby" : "assistant", content: out.reply,
+        ...(babyMode ? { week } : {}) });
+
+      if(out.limit - out.used <= 3)
+        setInfo("باقٍ " + (out.limit - out.used) + " رسائل هذا الشهر");
+
+    }catch(e){
+      setMsgs(m=>[...m, { role:"error", content: String(e.message || e) }]);
+    }
+    setBusy(false);
+  }
+
+  return (
+    <div className="screen" style={{paddingBottom:20}}>
+      <div className="hdr"><div>
+        <h2>{babyMode ? "جنينك يردّ" : "اسألي نور"}</h2>
+        <p className="muted">أسبوع {week}</p>
+      </div></div>
+
+      <div className="row" style={{marginBottom:14}}>
+        <button className="pill" data-on={!babyMode?"1":"0"} onClick={()=>setMode("assistant")}>
+          اسألي نور</button>
+        <button className="pill" data-on={babyMode?"1":"0"} onClick={()=>setMode("baby")}>
+          جنينك يردّ {!canBaby && "🔒"}</button>
+      </div>
+
+      {babyMode && !canBaby
+        ? <Locked what="دردشة الجنين" need="الكاملة" go={go} />
+        : <>
+            <div className="card" style={{minHeight:280,display:"flex",
+              flexDirection:"column",gap:10,padding:16}}>
+              {msgs.length === 0 &&
+                <p className="muted" style={{textAlign:"center",padding:"40px 10px"}}>
+                  {babyMode ? "اكتبي له شيئاً، سيردّ عليك 🤍"
+                            : "اسأليني أي شيء عن حملك"}
+                </p>}
+              {msgs.map((m,i)=>(
+                <div key={i} style={{
+                  alignSelf: m.role==="user" ? "flex-end" : "flex-start",
+                  maxWidth:"85%", padding:"11px 15px", borderRadius:16, fontSize:16,
+                  whiteSpace:"pre-wrap", lineHeight:1.9,
+                  background: m.role==="user" ? "var(--accent)"
+                            : m.role==="error" ? "#FDF0ED" : "var(--accent-soft)",
+                  color: m.role==="user" ? "#fff" : "var(--ink)",
+                  borderTopRightRadius: m.role==="user" ? 5 : 16,
+                  borderTopLeftRadius: m.role==="user" ? 16 : 5
+                }}>{m.content}</div>
+              ))}
+              {busy && <p className="muted" style={{alignSelf:"flex-start"}}>يكتب الآن...</p>}
+              <div ref={endRef}></div>
+            </div>
+
+            {info && <div className="alert alert-info">{info}</div>}
+
+            <div style={{display:"flex",gap:8}}>
+              <input style={{marginBottom:0}} value={text} placeholder="اكتبي سؤالك..."
+                onChange={e=>setText(e.target.value)}
+                onKeyDown={e=>{ if(e.key==="Enter") send(); }} />
+              <button className="btn" style={{width:"auto",padding:"0 22px",marginBottom:0}}
+                onClick={send} disabled={busy || !text.trim()}>أرسلي</button>
+            </div>
+
+            <p className="tiny" style={{marginTop:12}}>
+              نور يقدّم معلومات عامة فقط. لاي عرَض أو قلق حقيقي — طبيبك هو المرجع.
+            </p>
+          </>}
+    </div>
+  );
+}
+
+/* ============ صلاحيات الباقات ============ */
+const RANK = { free:0, trial:1, basic:1, family:2, full:3, lifetime:3 };
+const NEEDS = { album:2, father:2, tools:1, babychat:3 };
+
+function planOf(sub){
+  if(!sub) return "free";
+  const alive = new Date(sub.expires_at) > new Date();
+  if(!alive) return "free";
+  if(sub.status === "trial") return "trial";   /* التجربة = مستوى الاساسية */
+  return sub.plan;
+}
+function can(sub, feature){
+  return RANK[planOf(sub)] >= (NEEDS[feature] || 0);
+}
+function trialDaysLeft(sub){
+  if(!sub || sub.status !== "trial") return null;
+  const d = Math.ceil((new Date(sub.expires_at) - new Date()) / DAY);
+  return d > 0 ? d : 0;
+}
+
+function Locked({ what, go, need }){
+  return (
+    <div className="card" style={{textAlign:"center"}}>
+      <div style={{fontSize:38}}>🔒</div>
+      <h2 style={{marginTop:8}}>{what}</h2>
+      <p className="muted" style={{marginBottom:16}}>
+        {need ? "متاحة في باقة " + need + " فما فوق." : "هذه الميزة متاحة في الباقات المدفوعة."}
+      </p>
+      <button className="btn" onClick={go}>شاهدي الباقات</button>
+    </div>
+  );
+}
+
+/* ============ الالبوم ============ */
+async function shrink(file, max){
+  const img = await new Promise((res,rej)=>{
+    const i = new Image();
+    i.onload = ()=>res(i); i.onerror = rej;
+    i.src = URL.createObjectURL(file);
+  });
+  const scale = Math.min(1, max / Math.max(img.width, img.height));
+  const c = document.createElement("canvas");
+  c.width = Math.round(img.width * scale);
+  c.height = Math.round(img.height * scale);
+  c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+  return new Promise(r => c.toBlob(r, "image/jpeg", 0.82));
+}
+
+function Album({ user, preg, week, sub, go }){
+  const [rows,setRows] = useState([]);
+  const [urls,setUrls] = useState({});
+  const [busy,setBusy] = useState(false);
+  const [kind,setKind] = useState("bump");
+  const [msg,setMsg] = useState("");
+  const fileRef = useRef(null);
+
+  async function load_(){
+    const { data } = await db.from("album_photos").select("*")
+      .eq("pregnancy_id", preg.id).order("week",{ascending:false});
+    setRows(data || []);
+    const map = {};
+    for(const r of (data||[])){
+      const { data:s } = await db.storage.from("album").createSignedUrl(r.photo_path, 3600);
+      if(s) map[r.id] = s.signedUrl;
+    }
+    setUrls(map);
+  }
+  useEffect(()=>{ if(can(sub,"album")) load_(); },[]);
+
+  if(!can(sub,"album")) return (
+    <div className="screen">
+      <div className="hdr"><div><h2>ألبومي</h2></div></div>
+      <Locked what="ألبوم التصوير الاسبوعي" need="العائلية" go={go} />
+    </div>
+  );
+
+  async function upload(e){
+    const f = e.target.files[0];
+    if(!f) return;
+    setBusy(true); setMsg("");
+    try{
+      const small = await shrink(f, 1200);
+      const path = user.id + "/" + preg.id + "-w" + week + "-" + Date.now() + ".jpg";
+      const { error } = await db.storage.from("album").upload(path, small);
+      if(error) throw error;
+      await db.from("album_photos").insert({
+        pregnancy_id: preg.id, user_id: user.id, week, photo_path: path, photo_type: kind });
+      setMsg("حُفظت 🤍"); load_();
+    }catch(err){ setMsg(err.message); }
+    setBusy(false);
+    if(fileRef.current) fileRef.current.value = "";
+  }
+
+  async function del(r){
+    await db.storage.from("album").remove([r.photo_path]);
+    await db.from("album_photos").delete().eq("id", r.id);
+    load_();
+  }
+
+  const last = rows.find(r => r.photo_type === "bump");
+
+  return (
+    <div className="screen">
+      <div className="hdr"><div>
+        <h2>ألبومي</h2>
+        <p className="muted">{rows.length} صورة · أسبوع {week}</p>
+      </div></div>
+
+      {msg && <div className="alert alert-ok">{msg}</div>}
+
+      <div className="card">
+        <div className="row" style={{marginBottom:16}}>
+          <button className="pill" data-on={kind==="bump"?"1":"0"}
+            onClick={()=>setKind("bump")}>صورة بطن</button>
+          <button className="pill" data-on={kind==="ultrasound"?"1":"0"}
+            onClick={()=>setKind("ultrasound")}>سونار</button>
+        </div>
+
+        {kind === "bump" && last && urls[last.id] &&
+          <div style={{position:"relative",marginBottom:14}}>
+            <img src={urls[last.id]} alt="" style={{width:"100%",borderRadius:14,opacity:.32}} />
+            <p className="tiny" style={{textAlign:"center",marginTop:6}}>
+              صورة أسبوع {last.week} — قفي بنفس الوضعية ليظهر التغيّر جميلاً في النهاية
+            </p>
+          </div>}
+
+        <input ref={fileRef} type="file" accept="image/*" onChange={upload} disabled={busy} />
+        {busy && <div className="spin"></div>}
+        <p className="tiny">تُصغَّر الصور تلقائياً — يوفّر مساحتك</p>
+      </div>
+
+      {rows.map(r=>(
+        <div className="card" key={r.id}>
+          <div style={{display:"flex",justifyContent:"space-between",marginBottom:10}}>
+            <b>أسبوع {r.week}</b>
+            <span className="tiny">{r.photo_type === "bump" ? "بطن" : "سونار"}</span>
+          </div>
+          {urls[r.id]
+            ? <img src={urls[r.id]} alt="" style={{width:"100%",borderRadius:14}} />
+            : <div className="spin"></div>}
+          <button className="btn btn-ghost btn-sm" style={{width:"100%",marginTop:10}}
+            onClick={()=>del(r)}>احذفيها</button>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ============ أدواتي ============ */
+function Tools({ user, preg, sub, go }){
+  const [t,setT] = useState("kicks");
+  if(!can(sub,"tools")) return (
+    <div className="screen">
+      <div className="hdr"><div><h2>أدواتي</h2></div></div>
+      <Locked what="عدّاد الركلات والطلق وحقيبة المستشفى" need="الاساسية" go={go} />
+    </div>
+  );
+  return (
+    <div className="screen">
+      <div className="hdr"><div><h2>أدواتي</h2></div></div>
+      <div className="row" style={{marginBottom:18}}>
+        <button className="pill" data-on={t==="kicks"?"1":"0"} onClick={()=>setT("kicks")}>الركلات</button>
+        <button className="pill" data-on={t==="cont"?"1":"0"} onClick={()=>setT("cont")}>الطلق</button>
+        <button className="pill" data-on={t==="bag"?"1":"0"} onClick={()=>setT("bag")}>الحقيبة</button>
+      </div>
+      {t==="kicks" && <Kicks user={user} preg={preg} />}
+      {t==="cont"  && <Contractions user={user} preg={preg} />}
+      {t==="bag"   && <Bag preg={preg} />}
+    </div>
+  );
+}
+
+function Kicks({ user, preg }){
+  const [count,setCount] = useState(0);
+  const [start,setStart] = useState(null);
+  const [hist,setHist] = useState([]);
+  const [now,setNow] = useState(Date.now());
+
+  async function load_(){
+    const { data } = await db.from("kick_sessions").select("*")
+      .eq("pregnancy_id", preg.id).order("started_at",{ascending:false}).limit(7);
+    setHist(data || []);
+  }
+  useEffect(()=>{ load_(); },[]);
+  useEffect(()=>{
+    if(!start) return;
+    const i = setInterval(()=>setNow(Date.now()), 1000);
+    return ()=>clearInterval(i);
+  },[start]);
+
+  function tap(){
+    if(!start) setStart(Date.now());
+    setCount(count + 1);
+  }
+  async function finish(){
+    if(!start) return;
+    await db.from("kick_sessions").insert({
+      pregnancy_id: preg.id, user_id: user.id, kick_count: count,
+      started_at: new Date(start).toISOString(), ended_at: new Date().toISOString() });
+    setCount(0); setStart(null); load_();
+  }
+
+  const mins = start ? Math.floor((now - start) / 60000) : 0;
+
+  return (
+    <>
+      <div className="hero">
+        <p className="muted">عدد الحركات</p>
+        <div className="week-num">{count}</div>
+        {start && <p className="tiny">من {mins} دقيقة</p>}
+        <button className="btn" style={{marginTop:18}} onClick={tap}>شعرت بحركة 👶</button>
+        {start && <button className="btn btn-ghost" onClick={finish}>انتهيت</button>}
+      </div>
+
+      <div className="alert alert-info">
+        المعتاد أن تشعري بـ ١٠ حركات خلال ساعتين في الثلث الاخير.
+        إذا قلّت الحركة بشكل واضح عن المعتاد — اتصلي بطبيبك.
+      </div>
+
+      {hist.length > 0 && <div className="card">
+        <h2>آخر الجلسات</h2>
+        <div style={{marginTop:12}}>
+          {hist.map(h=>(
+            <div className="req" key={h.id}>
+              <b>{h.kick_count} حركة</b>
+              <p className="tiny">{new Date(h.started_at).toLocaleString("ar-EG")}</p>
+            </div>
+          ))}
+        </div>
+      </div>}
+    </>
+  );
+}
+
+function Contractions({ user, preg }){
+  const [list,setList] = useState([]);
+  const [on,setOn] = useState(null);
+  const [now,setNow] = useState(Date.now());
+
+  async function load_(){
+    const { data } = await db.from("contractions").select("*")
+      .eq("pregnancy_id", preg.id).order("started_at",{ascending:false}).limit(12);
+    setList(data || []);
+  }
+  useEffect(()=>{ load_(); },[]);
+  useEffect(()=>{
+    if(!on) return;
+    const i = setInterval(()=>setNow(Date.now()), 1000);
+    return ()=>clearInterval(i);
+  },[on]);
+
+  async function stop(){
+    await db.from("contractions").insert({
+      pregnancy_id: preg.id, user_id: user.id,
+      started_at: new Date(on).toISOString(),
+      duration_sec: Math.round((Date.now() - on) / 1000) });
+    setOn(null); load_();
+  }
+
+  const gaps = [];
+  for(let i = 0; i < list.length - 1; i++){
+    gaps.push(Math.round(
+      (new Date(list[i].started_at) - new Date(list[i+1].started_at)) / 60000));
+  }
+  const regular = gaps.length >= 3 && gaps.slice(0,3).every(g => g <= 5 && g >= 1);
+
+  return (
+    <>
+      <div className="hero">
+        <p className="muted">{on ? "الانقباض جارٍ" : "اضغطي مع بداية الانقباض"}</p>
+        <div className="week-num">
+          {on ? Math.round((now - on) / 1000) + "ث" : list.length}
+        </div>
+        {!on && <p className="tiny">انقباض مسجّل</p>}
+        <button className={"btn " + (on ? "btn-sage" : "")} style={{marginTop:18}}
+          onClick={()=> on ? stop() : setOn(Date.now())}>
+          {on ? "انتهى الانقباض" : "بدأ انقباض"}
+        </button>
+      </div>
+
+      {regular &&
+        <div className="alert alert-warn">
+          🚨 انقباضاتك أصبحت منتظمة ومتقاربة. اتصلي بطبيبك أو توجّهي إلى المستشفى.
+        </div>}
+
+      {gaps.length > 0 && <div className="card">
+        <h2>المدة بين الانقباضات</h2>
+        <div style={{marginTop:12}}>
+          {list.map((c,i)=>(
+            <div className="req" key={c.id}>
+              <b>{c.duration_sec}ث</b>
+              {gaps[i] !== undefined && <span className="tiny"> · بعد {gaps[i]} دقيقة</span>}
+              <p className="tiny">{new Date(c.started_at).toLocaleTimeString("ar-EG")}</p>
+            </div>
+          ))}
+        </div>
+      </div>}
+
+      <div className="alert alert-info">
+        القاعدة المشهورة: انقباض كل ٥ دقائق، بيدوم دقيقة، ومستمر ساعة — وقتها روحي.
+        وأي وقت بتحسي إنو في شي غلط، لا تستني.
+      </div>
+    </>
+  );
+}
+
+const BAG_DEFAULT = [
+  ["mother","قمصان نوم مريحة وواسعة"],["mother","روب وشحاطة"],
+  ["mother","حمالات صدر للرضاعة"],["mother","فوط نفاس"],
+  ["mother","كيلوت قطن كبير"],["mother","أدوات حمام وفوطة"],
+  ["mother","شاحن تلفون طويل"],["mother","سناكس ومي"],
+  ["baby","بيجامات للمولود (٣-٤)"],["baby","بطانية قطن"],
+  ["baby","حفاضات نيوبورن"],["baby","مناديل مبللة"],
+  ["baby","طاقية وجوارب"],["baby","كرسي سيارة للرجعة"],
+  ["documents","هوية وأوراق التأمين"],["documents","ملف الحمل والتحاليل"],
+  ["documents","أرقام الدكتور والمستشفى"],["documents","مصاري كاش"]
+];
+
+function Bag({ preg }){
+  const [rows,setRows] = useState([]);
+  const [item,setItem] = useState("");
+  const [cat,setCat] = useState("mother");
+
+  async function load_(){
+    const { data } = await db.from("hospital_bag").select("*")
+      .eq("pregnancy_id", preg.id).order("sort_order");
+    if(!data || !data.length){
+      await db.from("hospital_bag").insert(
+        BAG_DEFAULT.map(([c,n],i)=>({
+          pregnancy_id: preg.id, category: c, item_name: n, sort_order: i })));
+      const r = await db.from("hospital_bag").select("*")
+        .eq("pregnancy_id", preg.id).order("sort_order");
+      setRows(r.data || []);
+    } else setRows(data);
+  }
+  useEffect(()=>{ load_(); },[]);
+
+  async function toggle(r){
+    await db.from("hospital_bag").update({ is_packed: !r.is_packed }).eq("id", r.id);
+    setRows(rows.map(x => x.id === r.id ? {...x, is_packed: !x.is_packed} : x));
+  }
+  async function add(){
+    if(!item.trim()) return;
+    await db.from("hospital_bag").insert({
+      pregnancy_id: preg.id, category: cat, item_name: item.trim(), sort_order: 99 });
+    setItem(""); load_();
+  }
+
+  const done = rows.filter(r => r.is_packed).length;
+  const groups = { mother:"لك أنت", baby:"للمولود", documents:"أوراق ونقود" };
+
+  return (
+    <>
+      <div className="hero" style={{padding:"20px 16px"}}>
+        <p className="muted">جهّزت</p>
+        <div className="week-num">{done}<span style={{fontSize:24}}>/{rows.length}</span></div>
+        <div className="bar"><span style={{width:(rows.length ? done/rows.length*100 : 0)+"%"}}></span></div>
+      </div>
+
+      {Object.keys(groups).map(g=>(
+        <div className="card" key={g}>
+          <h2>{groups[g]}</h2>
+          <div style={{marginTop:10}}>
+            {rows.filter(r=>r.category===g).map(r=>(
+              <div key={r.id} onClick={()=>toggle(r)}
+                style={{padding:"11px 0",borderBottom:"1px solid var(--line)",cursor:"pointer",
+                  display:"flex",gap:10,alignItems:"center",
+                  opacity: r.is_packed ? .45 : 1,
+                  textDecoration: r.is_packed ? "line-through" : "none"}}>
+                <span style={{fontSize:19}}>{r.is_packed ? "✅" : "⬜"}</span>
+                {r.item_name}
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+
+      <div className="card">
+        <h2>أضيفي شيئاً</h2>
+        <input value={item} onChange={e=>setItem(e.target.value)} placeholder="ما الناقص؟" />
+        <select value={cat} onChange={e=>setCat(e.target.value)}>
+          <option value="mother">لك أنت</option>
+          <option value="baby">للمولود</option>
+          <option value="documents">أوراق ونقود</option>
+        </select>
+        <button className="btn" onClick={add} disabled={!item.trim()}>أضيفيه</button>
+      </div>
+    </>
+  );
+}
+
+/* ============ دعوة الاب ============ */
+function InviteFather({ user, preg, sub, go }){
+  const [code,setCode] = useState("");
+  const [busy,setBusy] = useState(false);
+  const [msg,setMsg] = useState("");
+
+  useEffect(()=>{
+    db.from("invite_codes").select("code,used_by")
+      .eq("pregnancy_id", preg.id).order("created_at",{ascending:false}).limit(1)
+      .then(({data})=>{ if(data && data[0] && !data[0].used_by) setCode(data[0].code); });
+  },[]);
+
+  async function make(){
+    setBusy(true);
+    const c = Math.random().toString(36).slice(2,8).toUpperCase();
+    const { error } = await db.from("invite_codes")
+      .insert({ code:c, pregnancy_id:preg.id, created_by:user.id });
+    if(error) setMsg(error.message); else { setCode(c); setMsg(""); }
+    setBusy(false);
+  }
+
+  return (
+    <div className="card">
+      <h2>ادعي الأب</h2>
+      {!can(sub,"father")
+        ? <>
+            <p className="muted" style={{marginBottom:14}}>
+              حساب الاب متوفر بالباقة العائلية فما فوق.
+            </p>
+            <button className="btn" onClick={go}>شاهدي الباقات</button>
+          </>
+        : <>
+            <p className="muted" style={{marginBottom:14}}>
+              تصله رسالة أسبوعية خاصة به، ويشاهد الألبوم معك.
+            </p>
+            {msg && <div className="alert alert-warn">{msg}</div>}
+            {code
+              ? <>
+                  <div className="hero" style={{padding:"18px 12px"}}>
+                    <p className="muted">كود الدعوة</p>
+                    <div style={{fontSize:34,fontWeight:700,letterSpacing:4,color:"var(--accent)"}}>
+                      {code}
+                    </div>
+                  </div>
+                  <p className="tiny">
+                    ليسجّل حساباً جديداً في التطبيق، ويختار "معي كود دعوة" ويكتب هذا الكود.
+                  </p>
+                  <button className="btn btn-ghost" onClick={make} disabled={busy}>كود جديد</button>
+                </>
+              : <button className="btn" onClick={make} disabled={busy}>
+                  {busy ? "لحظة..." : "أنشئي كوداً"}
+                </button>}
+          </>}
+    </div>
+  );
+}
+
+/* ============ الدعم الفني ============ */
+function Support({ user }){
+  const [body,setBody] = useState("");
+  const [list,setList] = useState([]);
+  const [busy,setBusy] = useState(false);
+  const [msg,setMsg] = useState("");
+  const [open,setOpen] = useState(false);
+
+  async function load_(){
+    const { data } = await db.from("support_tickets").select("*")
+      .eq("user_id", user.id).order("created_at",{ascending:false}).limit(10);
+    setList(data || []);
+  }
+  useEffect(()=>{ load_(); },[]);
+
+  async function send(){
+    if(!body.trim()) return;
+    setBusy(true);
+    const { error } = await db.from("support_tickets")
+      .insert({ user_id:user.id, body:body.trim() });
+    setMsg(error ? error.message : "وصلتنا رسالتك! سنردّ عليك قريباً 🤍");
+    setBody(""); setBusy(false); load_();
+  }
+
+  return (
+    <div className="card">
+      <h2>تواصلي معنا</h2>
+      <p className="muted" style={{marginBottom:14}}>
+        أي مشكلة في التطبيق أو الاشتراك، اكتبي لنا.
+      </p>
+
+      {!open
+        ? <button className="btn btn-ghost" onClick={()=>setOpen(true)}>
+            اكتبي رسالة {list.length > 0 ? "(" + list.length + " سابقة)" : ""}
+          </button>
+        : <>
+            {msg && <div className="alert alert-ok">{msg}</div>}
+            <textarea style={{minHeight:100}} value={body} maxLength={800}
+              onChange={e=>setBody(e.target.value)} placeholder="ما المشكلة؟" />
+            <button className="btn" onClick={send} disabled={busy || !body.trim()}>
+              {busy ? "جارٍ الإرسال..." : "أرسلي"}
+            </button>
+            <p className="tiny" style={{marginBottom:14}}>
+              للاسئلة الطبية، دكتورك هو المرجع — نحنا منساعد بالتطبيق بس.
+            </p>
+
+            {list.map(t=>(
+              <div className="saved" key={t.id}>
+                <div className="meta">{new Date(t.created_at).toLocaleDateString("ar-EG")}</div>
+                {t.body}
+                {t.admin_reply &&
+                  <div style={{marginTop:10,paddingTop:10,borderTop:"1px solid var(--line)"}}>
+                    <div className="meta">ردّ الإدارة</div>{t.admin_reply}
+                  </div>}
+              </div>
+            ))}
+            <button className="btn btn-ghost btn-sm" style={{width:"100%",marginTop:10}}
+              onClick={()=>setOpen(false)}>إغلاق</button>
+          </>}
+    </div>
+  );
+}
+
+/* ============ تنبيه الطلبات الجديدة ============ */
+function beep(){
+  try{
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const notes = [880, 1170];
+    notes.forEach((f,i)=>{
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.type = "sine"; o.frequency.value = f;
+      o.connect(g); g.connect(ctx.destination);
+      const t = ctx.currentTime + i * 0.18;
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.25, t + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.16);
+      o.start(t); o.stop(t + 0.18);
+    });
+  }catch(e){}
+}
+
+function useAdminAlerts(active){
+  const [counts,setCounts] = useState({ reqs:0, tickets:0 });
+  const prev = useRef(null);
+  const [flash,setFlash] = useState(null);
+
+  useEffect(()=>{
+    if(!active) return;
+    let stop = false;
+
+    async function tick(){
+      const a = await db.from("payment_requests")
+        .select("id", { count:"exact", head:true }).eq("status","pending");
+      const b = await db.from("support_tickets")
+        .select("id", { count:"exact", head:true }).eq("status","open");
+      if(stop) return;
+
+      const now = { reqs: a.count || 0, tickets: b.count || 0 };
+      setCounts(now);
+
+      if(prev.current){
+        const newReqs = now.reqs - prev.current.reqs;
+        const newTix  = now.tickets - prev.current.tickets;
+        if(newReqs > 0 || newTix > 0){
+          beep();
+          setFlash(newReqs > 0
+            ? "💰 وصلك " + newReqs + " طلب دفع جديد"
+            : "✉️ وصلك " + newTix + " رسالة دعم جديدة");
+          if(document.hidden) document.title = "(" + (now.reqs + now.tickets) + ") نور";
+          setTimeout(()=>setFlash(null), 12000);
+        }
+      }
+      prev.current = now;
+    }
+
+    tick();
+    const id = setInterval(tick, 25000);
+    const onFocus = ()=>{ document.title = "نور — رفيقة حملك"; };
+    window.addEventListener("focus", onFocus);
+    return ()=>{ stop = true; clearInterval(id); window.removeEventListener("focus", onFocus); };
+  },[active]);
+
+  return { counts, flash, clear:()=>setFlash(null) };
+}
+
+/* ============ لوحة الادمن ============ */
+function Admin({ view, setView, alerts }){
+  return (
+    <div className="screen">
+      <div className="hdr"><div><h2>{ADMIN_SECTIONS.find(s=>s.id===view)?.label}</h2></div></div>
+
+      {alerts?.flash &&
+        <div className="alert alert-ok" style={{cursor:"pointer",fontSize:17,fontWeight:700}}
+          onClick={()=>{ setView(alerts.flash.includes("دفع") ? "reqs" : "tickets"); alerts.clear(); }}>
+          {alerts.flash} — اضغط هون
+        </div>}
+
+      <div className="admin-pills">
+        <div className="row" style={{marginBottom:10}}>
+          {ADMIN_SECTIONS.slice(0,3).map(s=>(
+            <button className="pill" key={s.id} data-on={view===s.id?"1":"0"}
+              onClick={()=>setView(s.id)}>{s.label}</button>
+          ))}
+        </div>
+        <div className="row" style={{marginBottom:10}}>
+          {ADMIN_SECTIONS.slice(3,6).map(s=>(
+            <button className="pill" key={s.id} data-on={view===s.id?"1":"0"}
+              onClick={()=>setView(s.id)}>{s.label}</button>
+          ))}
+        </div>
+        <div className="row" style={{marginBottom:18}}>
+          {ADMIN_SECTIONS.slice(6,9).map(s=>(
+            <button className="pill" key={s.id} data-on={view===s.id?"1":"0"}
+              onClick={()=>setView(s.id)}>{s.label}</button>
+          ))}
+        </div>
+      </div>
+
+      {view === "stats"   && <AdminStats go={setView} />}
+      {view === "money"   && <AdminMoney />}
+      {view === "pricing" && <AdminPricing />}
+      {view === "reqs"    && <AdminReqs />}
+      {view === "users"   && <AdminUsers />}
+      {view === "content" && <AdminContent />}
+      {view === "tickets" && <AdminTickets />}
+      {view === "ann"     && <AdminAnnounce />}
+      {view === "log"     && <AdminLog />}
+    </div>
+  );
+}
+
+const ADMIN_SECTIONS = [
+  { id:"stats",   label:"الارقام",     icon:"📊" },
+  { id:"money",   label:"المالية",     icon:"💰" },
+  { id:"pricing", label:"الاسعار",     icon:"🏷️" },
+  { id:"reqs",    label:"الطلبات",     icon:"📩" },
+  { id:"users",   label:"المستخدمين",  icon:"👥" },
+  { id:"content", label:"المحتوى",     icon:"📚" },
+  { id:"tickets", label:"الرسايل",     icon:"✉️" },
+  { id:"ann",     label:"إعلان",       icon:"📢" },
+  { id:"log",     label:"السجل",       icon:"🧾" }
+];
+
+function csvDownload(name, rows){
+  if(!rows.length) return;
+  const cols = Object.keys(rows[0]);
+  const body = rows.map(r => cols.map(c =>
+    '"' + String(r[c] ?? "").replace(/"/g,'""') + '"').join(",")).join("\n");
+  const blob = new Blob(["\uFEFF" + cols.join(",") + "\n" + body], {type:"text/csv"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = name + ".csv";
+  a.click();
+}
+
+function AdminMoney(){
+  const [f,setF] = useState(null);
+  const [rows,setRows] = useState([]);
+  const [list,setList] = useState([]);
+  const [title,setTitle] = useState("");
+  const [amount,setAmount] = useState("");
+  const [cat,setCat] = useState("ai");
+
+  async function load_(){
+    const a = await db.rpc("admin_finance");   setF(a.data);
+    const b = await db.rpc("admin_monthly");   setRows(b.data || []);
+    const c = await db.from("expenses").select("*")
+      .order("spent_on",{ascending:false}).limit(20);
+    setList(c.data || []);
+  }
+  useEffect(()=>{ load_(); },[]);
+
+  async function add(){
+    if(!title.trim() || !amount) return;
+    await db.from("expenses").insert({
+      title:title.trim(), amount_usd:Number(amount), category:cat });
+    setTitle(""); setAmount(""); load_();
+  }
+  async function del(id){
+    await db.from("expenses").delete().eq("id", id); load_();
+  }
+
+  if(!f) return <div className="spin"></div>;
+
+  const net = Number(f.revenue_total) - Number(f.expense_total);
+  const netMonth = Number(f.revenue_month) - Number(f.expense_month);
+  const max = Math.max(1, ...rows.map(r => Math.max(Number(r.revenue), Number(r.expense))));
+
+  return (
+    <>
+      <div className="hero" style={{padding:"22px 16px"}}>
+        <p className="muted">صافي الربح الكلي</p>
+        <div className="week-num" style={{color: net >= 0 ? "var(--sage)" : "var(--danger)"}}>
+          ${net.toFixed(0)}
+        </div>
+        <p className="tiny">دخل ${Number(f.revenue_total).toFixed(0)} · مصاريف ${Number(f.expense_total).toFixed(0)}</p>
+      </div>
+
+      <div className="stats">
+        <Box label="دخل هالشهر" value={"$" + Number(f.revenue_month).toFixed(0)} />
+        <Box label="مصاريف الشهر" value={"$" + Number(f.expense_month).toFixed(0)} />
+        <Box label="صافي الشهر" value={"$" + netMonth.toFixed(0)} />
+      </div>
+
+      <div className="card">
+        <h2>آخر ٦ شهور</h2>
+        <div style={{marginTop:14}}>
+          {rows.map(r=>(
+            <div key={r.month_key} style={{marginBottom:12}}>
+              <div style={{display:"flex",justifyContent:"space-between",fontSize:13}}>
+                <span>{r.month_key}</span>
+                <span style={{color: Number(r.net) >= 0 ? "var(--sage)" : "var(--danger)"}}>
+                  صافي ${Number(r.net).toFixed(0)}
+                </span>
+              </div>
+              <div className="bar" style={{margin:"5px 0 3px"}}>
+                <span style={{width:(Number(r.revenue)/max*100)+"%"}}></span>
+              </div>
+              <div className="bar" style={{margin:0}}>
+                <span style={{width:(Number(r.expense)/max*100)+"%",background:"var(--danger)"}}></span>
+              </div>
+            </div>
+          ))}
+          <p className="tiny">الذهبي = دخل · الاحمر = مصاريف</p>
+        </div>
+      </div>
+
+      <div className="card">
+        <h2>متوسط الدخل من المستخدم</h2>
+        <div className="week-num" style={{fontSize:34,marginTop:6}}>${Number(f.arpu).toFixed(2)}</div>
+        <p className="tiny">لو أقل من تكلفة المستخدم، السعر محتاج مراجعة</p>
+      </div>
+
+      <div className="card">
+        <h2>سجّل مصروف</h2>
+        <label>ما المصروف</label>
+        <input value={title} onChange={e=>setTitle(e.target.value)} placeholder="مثلاً: رصيد API" />
+        <label>المبلغ بالدولار</label>
+        <input type="number" value={amount} onChange={e=>setAmount(e.target.value)} placeholder="10" />
+        <label>التصنيف</label>
+        <select value={cat} onChange={e=>setCat(e.target.value)}>
+          <option value="ai">ذكاء اصطناعي</option>
+          <option value="hosting">استضافة</option>
+          <option value="marketing">تسويق</option>
+          <option value="audio">صوت</option>
+          <option value="other">مكان آخر</option>
+        </select>
+        <button className="btn" onClick={add} disabled={!title.trim() || !amount}>ضيفه</button>
+      </div>
+
+      {list.length > 0 && <div className="card">
+        <h2>آخر المصاريف</h2>
+        <div style={{marginTop:12}}>
+          {list.map(e=>(
+            <div className="req" key={e.id}>
+              <div style={{display:"flex",justifyContent:"space-between"}}>
+                <b>{e.title}</b><span>${Number(e.amount_usd).toFixed(2)}</span>
+              </div>
+              <p className="tiny">{e.spent_on}</p>
+              <button className="btn btn-ghost btn-sm" style={{width:"100%",marginTop:8}}
+                onClick={()=>del(e.id)}>احذف</button>
+            </div>
+          ))}
+        </div>
+        <button className="btn btn-ghost" style={{marginTop:12}}
+          onClick={()=>csvDownload("expenses", list)}>نزّل Excel</button>
+      </div>}
+    </>
+  );
+}
+
+function Box({ label, value, note }){
+  return (
+    <div className="stat">
+      <b>{value}</b>
+      <span>{label}</span>
+      {note && <p className="tiny" style={{marginTop:3}}>{note}</p>}
+    </div>
+  );
+}
+
+function AdminStats({ go }){
+  const [s,setS] = useState(null);
+  const [err,setErr] = useState("");
+  const [exp,setExp] = useState([]);
+
+  useEffect(()=>{
+    db.rpc("admin_stats").then(({data,error})=>{
+      if(error) setErr(error.message); else setS(data);
+    });
+    db.rpc("admin_expiring").then(({data})=>setExp(data||[]));
+  },[]);
+
+  if(err) return <div className="alert alert-warn">{err}</div>;
+  if(!s)  return <div className="spin"></div>;
+
+  return (
+    <>
+      {s.stale_payments > 0 &&
+        <div className="alert alert-warn" onClick={()=>go("reqs")}>
+          ⏰ {s.stale_payments} طلب دفع مستني من أكتر من ٢٤ ساعة
+        </div>}
+      {s.tickets_open > 0 &&
+        <div className="alert alert-warn" onClick={()=>go("tickets")}>
+          ✉️ {s.tickets_open} رسالة دعم ما انرد عليها
+        </div>}
+      {s.pending_payments > 0 && s.stale_payments === 0 &&
+        <div className="alert alert-info" onClick={()=>go("reqs")}>
+          📩 {s.pending_payments} طلب دفع بانتظارك
+        </div>}
+      {s.expiring_7 > 0 &&
+        <div className="alert alert-info">
+          🔔 {s.expiring_7} اشتراك بينتهي خلال ٧ أيام — ذكّرهم
+        </div>}
+
+      <div className="hero" style={{padding:"22px 16px"}}>
+        <p className="muted">مشتركين فعليين</p>
+        <div className="week-num">{s.paying}</div>
+        <p className="tiny">من أصل {s.users_total} مستخدم · تحوّل {s.conversion}%</p>
+      </div>
+
+      <div className="stats">
+        <Box label="كل المستخدمين" value={s.users_total} />
+        <Box label="جداد هالاسبوع" value={s.users_week} />
+        <Box label="حمل نشط" value={s.pregnancies} />
+      </div>
+
+      <div className="stats">
+        <Box label="تجربة مجانية" value={s.trials} />
+        <Box label="منتهي" value={s.expired} />
+        <Box label="مجمّد" value={s.frozen} />
+      </div>
+
+      <div className="card">
+        <h2>الباقات</h2>
+        <div className="stats" style={{marginTop:12,marginBottom:0}}>
+          <Box label="الاساسية" value={s.plan_basic} />
+          <Box label="العائلية" value={s.plan_family} />
+          <Box label="الكاملة" value={s.plan_full} />
+        </div>
+      </div>
+
+      <div className="card">
+        <h2>الدخل التقريبي</h2>
+        <div className="week-num" style={{fontSize:38,marginTop:6}}>
+          ${Number(s.revenue_usd).toFixed(0)}
+        </div>
+        <p className="tiny">من {s.approved_total} عملية مقبولة · تقديري بالدولار</p>
+      </div>
+
+      {exp.length > 0 && <div className="card">
+        <h2>بينتهي قريباً</h2>
+        <p className="muted" style={{marginBottom:12}}>ذكّرهم قبل ما يخلص</p>
+        {exp.map(u=>(
+          <div className="req" key={u.user_id}>
+            <b>{u.display_name || "بلا اسم"}</b>
+            <p className="tiny">{u.email}</p>
+            <p className="tiny">
+              {PLAN_INFO[u.plan]?.name} · باقي {u.days_left} يوم
+            </p>
+          </div>
+        ))}
+      </div>}
+
+      <div className="card">
+        <h2>البلدان</h2>
+        <div className="stats" style={{marginTop:12,marginBottom:0}}>
+          <Box label="لبنان" value={s.country_lb} />
+          <Box label="مصر" value={s.country_eg} />
+          <Box label="مكان آخر" value={s.country_other} />
+        </div>
+      </div>
+
+      <div className="card">
+        <h2>التفاعل</h2>
+        <p className="muted">{s.letters} رسالة انكتبت بصندوق صندوق الرسائل</p>
+      </div>
+    </>
+  );
+}
+
+function AdminReqs(){
+  const [reqs,setReqs] = useState([]);
+  const [load,setLoad] = useState(true);
+  const [note,setNote] = useState({});
+
+  async function load_(){
+    setLoad(true);
+    const { data } = await db.from("payment_requests").select("*")
+      .eq("status","pending").order("created_at",{ascending:false});
+    setReqs(data || []); setLoad(false);
+  }
+  useEffect(()=>{ load_(); },[]);
+
+  async function decide(r, status){
+    await db.from("payment_requests")
+      .update({ status, admin_note: note[r.id] || null }).eq("id", r.id);
+    load_();
+  }
+
+  async function viewReceipt(path){
+    const { data } = await db.storage.from("receipts").createSignedUrl(path, 300);
+    if(data) window.open(data.signedUrl, "_blank");
+  }
+
+  if(load) return <div className="spin"></div>;
+  if(!reqs.length) return <div className="card"><p className="muted">لا توجد طلبات جديدة ✅</p></div>;
+
+  return reqs.map(r=>(
+    <div className="card" key={r.id}>
+      <b>{PLAN_INFO[r.plan]?.name}</b> · {r.amount} {r.currency}
+      <p className="tiny">{r.method_name} · مرجع: {r.reference}</p>
+      <p className="tiny">{new Date(r.created_at).toLocaleString("ar-EG")}</p>
+
+      {r.receipt_path &&
+        <button className="btn btn-ghost" style={{marginTop:10}}
+          onClick={()=>viewReceipt(r.receipt_path)}>شوف الإيصال</button>}
+
+      <input placeholder="ملاحظة (اختياري)" value={note[r.id]||""}
+        onChange={e=>setNote({...note,[r.id]:e.target.value})} style={{marginTop:10}} />
+
+      <div className="row">
+        <button className="btn btn-sage btn-sm" onClick={()=>decide(r,"approved")}>موافقة</button>
+        <button className="btn btn-danger btn-sm" onClick={()=>decide(r,"rejected")}>رفض</button>
+      </div>
+    </div>
+  ));
+}
+
+function AdminUsers(){
+  const [rows,setRows] = useState([]);
+  const [load,setLoad] = useState(true);
+  const [err,setErr] = useState("");
+  const [note,setNote] = useState("");
+  const [q,setQ] = useState("");
+
+  async function load_(){
+    setLoad(true);
+    const { data, error } = await db.rpc("admin_users");
+    if(error) setErr(error.message); else setRows(data || []);
+    setLoad(false);
+  }
+  useEffect(()=>{ load_(); },[]);
+
+  async function give(u, plan){
+    const { error } = await db.rpc("admin_set_plan",
+      { p_user:u.user_id, p_plan:plan, p_months:1 });
+    if(error){ setErr(error.message); return; }
+    setNote("تم تفعيل " + PLAN_INFO[plan].name + " لـ " + (u.display_name || "المستخدم"));
+    setTimeout(()=>setNote(""), 2500);
+    await load_();
+  }
+  async function extend(u){
+    await db.rpc("admin_extend", { p_user:u.user_id, p_days:7 });
+    setNote("تم تمديد ٧ أيام");
+    setTimeout(()=>setNote(""), 2500);
+    await load_();
+  }
+  async function freeze(u){
+    await db.rpc("admin_freeze", { p_user:u.user_id, p_state: !u.is_frozen });
+    await load_();
+  }
+
+  if(err)  return <div className="alert alert-warn">{err}</div>;
+  if(load) return <div className="spin"></div>;
+
+  const t = q.trim().toLowerCase();
+  const list = rows.filter(r => !t ||
+    (r.display_name||"").toLowerCase().includes(t) ||
+    (r.email||"").toLowerCase().includes(t) ||
+    (r.country||"").toLowerCase().includes(t));
+
+  return (
+    <>
+      {note && <div className="alert alert-ok">{note}</div>}
+      <input placeholder="دوّر باسم أو إيميل أو بلد" value={q} onChange={e=>setQ(e.target.value)} />
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
+        <p className="tiny">{list.length} مستخدم</p>
+        <button className="btn btn-ghost btn-sm" style={{margin:0,flex:"none",padding:"7px 14px"}}
+          onClick={()=>csvDownload("users", list)}>نزّل Excel</button>
+      </div>
+
+      {list.map(u=>{
+        const live = u.status === "active" && new Date(u.expires_at) > new Date();
+        return (
+        <div className="card" key={u.user_id}
+          style={u.is_frozen ? {opacity:.6,borderColor:"var(--danger)"} : {}}>
+          <div style={{display:"flex",justifyContent:"space-between"}}>
+            <b>{u.display_name || "بلا اسم"}</b>
+            <span className="tiny">{u.country}{u.is_frozen ? " · مجمّد" : ""}</span>
+          </div>
+          <p className="tiny">{u.email}</p>
+          <p className="tiny">
+            {PLAN_INFO[u.plan]?.name || "مجاني"} ·{" "}
+            {u.status === "active" ? "مشترك" : u.status === "trial" ? "تجربة" : "منتهي"}
+            {u.expires_at && " · لحد " + new Date(u.expires_at).toLocaleDateString("ar-EG")}
+          </p>
+          {u.week_now && <p className="tiny">أسبوع {u.week_now} · ولادة {u.due_date}</p>}
+          <p className="tiny">سجّل: {new Date(u.joined).toLocaleDateString("ar-EG")}</p>
+
+          <div className="row" style={{marginTop:10}}>
+            {["basic","family","full"].map(p=>(
+              <button key={p} className="pill" data-on={(live && u.plan===p)?"1":"0"}
+                style={{padding:"10px 6px",fontSize:14}}
+                onClick={()=>give(u,p)}>{PLAN_INFO[p].name}</button>
+            ))}
+          </div>
+          <div className="row" style={{marginTop:8}}>
+            <button className="btn btn-ghost btn-sm" onClick={()=>extend(u)}>+٧ أيام</button>
+            <button className="btn btn-danger btn-sm" onClick={()=>freeze(u)}>
+              {u.is_frozen ? "فك التجميد" : "تجميد"}
+            </button>
+          </div>
+        </div>
+      );})}
+    </>
+  );
+}
+
+function AdminPricing(){
+  const [rows,setRows] = useState([]);
+  const [meths,setMeths] = useState([]);
+  const [edit,setEdit] = useState({});
+  const [msg,setMsg] = useState("");
+  const [load,setLoad] = useState(true);
+  const COUNTRY = { LB:"لبنان", EG:"مصر", OTHER:"باقي الدول" };
+
+  async function load_(){
+    setLoad(true);
+    const a = await db.rpc("admin_prices");
+    setRows(a.data || []);
+    const b = await db.from("payment_methods").select("*").order("country");
+    setMeths(b.data || []);
+    setLoad(false);
+  }
+  useEffect(()=>{ load_(); },[]);
+
+  function key(r){ return r.plan + "|" + r.country; }
+  function val(r, field){
+    const k = key(r);
+    return edit[k]?.[field] !== undefined ? edit[k][field] : r[field];
+  }
+  function set(r, field, v){
+    const k = key(r);
+    setEdit({ ...edit, [k]: { ...(edit[k]||{}), [field]: v } });
+  }
+
+  async function save(r){
+    const { error } = await db.rpc("admin_update_price", {
+      p_plan: r.plan, p_country: r.country,
+      p_usd: Number(val(r,"price_usd")),
+      p_local: Number(val(r,"price_local")),
+      p_currency: val(r,"currency"),
+      p_badge: val(r,"badge") || null,
+      p_active: val(r,"is_active")
+    });
+    setMsg(error ? error.message : "حُفظ ✅");
+    setTimeout(()=>setMsg(""), 2500);
+    setEdit({}); load_();
+  }
+
+  async function saveMethod(m, patch){
+    await db.from("payment_methods").update(patch).eq("id", m.id);
+    setMsg("حُفظ ✅"); setTimeout(()=>setMsg(""), 2500);
+    load_();
+  }
+
+  if(load) return <div className="spin"></div>;
+
+  return (
+    <>
+      {msg && <div className={"alert " + (msg.includes("✅") ? "alert-ok" : "alert-warn")}>{msg}</div>}
+
+      {Object.keys(COUNTRY).map(c=>(
+        <div className="card" key={c}>
+          <h2>أسعار {COUNTRY[c]}</h2>
+          <div style={{marginTop:14}}>
+            {rows.filter(r=>r.country===c).map(r=>(
+              <div key={key(r)} style={{paddingBottom:16,marginBottom:16,
+                borderBottom:"1px solid var(--line)"}}>
+                <b>{PLAN_INFO[r.plan]?.name || r.plan}</b>
+                {r.months > 1 && <span className="tiny"> · {r.months} تشهر</span>}
+
+                <div className="row" style={{marginTop:10}}>
+                  <div style={{flex:1}}>
+                    <label>السعر المحلي</label>
+                    <input type="number" style={{marginBottom:8}}
+                      value={val(r,"price_local") ?? ""}
+                      onChange={e=>set(r,"price_local",e.target.value)} />
+                  </div>
+                  <div style={{flex:1}}>
+                    <label>العملة</label>
+                    <input style={{marginBottom:8}} value={val(r,"currency") ?? ""}
+                      onChange={e=>set(r,"currency",e.target.value)} />
+                  </div>
+                </div>
+
+                <label>بالدولار (للحسابات)</label>
+                <input type="number" style={{marginBottom:8}} value={val(r,"price_usd") ?? ""}
+                  onChange={e=>set(r,"price_usd",e.target.value)} />
+
+                <label>شارة مميزة (اتركها فارغة إن لم ترد)</label>
+                <input style={{marginBottom:8}} value={val(r,"badge") ?? ""}
+                  placeholder="مثلاً: الاوفر" onChange={e=>set(r,"badge",e.target.value)} />
+
+                <div className="row">
+                  <button className="pill" data-on={val(r,"is_active")?"1":"0"}
+                    onClick={()=>set(r,"is_active",!val(r,"is_active"))}>
+                    {val(r,"is_active") ? "ظاهرة ✅" : "مخفية"}
+                  </button>
+                  <button className="btn btn-sage btn-sm" onClick={()=>save(r)}>احفظ</button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+
+      <div className="card">
+        <h2>وسائل الدفع</h2>
+        <p className="muted" style={{marginBottom:14}}>هون بتحط أرقامك الحقيقية</p>
+        {meths.map(m=>(
+          <div key={m.id} style={{paddingBottom:16,marginBottom:16,
+            borderBottom:"1px solid var(--line)"}}>
+            <b>{m.method_name}</b> <span className="tiny">· {COUNTRY[m.country]}</span>
+            <label style={{marginTop:8}}>الرقم / الحساب</label>
+            <input defaultValue={m.account_info} style={{marginBottom:8}}
+              onBlur={e=>{ if(e.target.value !== m.account_info)
+                saveMethod(m,{account_info:e.target.value}); }} />
+            <label>التعليمات</label>
+            <input defaultValue={m.instructions || ""} style={{marginBottom:8}}
+              onBlur={e=>{ if(e.target.value !== m.instructions)
+                saveMethod(m,{instructions:e.target.value}); }} />
+            <button className="pill" data-on={m.is_active?"1":"0"}
+              onClick={()=>saveMethod(m,{is_active:!m.is_active})}>
+              {m.is_active ? "شغّالة ✅" : "متوقفة"}
+            </button>
+          </div>
+        ))}
+        <p className="tiny">التعديل بينحفظ لما تطلع من الخانة</p>
+      </div>
+    </>
+  );
+}
+
+function AdminContent(){
+  const [tab,setTab] = useState("serenity");
+  const [rows,setRows] = useState([]);
+  const [msg,setMsg] = useState("");
+
+  /* نموذج الإضافة */
+  const [body,setBody] = useState("");
+  const [ref,setRef] = useState("");
+  const [kind,setKind] = useState("verse");
+  const [cat,setCat] = useState("peace");
+  const [title,setTitle] = useState("");
+  const [dialect,setDialect] = useState("lb");
+  const [aud,setAud] = useState("mother");
+
+  const TABLE = { serenity:"serenity", stories:"stories", surprise:"surprise_messages" };
+
+  async function load_(){
+    const { data } = await db.from(TABLE[tab]).select("*").limit(200);
+    setRows(data || []);
+  }
+  useEffect(()=>{ load_(); },[tab]);
+
+  function flash(t){ setMsg(t); setTimeout(()=>setMsg(""), 2500); }
+
+  async function add(){
+    if(!body.trim()) return;
+    let row;
+    if(tab === "serenity")
+      row = { body: body.trim(), reference: ref.trim() || null, kind, category: cat };
+    else if(tab === "stories")
+      row = { body: body.trim(), title: title.trim() || "بلا عنوان", dialect, minutes: 2 };
+    else
+      row = { body: body.trim(), dialect, audience: aud, min_week: 1, max_week: 42 };
+
+    const { error } = await db.from(TABLE[tab]).insert(row);
+    flash(error ? error.message : "انضاف ✅");
+    setBody(""); setRef(""); setTitle(""); load_();
+  }
+
+  async function toggle(r){
+    await db.from(TABLE[tab]).update({ is_active: !r.is_active }).eq("id", r.id);
+    load_();
+  }
+  async function del(r){
+    await db.from(TABLE[tab]).delete().eq("id", r.id);
+    flash("انحذف"); load_();
+  }
+
+  return (
+    <>
+      {msg && <div className={"alert " + (msg.includes("✅")||msg.includes("انحذف")
+        ? "alert-ok" : "alert-warn")}>{msg}</div>}
+
+      <div className="row" style={{marginBottom:18}}>
+        <button className="pill" data-on={tab==="serenity"?"1":"0"}
+          onClick={()=>setTab("serenity")}>سكينة</button>
+        <button className="pill" data-on={tab==="stories"?"1":"0"}
+          onClick={()=>setTab("stories")}>قصص</button>
+        <button className="pill" data-on={tab==="surprise"?"1":"0"}
+          onClick={()=>setTab("surprise")}>مفاجآت</button>
+      </div>
+
+      <div className="card">
+        <h2>إضافة جديدة</h2>
+
+        {tab === "serenity" && <>
+          <p className="muted" style={{marginBottom:12}}>
+            انسخ الآية من مصحف موثوق (quran.com) والصقها كما هي.
+          </p>
+          <div className="row" style={{marginBottom:14}}>
+            <button className="pill" data-on={kind==="verse"?"1":"0"}
+              onClick={()=>setKind("verse")}>آية</button>
+            <button className="pill" data-on={kind==="dua"?"1":"0"}
+              onClick={()=>setKind("dua")}>دعاء</button>
+          </div>
+          <label>النص</label>
+          <textarea style={{minHeight:90}} value={body} onChange={e=>setBody(e.target.value)} />
+          <label>المرجع (مثلاً: البقرة ٢٨٦)</label>
+          <input value={ref} onChange={e=>setRef(e.target.value)} />
+          <label>التصنيف</label>
+          <select value={cat} onChange={e=>setCat(e.target.value)}>
+            <option value="peace">طمأنينة</option>
+            <option value="patience">صبر</option>
+            <option value="gratitude">شكر</option>
+            <option value="provision">رزق</option>
+            <option value="mercy">رحمة</option>
+          </select>
+        </>}
+
+        {tab === "stories" && <>
+          <label>العنوان</label>
+          <input value={title} onChange={e=>setTitle(e.target.value)} />
+          <label>اللهجة</label>
+          <select value={dialect} onChange={e=>setDialect(e.target.value)}>
+            <option value="lb">لبناني</option>
+            <option value="eg">مصري</option>
+          </select>
+          <label>القصة</label>
+          <textarea style={{minHeight:150}} value={body} onChange={e=>setBody(e.target.value)} />
+        </>}
+
+        {tab === "surprise" && <>
+          <div className="row" style={{marginBottom:14}}>
+            <button className="pill" data-on={dialect==="lb"?"1":"0"}
+              onClick={()=>setDialect("lb")}>لبناني</button>
+            <button className="pill" data-on={dialect==="eg"?"1":"0"}
+              onClick={()=>setDialect("eg")}>مصري</button>
+          </div>
+          <div className="row" style={{marginBottom:14}}>
+            <button className="pill" data-on={aud==="mother"?"1":"0"}
+              onClick={()=>setAud("mother")}>للام</button>
+            <button className="pill" data-on={aud==="father"?"1":"0"}
+              onClick={()=>setAud("father")}>للاب</button>
+          </div>
+          <label>الرسالة</label>
+          <textarea style={{minHeight:90}} value={body} onChange={e=>setBody(e.target.value)} />
+        </>}
+
+        <button className="btn" onClick={add} disabled={!body.trim()}>ضيفها</button>
+      </div>
+
+      <h2 style={{margin:"22px 0 12px"}}>الموجود ({rows.length})</h2>
+      {rows.map(r=>(
+        <div className="card" key={r.id} style={r.is_active === false ? {opacity:.5} : {}}>
+          {r.title && <b>{r.title}</b>}
+          <p style={{whiteSpace:"pre-wrap",marginTop:6}}>{r.body.slice(0,220)}
+            {r.body.length > 220 ? "..." : ""}</p>
+          <p className="tiny">
+            {r.reference || ""} {r.dialect ? "· " + (r.dialect==="lb"?"لبناني":"مصري") : ""}
+            {r.audience ? " · " + (r.audience==="mother"?"للام":"للاب") : ""}
+          </p>
+          <div className="row" style={{marginTop:10}}>
+            <button className="btn btn-ghost btn-sm" onClick={()=>toggle(r)}>
+              {r.is_active === false ? "إظهار" : "إخفاء"}
+            </button>
+            <button className="btn btn-danger btn-sm" onClick={()=>del(r)}>حذف</button>
+          </div>
+        </div>
+      ))}
+    </>
+  );
+}
+
+function AdminTickets(){
+  const [rows,setRows] = useState([]);
+  const [load,setLoad] = useState(true);
+  const [reply,setReply] = useState({});
+
+  async function load_(){
+    setLoad(true);
+    const { data } = await db.rpc("admin_tickets");
+    setRows(data || []); setLoad(false);
+  }
+  useEffect(()=>{ load_(); },[]);
+
+  async function send(t){
+    if(!reply[t.id]?.trim()) return;
+    await db.rpc("admin_reply_ticket", { p_id:t.id, p_reply:reply[t.id].trim() });
+    setReply({...reply,[t.id]:""});
+    load_();
+  }
+
+  if(load) return <div className="spin"></div>;
+  if(!rows.length) return <div className="card"><p className="muted">لا توجد رسائل ✅</p></div>;
+
+  return rows.map(t=>(
+    <div className="card" key={t.id}>
+      <div style={{display:"flex",justifyContent:"space-between"}}>
+        <b>{t.display_name || "بلا اسم"}</b>
+        <span className="tiny">{t.status === "open" ? "🔴 جديدة" : "✅ انرد عليها"}</span>
+      </div>
+      <p className="tiny">{t.email} · {new Date(t.created_at).toLocaleString("ar-EG")}</p>
+      <p style={{margin:"10px 0",whiteSpace:"pre-wrap"}}>{t.body}</p>
+
+      {t.admin_reply &&
+        <div className="alert alert-ok" style={{whiteSpace:"pre-wrap"}}>ردك: {t.admin_reply}</div>}
+
+      <textarea style={{minHeight:80}} placeholder="اكتب ردك"
+        value={reply[t.id]||""} onChange={e=>setReply({...reply,[t.id]:e.target.value})} />
+      <button className="btn btn-sage" onClick={()=>send(t)}>ابعت الرد</button>
+    </div>
+  ));
+}
+
+function AdminAnnounce(){
+  const [title,setTitle] = useState("");
+  const [body,setBody] = useState("");
+  const [list,setList] = useState([]);
+  const [msg,setMsg] = useState("");
+
+  async function load_(){
+    const { data } = await db.from("announcements").select("*")
+      .order("created_at",{ascending:false}).limit(10);
+    setList(data || []);
+  }
+  useEffect(()=>{ load_(); },[]);
+
+  async function publish(){
+    if(!title.trim() || !body.trim()) return;
+    const { error } = await db.from("announcements")
+      .insert({ title:title.trim(), body:body.trim() });
+    setMsg(error ? error.message : "تم النشر ✅");
+    setTitle(""); setBody(""); load_();
+  }
+
+  async function toggle(a){
+    await db.from("announcements").update({ is_active: !a.is_active }).eq("id", a.id);
+    load_();
+  }
+
+  return (
+    <>
+      {msg && <div className="alert alert-ok">{msg}</div>}
+      <div className="card">
+        <h2>إعلان جديد</h2>
+        <p className="muted" style={{marginBottom:14}}>بيظهر لكل المستخدمين بالشاشة الرئيسية</p>
+        <label>العنوان</label>
+        <input value={title} maxLength={60} onChange={e=>setTitle(e.target.value)}
+          placeholder="مثلاً: ميزة جديدة" />
+        <label>النص</label>
+        <textarea style={{minHeight:90}} value={body} maxLength={400}
+          onChange={e=>setBody(e.target.value)} />
+        <button className="btn" onClick={publish} disabled={!title.trim() || !body.trim()}>
+          انشر
+        </button>
+      </div>
+
+      {list.map(a=>(
+        <div className="card" key={a.id}>
+          <div style={{display:"flex",justifyContent:"space-between"}}>
+            <b>{a.title}</b>
+            <span className="tiny">{a.is_active ? "🟢 ظاهر" : "⚪ مخفي"}</span>
+          </div>
+          <p className="muted">{a.body}</p>
+          <button className="btn btn-ghost btn-sm" style={{marginTop:10,width:"100%"}}
+            onClick={()=>toggle(a)}>{a.is_active ? "إخفاء" : "إظهار"}</button>
+        </div>
+      ))}
+    </>
+  );
+}
+
+function AdminLog(){
+  const [rows,setRows] = useState([]);
+  useEffect(()=>{ db.rpc("admin_recent_log").then(({data})=>setRows(data||[])); },[]);
+
+  if(!rows.length) return <div className="card"><p className="muted">السجل فاضي</p></div>;
+
+  return (
+    <div className="card">
+      <h2>آخر العمليات</h2>
+      <div style={{marginTop:12}}>
+        {rows.map((l,i)=>(
+          <div className="req" key={i}>
+            <b>{l.action}</b>
+            {l.details && <p className="tiny">{l.details}</p>}
+            <p className="tiny">{new Date(l.created_at).toLocaleString("ar-EG")}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ============ التطبيق ============ */
+function App(){
+  const [session,setSession] = useState(null);
+  const [profile,setProfile] = useState(null);
+  const [preg,setPreg] = useState(null);
+  const [role,setRole] = useState("mother");
+  const [sub,setSub] = useState(null);
+  const [tab,setTab] = useState("home");
+  const [ready,setReady] = useState(false);
+  const [asUser,setAsUser] = useState(false);
+  const [adminView,setAdminView] = useState("stats");
+  const [baby,setBaby] = useState(null);
+
+  useEffect(()=>{
+    db.auth.getSession().then(({data})=>{ setSession(data.session); if(!data.session) setReady(true); });
+    const { data:sc } = db.auth.onAuthStateChange((_e,s)=>{
+      setSession(s);
+      if(!s){ setProfile(null); setPreg(null); setReady(true); }
+    });
+    return ()=> sc.subscription.unsubscribe();
+  },[]);
+
+  async function loadAll(){
+    if(!session) return;
+    const uid = session.user.id;
+    const { data:p } = await db.from("profiles").select("*").eq("id", uid).single();
+    setProfile(p);
+
+    const { data:m } = await db.from("pregnancy_members").select("pregnancy_id, member_role")
+      .eq("user_id", uid).limit(1);
+
+    if(m && m.length){
+      setRole(m[0].member_role);
+      const { data:pr } = await db.from("pregnancies").select("*").eq("id", m[0].pregnancy_id).single();
+      setPreg(pr && pr.status !== "ended" ? pr : null);
+    } else setPreg(null);
+
+    const { data:s } = await db.from("subscriptions").select("*").eq("user_id", uid).single();
+    setSub(s);
+
+    if(m && m.length){
+      const { data:b } = await db.from("babies").select("*")
+        .eq("pregnancy_id", m[0].pregnancy_id).limit(1);
+      setBaby(b && b.length ? b[0] : null);
+    } else setBaby(null);
+
+    setReady(true);
+  }
+  useEffect(()=>{ if(session) loadAll(); },[session]);
+
+  useEffect(()=>{
+    const g = preg ? preg.baby_gender : "unknown";
+    document.documentElement.style.setProperty("--accent", accentFor(g));
+    document.documentElement.style.setProperty("--accent-soft", softFor(g));
+  },[preg]);
+
+  const alerts = useAdminAlerts(!!(profile && profile.is_admin && !asUser));
+  const [showSurprise,setShowSurprise] = useState(false);
+
+  useEffect(()=>{
+    if(!preg || !profile) return;
+    const t = setTimeout(()=>{ if(Math.random() < 0.35) setShowSurprise(true); }, 9000);
+    return ()=>clearTimeout(t);
+  },[preg && preg.id]);
+
+  if(!ready) return <div className="spin"></div>;
+  if(!session) return <Auth />;
+  if(!profile) return <div className="spin"></div>;
+
+  const isAdmin = profile.is_admin;
+
+  /* الادمن: لوحة التحكم مباشرة */
+  if(isAdmin && !asUser){
+    return (
+      <>
+        <Admin view={adminView} setView={setAdminView} alerts={alerts} />
+        <div className="tabs">
+          <div className="nav-sep">الإدارة</div>
+          {ADMIN_SECTIONS.map(s=>{
+            const n = s.id === "reqs" ? alerts.counts.reqs
+                    : s.id === "tickets" ? alerts.counts.tickets : 0;
+            return (
+              <button className="tab" key={s.id} data-on={adminView===s.id?"1":"0"}
+                onClick={()=>setAdminView(s.id)}>
+                <i>{s.icon}</i>{s.label}
+                {n > 0 && <span style={{background:"var(--danger)",color:"#fff",
+                  borderRadius:99,padding:"1px 8px",fontSize:12,marginInlineStart:6,
+                  fontWeight:700}}>{n}</span>}
+              </button>
+            );
+          })}
+          <div className="nav-sep">مكان آخر</div>
+          <button className="tab" onClick={()=>{ loadAll(); setAsUser(true); setTab("home"); }}>
+            <i>👁️</i>شوف كمستخدمة</button>
+          <button className="tab" onClick={()=>db.auth.signOut()}>
+            <i>🚪</i>خروج</button>
+        </div>
+      </>
+    );
+  }
+
+  if(!preg) return <Onboard user={session.user} done={loadAll} />;
+
+  const week = weekFrom(preg.due_date);
+  const past = daysLeft(preg.due_date) === 0;
+
+  /* وضع الأمومة بعد الولادة */
+  if(baby) return (
+    <>
+      {tab === "home"    && <BabyHome user={session.user} profile={profile}
+                                      baby={baby} reload={loadAll} />}
+      {tab === "album"   && <BabyAlbum user={session.user} baby={baby} />}
+      {tab === "moments" && <BabyMoments user={session.user} baby={baby} />}
+      {tab === "cards"   && <Cards preg={preg} baby={baby} />}
+      {tab === "letters" && <Letters user={session.user} preg={preg} week={40} />}
+      {tab === "stories" && <Stories profile={profile} />}
+      {tab === "serenity"&& <Serenity profile={profile} />}
+      {tab === "billing" && <Billing user={session.user} profile={profile} sub={sub} reload={loadAll} />}
+      {tab === "me"      && <Settings user={session.user} profile={profile} preg={preg}
+                                      sub={sub} role={role} reload={loadAll}
+                                      go={()=>setTab("billing")} />}
+
+      <Nav tab={tab} setTab={setTab} isAdmin={isAdmin} setAsUser={setAsUser}
+        items={[
+          ["home","\ud83c\udfe0","الرئيسية"],["album","\ud83d\udcf8","الألبوم"],
+          ["moments","\u2b50","أوّل مرات"],["cards","\ud83d\udc8c","بطاقات"],
+          ["letters","\ud83e\udd0d","صندوق الرسائل"],["stories","\ud83d\udcd6","قصص"],
+          ...(profile.show_serenity !== false ? [["serenity","\ud83d\udd4a\ufe0f","سكينة"]] : []),
+          ["billing","\ud83d\udc8e","الباقات"],["me","\u2699\ufe0f","حسابي"]
+        ]} />
+    </>
+  );
+
+  if(past && !baby && tab === "birth")
+    return <BirthForm user={session.user} preg={preg} done={loadAll} />;
+
+  return (
+    <>
+      {showSurprise &&
+        <Surprise user={session.user} week={week} role={role}
+          onClose={()=>setShowSurprise(false)} />}
+
+      {past && !baby &&
+        <div style={{padding:"16px 18px 0"}}>
+          <div className="alert alert-info" style={{cursor:"pointer"}}
+            onClick={()=>setTab("birth")}>
+            🤍 <b>وصل موعدك!</b><br/>سجّلي يوم الولادة لتبدأ رحلة السنة الأولى.
+          </div>
+        </div>}
+
+      {tab === "home"    && <Home profile={profile} preg={preg} week={week} sub={sub}
+                                  go={()=>setTab("billing")} />}
+      {tab === "weekly"  && <Weekly profile={profile} preg={preg} week={week} role={role}
+                                    sub={sub} go={()=>setTab("billing")} />}
+      {tab === "letters" && <Letters user={session.user} preg={preg} week={week} />}
+      {tab === "chat"    && <Chat user={session.user} profile={profile} preg={preg}
+                                  week={week} sub={sub} go={()=>setTab("billing")} />}
+      {tab === "album"   && <Album user={session.user} preg={preg} week={week} sub={sub}
+                                   go={()=>setTab("billing")} />}
+      {tab === "tools"   && <Tools user={session.user} preg={preg} sub={sub}
+                                   go={()=>setTab("billing")} />}
+      {tab === "moments" && <Moments user={session.user} profile={profile} preg={preg} week={week} />}
+      {tab === "journey" && <Journey user={session.user} preg={preg} week={week} profile={profile} />}
+      {tab === "guide"   && <Guide profile={profile} week={week} />}
+      {tab === "names"   && <Names user={session.user} preg={preg} />}
+      {tab === "doctorq" && <DoctorQ preg={preg} />}
+      {tab === "cards"   && <Cards preg={preg} baby={null} />}
+      {tab === "stories" && <Stories profile={profile} />}
+      {tab === "serenity"&& <Serenity profile={profile} />}
+      {tab === "billing" && <Billing user={session.user} profile={profile} sub={sub} reload={loadAll} />}
+      {tab === "me"      && <Settings user={session.user} profile={profile} preg={preg} sub={sub}
+                                      role={role} reload={loadAll} go={()=>setTab("billing")} />}
+
+      <Nav tab={tab} setTab={setTab} isAdmin={isAdmin} setAsUser={setAsUser}
+        items={[
+          ["home","\ud83c\udfe0","الرئيسية"],["weekly","\ud83d\udc8c","رسالة جنينك"],
+          ["chat","\ud83d\udcac","اسألي"],["tools","\ud83e\uddf0","أدواتي"],
+          ["album","\ud83d\udcf8","ألبومي"],["letters","\ud83e\udd0d","صندوق الرسائل"],
+          ["moments","\u2b50","لحظاتي"],["journey","\ud83d\uddfa\ufe0f","قصة حملك"],
+          ["guide","\ud83d\udca1","دليلك"],["names","\u2728","اسم المولود"],
+          ["doctorq","\ud83d\udccb","أسئلة للطبيب"],["cards","\ud83d\udc8c","بطاقات"],
+          ["stories","\ud83d\udcd6","قصص"],
+          ...(profile.show_serenity !== false ? [["serenity","\ud83d\udd4a\ufe0f","سكينة"]] : []),
+          ["billing","\ud83d\udc8e","الباقات"],["me","\u2699\ufe0f","حسابي"]
+        ]} />
+    </>
+  );
+}
+
+/* ============ التنقّل ============ */
+function Nav({ tab, setTab, items, isAdmin, setAsUser }){
+  const [open,setOpen] = useState(false);
+  function go(t){ setTab(t); setOpen(false); window.scrollTo({top:0}); }
+
+  return (
+    <>
+      {open &&
+        <div className="drawer" onClick={()=>setOpen(false)}>
+          <div className="drawer-panel" onClick={e=>e.stopPropagation()}>
+            <h3>نور</h3>
+            {items.map(([k,i,t])=>(
+              <button key={k} className="drawer-item" data-on={tab===k?"1":"0"}
+                onClick={()=>go(k)}><i>{i}</i>{t}</button>
+            ))}
+            {isAdmin && <>
+              <div className="drawer-sep">الإدارة</div>
+              <button className="drawer-item" onClick={()=>setAsUser(false)}>
+                <i>📊</i>لوحة التحكم</button>
+            </>}
+          </div>
+        </div>}
+
+      <div className="tabs">
+        {items.map(([k,i,t],idx)=>(
+          <button key={k} className={"tab" + (idx >= 4 ? " extra" : "")}
+            data-on={tab===k?"1":"0"} onClick={()=>go(k)}>
+            <i>{i}</i>{t}
+          </button>
+        ))}
+        {isAdmin &&
+          <button className="tab extra" onClick={()=>setAsUser(false)}>
+            <i>📊</i>لوحة التحكم</button>}
+        <button className="tab menu-btn" onClick={()=>setOpen(true)}>
+          <i>☰</i>المزيد</button>
+      </div>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+
+<script>
+(function(){
+  function boot(){
+    try{
+      const code = document.getElementById("src").textContent;
+      const out = Babel.transform(code, { presets: [["react", { runtime: "classic" }]] }).code;
+      const s = document.createElement("script");
+      s.textContent = out;
+      document.body.appendChild(s);
+    }catch(e){
+      document.getElementById("root").innerHTML =
+        '<div style="padding:40px;text-align:center;font-family:Tajawal,sans-serif">'
+        + '<h2>ما قدرنا نحمّل التطبيق</h2>'
+        + '<p style="color:#6B7C8C">جرّب تعمل تحديث للصفحة، أو افتحها من متصفح تاني.</p>'
+        + '<p style="color:#D9634F;font-size:13px;margin-top:14px">' + e.message + '</p></div>';
+    }
+  }
+
+  function ready(){
+    if(window.Babel && window.React && window.ReactDOM && window.supabase) return boot();
+
+    // محاولة تحميل بديلة لو المصدر الاساسي انحجب
+    const alt = document.createElement("script");
+    alt.src = "https://unpkg.com/@babel/standalone/babel.min.js";
+    alt.onload = boot;
+    alt.onerror = function(){
+      document.getElementById("root").innerHTML =
+        '<div style="padding:40px;text-align:center;font-family:Tajawal,sans-serif">'
+        + '<h2>ما قدرنا نحمّل التطبيق</h2>'
+        + '<p style="color:#6B7C8C">تأكد من الإنترنت وجرّب تحدّث الصفحة.</p></div>';
+    };
+    document.body.appendChild(alt);
+  }
+
+  if(document.readyState === "complete") ready();
+  else window.addEventListener("load", ready);
+})();
+</script>
+</body>
+</html>
