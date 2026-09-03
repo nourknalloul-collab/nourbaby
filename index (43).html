@@ -1,0 +1,3136 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>MamSteps — خطوة بخطوة، من أول نبضة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FDF6F2; --ink:#4A3B38; --ink-soft:#9A8781;
+  --accent:#E0918F; --accent-soft:#FBE9E6;
+  --sage:#9DBFAE; --danger:#D0645C;
+  --card:#FFFFFF; --line:#F2E4DF;
+  --shadow:0 4px 20px rgba(160,110,100,.07);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--ink);
+  -webkit-font-smoothing:antialiased;line-height:1.7}
+#root{max-width:520px;margin:0 auto;min-height:100vh;position:relative}
+
+.screen{padding:22px 18px 100px}
+.center-screen{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:28px 22px}
+
+h1{font-size:30px;font-weight:700;letter-spacing:-.5px}
+h2{font-size:21px;font-weight:700;margin-bottom:4px}
+.muted{color:var(--ink-soft);font-size:15px}
+.tiny{font-size:13px;color:var(--ink-soft)}
+
+.brand{font-size:44px;font-weight:700;color:var(--accent);text-align:center;letter-spacing:-1px}
+.brand-sub{text-align:center;color:var(--ink-soft);margin-bottom:34px;font-size:16px}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;
+  padding:20px;margin-bottom:14px;box-shadow:var(--shadow)}
+
+label{display:block;font-size:14px;color:var(--ink-soft);margin-bottom:7px;font-weight:500}
+input,textarea,select{width:100%;font-family:inherit;font-size:16px;color:var(--ink);
+  background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 14px;margin-bottom:16px}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--accent);outline-offset:1px}
+textarea{resize:vertical;min-height:130px;line-height:1.9}
+
+.btn{width:100%;background:var(--accent);color:#fff;border:none;border-radius:14px;
+  padding:15px;font-family:inherit;font-size:17px;font-weight:700;cursor:pointer;margin-bottom:10px}
+.btn:disabled{opacity:.45}
+.btn-ghost{background:transparent;color:var(--ink-soft);border:1px solid var(--line)}
+.btn-sage{background:var(--sage)}
+.btn-danger{background:transparent;color:var(--danger);border:1px solid var(--danger)}
+.btn-sm{padding:10px;font-size:15px;width:auto;flex:1}
+
+.row{display:flex;gap:9px}
+.pill{flex:1;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 8px;
+  font-family:inherit;font-size:15px;color:var(--ink);cursor:pointer;text-align:center}
+.pill[data-on="1"]{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}
+
+/* الشاشة الرئيسية */
+.hero{background:linear-gradient(160deg,var(--accent-soft),#fff);
+  border:1px solid var(--line);border-radius:22px;padding:26px 20px;text-align:center;
+  margin-bottom:14px;box-shadow:var(--shadow)}
+.week-num{font-size:60px;font-weight:700;color:var(--accent);line-height:1}
+.size-note{font-size:19px;font-weight:500;margin-top:8px}
+.bar{height:7px;background:var(--line);border-radius:99px;overflow:hidden;margin:18px 0 8px}
+.bar span{display:block;height:100%;background:var(--accent);border-radius:99px;transition:width .6s}
+
+.stats{display:flex;gap:10px;margin-bottom:14px}
+.stat{flex:1;background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:15px 8px;text-align:center;box-shadow:var(--shadow)}
+.stat b{display:block;font-size:24px;color:var(--accent)}
+.stat span{font-size:12px;color:var(--ink-soft)}
+
+.letter{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px 20px;
+  box-shadow:var(--shadow);margin-bottom:14px}
+.letter p{font-size:17.5px;line-height:2.1;white-space:pre-wrap}
+.letter .from{margin-top:16px;font-size:14px;color:var(--accent);font-weight:700}
+
+.saved{background:var(--accent-soft);border:1px dashed var(--accent);border-radius:14px;
+  padding:15px;margin-bottom:10px}
+.saved .meta{font-size:12px;color:var(--ink-soft);margin-bottom:6px}
+.locked{filter:blur(5px);user-select:none}
+
+.plan{border:1.5px solid var(--line);border-radius:18px;padding:18px;margin-bottom:12px;background:#fff}
+.plan[data-on="1"]{border-color:var(--accent);background:var(--accent-soft)}
+.plan .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.plan .price{font-size:22px;font-weight:700;color:var(--accent)}
+.plan ul{list-style:none;font-size:14px;color:var(--ink-soft)}
+.plan li{padding-right:16px;position:relative;margin-bottom:3px}
+.plan li:before{content:"•";position:absolute;right:0;color:var(--accent)}
+
+.alert{border-radius:14px;padding:14px;font-size:15px;margin-bottom:14px}
+.alert-warn{background:#FDF0ED;border:1px solid var(--danger);color:var(--danger)}
+.alert-ok{background:#EFF5F3;border:1px solid var(--sage);color:#4A7266}
+.alert-info{background:var(--accent-soft);border:1px solid var(--accent);color:#8A6A22}
+
+.tabs{position:fixed;bottom:0;right:0;left:0;max-width:520px;margin:0 auto;
+  background:#fff;border-top:1px solid var(--line);display:flex;padding:9px 4px 14px;z-index:50}
+.tab{flex:1;background:none;border:none;font-family:inherit;font-size:12px;
+  color:var(--ink-soft);cursor:pointer;padding:5px 2px}
+.tab i{display:block;font-size:21px;font-style:normal;margin-bottom:2px;opacity:.5}
+.tab[data-on="1"]{color:var(--accent);font-weight:700}
+.tab[data-on="1"] i{opacity:1}
+
+.hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.spin{width:26px;height:26px;border:3px solid var(--line);border-top-color:var(--accent);
+  border-radius:50%;animation:sp .8s linear infinite;margin:32px auto}
+@keyframes sp{to{transform:rotate(360deg)}}
+.req{background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px;margin-bottom:12px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+
+
+
+/* ===== شعار وهوية MamSteps ===== */
+.ms-logo{width:96px;height:110px;margin:0 auto 6px;display:block}
+.ms-name{font-family:'Amiri',serif;font-size:46px;font-weight:400;
+  color:#9C6B4F;text-align:center;letter-spacing:1px;line-height:1.1}
+.ms-sub{text-align:center;color:#8C6E5E;font-size:15.5px;margin-top:2px}
+.ms-logo-img{width:230px;max-width:62%;height:auto;margin:0 auto;display:block}
+
+/* ===== شاشة الترحيب ===== */
+.lp{min-height:100vh;position:relative;
+  background:radial-gradient(130% 55% at 50% 0%, #FBE3DA 0%, #FDF6F2 60%, #FDF6F2 100%)}
+.lp-bg{position:absolute;inset:0;background-size:cover;background-position:20% top;
+  opacity:1}
+.lp-veil{position:absolute;inset:0;background:
+  linear-gradient(180deg,rgba(253,246,242,.92) 0%,rgba(253,246,242,.34) 22%,
+  rgba(253,246,242,.30) 52%,rgba(253,246,242,.80) 76%,rgba(253,246,242,.98) 100%),
+  linear-gradient(270deg,rgba(253,246,242,.80) 0%,rgba(253,246,242,.30) 42%,
+  rgba(253,246,242,0) 70%)}
+
+/* على الشاشات العريضة نُبقي الصورة بنسبتها الطولية في المنتصف */
+@media(min-width:820px){
+  .lp-bg{background-size:auto 100%;background-repeat:no-repeat;
+    background-position:center top}
+  .lp-veil{background:
+    linear-gradient(180deg,rgba(253,246,242,.86) 0%,rgba(253,246,242,.40) 28%,
+    rgba(253,246,242,.42) 55%,rgba(253,246,242,.86) 80%,rgba(253,246,242,.98) 100%),
+    linear-gradient(90deg,rgba(253,246,242,.96) 0%,rgba(253,246,242,0) 22%,
+    rgba(253,246,242,0) 78%,rgba(253,246,242,.96) 100%)}
+}
+.lp-wrap{position:relative;max-width:600px;margin:0 auto;
+  padding:40px 20px calc(40px + env(safe-area-inset-bottom));
+  display:flex;flex-direction:column;min-height:100vh}
+
+.lp-hero{text-align:center;padding-top:8px;
+  animation:rise .8s cubic-bezier(.2,.7,.3,1) both}
+.lp-mid{text-align:right;margin:auto 0;padding:8px 4px;
+  max-width:64%;margin-inline-start:auto}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+.lp-head{font-size:33px;font-weight:700;color:#4A3B38;line-height:1.5;margin-top:26px}
+.lp-head span{color:#DE8C8A;display:block;font-size:31px;margin-top:6px}
+.lp-rule{width:96px;height:1px;background:#E3BFB8;margin:26px 0 22px;position:relative}
+.lp-rule:after{content:"♥";position:absolute;inset:0;margin:auto;width:26px;height:20px;
+  color:#E0918F;font-size:14px;line-height:20px;text-align:center}
+.lp-body{font-size:16px;line-height:2.05;color:#6E5A55;max-width:26ch;font-weight:400}
+
+.lp-letter{background:#FFFCFB;border:1px solid #F3E1DC;border-radius:8px 8px 22px 22px;
+  padding:34px 24px 24px;position:relative;margin:30px 0 6px;
+  box-shadow:0 16px 40px -26px rgba(150,90,80,.4)}
+.lp-stamp{position:absolute;top:-16px;inset-inline-start:24px;padding:6px 16px;
+  border-radius:99px;background:#E0918F;color:#fff;font-size:12.5px;font-weight:700}
+.lp-text{font-family:'Amiri',serif;font-size:21px;line-height:2.4;color:#4A3B38;
+  white-space:pre-wrap;text-align:center}
+.lp-from{margin-top:16px;text-align:center;font-size:13.5px;color:#C08683}
+.lp-swap{display:block;margin:14px auto 0;background:none;border:none;
+  font-family:'Tajawal',sans-serif;font-size:14px;color:#A98D86;cursor:pointer;
+  padding:8px 14px;border-radius:99px}
+.lp-swap:hover{background:#F7E4DE;color:#4A3B38}
+
+.lp-actions{margin-top:auto;padding-top:26px}
+.lp-oauth{width:100%;background:#fff;border:1px solid #F0DED8;border-radius:16px;
+  padding:16px;font-family:'Tajawal',sans-serif;font-size:16px;color:#4A3B38;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;
+  margin-bottom:12px;box-shadow:0 3px 12px rgba(160,110,100,.06)}
+.lp-oauth:hover{border-color:#E0918F}
+.lp-or{display:flex;align-items:center;gap:14px;color:#B5A29C;font-size:14px;margin:20px 0 14px}
+.lp-or:before,.lp-or:after{content:"";flex:1;height:1px;background:#F0DED8}
+.lp-mailbtn{width:100%;background:#FBE9E6;border:1px solid #F3D5CF;border-radius:16px;
+  padding:16px;font-family:'Tajawal',sans-serif;font-size:16px;color:#B4736E;
+  font-weight:500;cursor:pointer;display:flex;align-items:center;
+  justify-content:center;gap:9px}
+.lp-mailbtn:hover{background:#F7DDD8}
+.lp-oauth{box-shadow:0 6px 20px rgba(150,100,90,.10)}
+.lp-terms{text-align:center;font-size:12.5px;color:#9C8A84;line-height:2;margin-top:18px;padding-bottom:6px}
+
+@media(max-width:520px){
+  .lp-head{font-size:27px}
+  .lp-text{font-size:19px;line-height:2.25}
+  .ms-name{font-size:38px}
+}
+@media(prefers-reduced-motion:reduce){.lp-hero{animation:none}}
+
+/* ===== الشاشة الرئيسية الجديدة ===== */
+.hm-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.hm-hi{font-size:22px;font-weight:700;color:#4A3B38}
+.hm-hi span{color:#E0918F}
+.hm-avatar{width:48px;height:48px;border-radius:50%;background:var(--accent-soft);
+  display:grid;place-items:center;font-size:22px;flex:none}
+
+.ring-wrap{display:flex;align-items:center;gap:18px;margin-bottom:16px}
+.ring{position:relative;width:132px;height:132px;flex:none}
+.ring svg{transform:rotate(-90deg)}
+.ring-mid{position:absolute;inset:0;display:grid;place-content:center;text-align:center}
+.ring-lbl{font-size:13px;color:var(--ink-soft)}
+.ring-num{font-size:44px;font-weight:700;color:var(--accent);line-height:1}
+.ring-of{font-size:12px;color:var(--ink-soft)}
+
+.hm-visual{flex:1;aspect-ratio:1;border-radius:24px;overflow:hidden;
+  background:linear-gradient(150deg,var(--accent-soft),#fff);
+  display:grid;place-items:center;position:relative}
+.hm-visual img{width:100%;height:100%;object-fit:cover}
+.hm-size{position:absolute;bottom:10px;inset-inline-start:0;inset-inline-end:0;
+  text-align:center;font-size:14px;color:var(--ink);font-weight:500}
+
+.hm-days{display:flex;align-items:center;justify-content:center;gap:8px;
+  font-size:15px;color:var(--ink-soft);margin-bottom:20px}
+.hm-days b{color:var(--accent);font-size:18px}
+
+.hm-card{border-radius:22px;padding:20px;margin-bottom:14px;position:relative;
+  overflow:hidden;box-shadow:var(--shadow)}
+.hm-letter{background:linear-gradient(120deg,var(--accent-soft) 0%,#FFF9F8 72%);
+  border:1px solid var(--line)}
+.hm-card h3{font-size:19px;font-weight:700;color:var(--ink);margin-bottom:8px}
+.hm-card p{font-size:16px;line-height:1.95;color:var(--ink-soft)}
+.hm-btn{margin-top:14px;background:var(--accent);color:#fff;border:none;
+  border-radius:99px;padding:12px 26px;font-family:inherit;font-size:15px;
+  font-weight:700;cursor:pointer}
+.hm-btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+
+.hm-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px}
+.hm-tile{background:var(--card);border:1px solid var(--line);border-radius:20px;
+  padding:16px;text-align:center;cursor:pointer;box-shadow:var(--shadow)}
+.hm-tile:hover{border-color:var(--accent)}
+.hm-ico{width:48px;height:48px;border-radius:50%;margin:0 auto 10px;
+  display:grid;place-items:center;font-size:22px}
+.hm-tile b{display:block;font-size:15.5px;color:var(--ink)}
+.hm-tile span{font-size:13px;color:var(--ink-soft)}
+
+/* ===== قائمة الموبايل المنسدلة ===== */
+.menu-btn{display:none}
+@media(max-width:899px){
+  .tabs{gap:2px;padding:9px 2px 14px}
+  .tab{font-size:11px;padding:5px 1px}
+  .tab i{font-size:19px}
+  .tab.extra{display:none}
+  .menu-btn{display:block}
+  .drawer{position:fixed;inset:0;background:rgba(44,62,80,.5);z-index:150}
+  .drawer-panel{position:absolute;top:0;bottom:0;right:0;width:74%;max-width:290px;
+    background:#fff;padding:26px 16px;overflow-y:auto;
+    box-shadow:-4px 0 22px rgba(44,62,80,.14)}
+  .drawer-panel h3{font-size:24px;color:var(--accent);padding:0 12px 18px;font-weight:700}
+  .drawer-item{width:100%;display:flex;align-items:center;gap:12px;background:none;
+    border:none;font-family:inherit;font-size:16px;color:var(--ink);text-align:start;
+    padding:14px 12px;border-radius:12px;cursor:pointer}
+  .drawer-item i{font-style:normal;font-size:20px}
+  .drawer-item[data-on="1"]{background:var(--accent-soft);color:var(--accent);font-weight:700}
+  .drawer-sep{font-size:12px;color:var(--ink-soft);padding:16px 12px 6px;font-weight:700}
+}
+@media(min-width:900px){
+  .drawer{display:none}
+  .menu-btn{display:none!important}
+  .tab.extra{display:flex}
+}
+
+/* ===== لابتوب: قائمة جانبية ثابتة على اليمين ===== */
+@media(min-width:900px){
+  html,body{overflow-x:hidden}
+  #root{max-width:none;display:block;width:auto;
+    margin-right:260px;margin-left:0;padding:0}
+  .screen{max-width:820px;margin:0 auto;padding:34px 30px 70px}
+  .center-screen{max-width:520px;margin:0 auto}
+
+  .tabs{position:fixed;top:0;bottom:0;right:0;left:auto;width:260px;max-width:none;
+    margin:0;flex-direction:column;gap:4px;overflow-y:auto;
+    border-top:none;border-left:1px solid var(--line);
+    padding:28px 14px;background:#fff;z-index:60}
+
+  .tabs:before{content:"MamSteps";display:block;font-size:24px;font-weight:700;
+    color:var(--accent);padding:0 14px 20px;letter-spacing:-1px}
+
+  .tab{flex:none;display:flex;align-items:center;gap:11px;width:100%;
+    text-align:right;font-size:15.5px;padding:12px 14px;border-radius:12px}
+  .tab i{margin:0;font-size:19px}
+  .tab:hover{background:var(--accent-soft)}
+  .tab[data-on="1"]{background:var(--accent-soft)}
+  .nav-sep{font-size:12px;color:var(--ink-soft);padding:16px 14px 6px;font-weight:700}
+
+  .stats{gap:14px}
+  .row{gap:12px}
+  .admin-pills{display:none}
+}
+.nav-sep{display:none}
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js" crossorigin></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.7/babel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script type="text/plain" id="src">
+const { useState, useEffect, useRef } = React;
+
+const SUPABASE_URL = "https://bxoraepjhbpmtkspiwqw.supabase.co";
+const SUPABASE_KEY = "sb_publishable_kjZO4nGETTy0NlkobuhfAA_J0fiy6hC";
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const DAY = 86400000;
+
+const PLAN_INFO = {
+  basic:    { name:"الاساسية", items:["الرسالة الاسبوعية من جنينك","صندوق صندوق الرسائل","عدّاد الركلات والطلق","حقيبة المستشفى"] },
+  family:   { name:"العائلية",  items:["كل ما سبق","حساب الاب ورسالة خاصة له","ألبوم التصوير الاسبوعي"] },
+  full:     { name:"الكاملة",   items:["كل ما سبق","حساب الاب والالبوم","جنينك يردّ عليكي","دردشة بلا حدود"] },
+  lifetime: { name:"الحمل كله", items:["كل ميزات الكاملة","لحد يوم الولادة","دفعة وحدة وبتنسي الموضوع"] }
+};
+
+/* ---------- أدوات ---------- */
+function weekFrom(due){
+  if(!due) return 1;
+  const left = Math.ceil((new Date(due) - new Date()) / DAY);
+  const w = 40 - Math.ceil(left / 7);
+  return Math.min(42, Math.max(1, w + 1));
+}
+function daysLeft(due){
+  if(!due) return 0;
+  return Math.max(0, Math.ceil((new Date(due) - new Date()) / DAY));
+}
+function dueFromLmp(lmp){
+  const d = new Date(lmp);
+  d.setDate(d.getDate() + 280);
+  return d.toISOString().slice(0,10);
+}
+function fillName(text, name){
+  return (text||"").replace(/\{\{name\}\}/g, name ? " " + name : "");
+}
+function accentFor(gender){
+  if(gender === "boy")  return "#7FA9C9";
+  if(gender === "girl") return "#E28FA0";
+  return "#E0918F";
+}
+function softFor(gender){
+  if(gender === "boy")  return "#EAF2F8";
+  if(gender === "girl") return "#FCEBEF";
+  return "#FBE9E6";
+}
+
+/* ============ تسجيل الدخول ============ */
+/* ============ الشعار ============ */
+function Logo(){
+  return (
+    <svg className="ms-logo" viewBox="0 0 96 110" fill="none" aria-hidden="true">
+      <rect x="20" y="6" width="56" height="84" rx="28" stroke="#A97A5C" strokeWidth="1.6"/>
+      <path d="M48 30c-7 0-12 5-12 12 0 5 3 8 3 12l-2 12" stroke="#A97A5C"
+        strokeWidth="1.6" strokeLinecap="round"/>
+      <circle cx="55" cy="56" r="9" stroke="#C08A62" strokeWidth="1.6"/>
+      <path d="M55 65c-4 3-6 7-6 11" stroke="#C08A62" strokeWidth="1.6" strokeLinecap="round"/>
+      <path d="M22 84c-6-2-11-7-13-13 7-1 13 2 16 8" stroke="#C9A487" strokeWidth="1.4"
+        strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M26 94c-7 0-13-4-16-10 7-2 14 0 18 6" stroke="#C9A487" strokeWidth="1.4"
+        strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
+
+/* ============ شاشة الترحيب ============ */
+/* ضع هنا رابط صورة الخلفية بعد رفعها على Supabase Storage (bucket عام) */
+const LOGO_IMAGE = "data:image/png;base64,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";
+const HERO_IMAGE = "https://bxoraepjhbpmtkspiwqw.supabase.co/storage/v1/object/public/assets/hero.png";
+
+const FALLBACK_LETTERS = [
+  { week:12, body:"ماما، صرت قد ليمونة 🍋 وصرت أعرف أعقّص إيديّي.\nبعرف إنك ما نمتي منيح، وإنك تعبانة، وإنك ما اشتكيتي...\nبحبك ماما." },
+  { week:20, body:"ماما، وصلنا لنص الطريق 🤍\nنص الرحلة قطعناها سوا.\nبس الأكيد إني إلك، ومن هلق." },
+  { week:29, body:"ماما، عظامي عم تقوى وكل شي بآخدو جايي منك.\nحرفياً عم تعطيني من جسمك مشان كبر...\nما في حب أكبر من هيك." }
+];
+
+function Landing({ onStart, onLogin }){
+  const [oauthErr,setOauthErr] = useState("");
+
+  async function google(){
+    setOauthErr("");
+    const { error } = await db.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: window.location.origin }
+    });
+    if(error) setOauthErr("الدخول بجوجل غير مفعّل بعد — استخدمي البريد.");
+  }
+
+  return (
+    <div className="lp">
+      {HERO_IMAGE &&
+        <div className="lp-bg" style={{backgroundImage:"url(" + HERO_IMAGE + ")"}}></div>}
+      <div className="lp-veil"></div>
+
+      <div className="lp-wrap">
+        <div className="lp-hero">
+          {LOGO_IMAGE
+            ? <img src={LOGO_IMAGE} alt="MamSteps" className="ms-logo-img" />
+            : <><Logo /><div className="ms-name">MamSteps</div></>}
+          <p className="ms-sub">خطوة بخطوة، من أول نبضة 🤍</p>
+        </div>
+
+        <div className="lp-mid">
+          <h1 className="lp-head">كل لحظة<span>تستحق أن تُحفظ</span></h1>
+          <div className="lp-rule"></div>
+          <p className="lp-body">
+            MamSteps هو مساحة دافئة لمرافقتك في رحلة حملك وطفلك،
+            من أول يوم... إلى كل خطوة بعده.
+          </p>
+        </div>
+
+        <div className="lp-actions">
+          {oauthErr && <div className="alert alert-warn">{oauthErr}</div>}
+
+          <button className="lp-oauth" onClick={google}>
+            <svg width="20" height="20" viewBox="0 0 48 48" aria-hidden="true">
+              <path fill="#4285F4" d="M45 24c0-1.6-.1-2.7-.4-3.9H24v7.1h12c-.2 1.9-1.5 4.7-4.4 6.6l6.7 5.2C42.2 35.3 45 30.1 45 24z"/>
+              <path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.3l-6.9-5.4c-1.8 1.3-4.3 2.2-7.6 2.2-5.8 0-10.7-3.8-12.5-9.1l-7.1 5.5C8 41.2 15.4 46 24 46z"/>
+              <path fill="#FBBC05" d="M11.5 28.4c-.5-1.4-.7-2.9-.7-4.4s.3-3 .7-4.4l-7.1-5.5C2.9 17 2 20.4 2 24s.9 7 2.4 9.9l7.1-5.5z"/>
+              <path fill="#EA4335" d="M24 10.5c4.1 0 6.9 1.8 8.5 3.3l6.2-6C34.9 4.3 29.9 2 24 2 15.4 2 8 6.8 4.4 14.1l7.1 5.5c1.8-5.3 6.7-9.1 12.5-9.1z"/>
+            </svg>
+            متابعة باستخدام Google
+          </button>
+
+          <div className="lp-or">أو متابعة باستخدام</div>
+
+          <button className="lp-mailbtn" onClick={onStart}>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect x="2.5" y="5" width="19" height="14" rx="3" stroke="#B4736E" strokeWidth="1.6"/>
+              <path d="M3 7l9 6 9-6" stroke="#B4736E" strokeWidth="1.6" strokeLinecap="round"/>
+            </svg>
+            البريد الإلكتروني
+          </button>
+
+          <button className="lp-swap" onClick={onLogin}>لدي حساب — دخول</button>
+
+          <p className="lp-terms">
+            بالمتابعة، أنت توافقين على الشروط والأحكام وسياسة الخصوصية.<br/>
+            MamSteps يرافقك ويطمئنك، لكنه لا يغني عن طبيبك أبداً.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Auth({ initial, onBack }){
+  const [mode,setMode] = useState(initial || "in");
+  const [email,setEmail] = useState("");
+  const [pass,setPass] = useState("");
+  const [err,setErr] = useState("");
+  const [busy,setBusy] = useState(false);
+
+  async function go(){
+    setErr(""); setBusy(true);
+    try{
+      const fn = mode === "in" ? "signInWithPassword" : "signUp";
+      const { error } = await db.auth[fn]({ email: email.trim(), password: pass });
+      if(error) throw error;
+      if(mode === "up") setErr("تم إنشاء حسابك! سجّلي دخولك الآن.");
+    }catch(e){
+      setErr(e.message === "Invalid login credentials"
+        ? "البريد أو كلمة السر غير صحيحة"
+        : e.message);
+    }
+    setBusy(false);
+  }
+
+  return (
+    <div className="center-screen">
+      <div className="brand" style={{fontFamily:"Amiri,serif"}}>MamSteps</div>
+      <div className="brand-sub">خطوة بخطوة، من أول نبضة</div>
+
+      <div className="card">
+        <label>الإيميل</label>
+        <input type="email" value={email} onChange={e=>setEmail(e.target.value)}
+          placeholder="you@mail.com" autoComplete="email" />
+        <label>كلمة السر</label>
+        <input type="password" value={pass} onChange={e=>setPass(e.target.value)}
+          placeholder="٦ أحرف على الاقل" autoComplete="current-password" />
+
+        {err && <div className={"alert " + (err.includes("تم") ? "alert-ok" : "alert-warn")}>{err}</div>}
+
+        <button className="btn" onClick={go} disabled={busy || !email || pass.length < 6}>
+          {busy ? "لحظة..." : mode === "in" ? "دخول" : "إنشاء حساب"}
+        </button>
+        <button className="btn btn-ghost" onClick={()=>{setMode(mode==="in"?"up":"in");setErr("")}}>
+          {mode === "in" ? "ليس لدي حساب — سجّليني" : "لدي حساب — دخول"}
+        </button>
+        {onBack && <button className="btn btn-ghost" onClick={onBack}>رجوع</button>}
+      </div>
+      <p className="tiny" style={{textAlign:"center"}}>
+        MamSteps يرافقك ويطمئنك، لكنه لا يغني عن طبيبك أبداً.
+      </p>
+    </div>
+  );
+}
+
+/* ============ الإعداد الاول ============ */
+function Onboard({ user, done }){
+  const [step,setStep] = useState(0);
+  const [name,setName] = useState("");
+  const [country,setCountry] = useState("LB");
+  const [dialect,setDialect] = useState("lb");
+  const [mode,setMode] = useState("due");
+  const [dateVal,setDate] = useState("");
+  const [busy,setBusy] = useState(false);
+  const [err,setErr] = useState("");
+  const [joinCode,setJoin] = useState("");
+  const [joining,setJoining] = useState(false);
+  const [stage,setStage] = useState(null);
+  const [babyName,setBabyName] = useState("");
+  const [weight,setWeight] = useState("");
+
+  async function join(){
+    setBusy(true); setErr("");
+    try{
+      await db.from("profiles").update({ display_name: name.trim() || "بابا" }).eq("id", user.id);
+      const { error } = await db.rpc("join_with_code", { p_code: joinCode });
+      if(error) throw error;
+      done();
+    }catch(e){ setErr(e.message); setBusy(false); }
+  }
+
+  async function save(){
+    setBusy(true); setErr("");
+    try{
+      const due = mode === "lmp" ? dueFromLmp(dateVal) : dateVal;
+
+      await db.from("profiles").update({
+        display_name: name.trim(), country, dialect
+      }).eq("id", user.id);
+
+      const { data: preg, error } = await db.from("pregnancies")
+        .insert({ owner_id:user.id, due_date:due, mother_name:name.trim() })
+        .select().single();
+      if(error) throw error;
+
+      await db.from("pregnancy_members")
+        .insert({ pregnancy_id: preg.id, user_id: user.id, member_role:"mother" });
+
+      done();
+    }catch(e){ setErr(e.message); setBusy(false); }
+  }
+
+  async function saveBorn(){
+    setBusy(true); setErr("");
+    try{
+      await db.from("profiles").update({
+        display_name: name.trim(), country, dialect
+      }).eq("id", user.id);
+
+      /* نسجّل حملاً منتهياً كحامل للبيانات، ثم المولود */
+      const { data: preg, error } = await db.from("pregnancies")
+        .insert({ owner_id:user.id, due_date:dateVal, mother_name:name.trim() })
+        .select().single();
+      if(error) throw error;
+
+      await db.from("pregnancy_members")
+        .insert({ pregnancy_id: preg.id, user_id: user.id, member_role:"mother" });
+
+      const { error: e2 } = await db.from("babies").insert({
+        pregnancy_id: preg.id, owner_id: user.id,
+        name: babyName.trim() || null, birth_date: dateVal,
+        birth_weight: weight ? Number(weight) : null });
+      if(e2) throw e2;
+
+      done();
+    }catch(e){ setErr(e.message); setBusy(false); }
+  }
+
+  if(joining) return (
+    <div className="center-screen">
+      <h1>معك كود دعوة؟</h1>
+      <p className="muted" style={{marginBottom:26}}>اكتب اسمك والكود الذي وصلك.</p>
+      <div className="card">
+        <label>اسمك</label>
+        <input value={name} maxLength={20} onChange={e=>setName(e.target.value)}
+          placeholder="مثلاً: كريم" />
+        <label>كود الدعوة</label>
+        <input value={joinCode} maxLength={8}
+          onChange={e=>setJoin(e.target.value.toUpperCase())}
+          placeholder="ABC123" style={{letterSpacing:3,textAlign:"center",fontSize:20}} />
+        {err && <div className="alert alert-warn">{err}</div>}
+        <button className="btn" disabled={!joinCode.trim() || busy} onClick={join}>
+          {busy ? "لحظة..." : "ادخل"}
+        </button>
+        <button className="btn btn-ghost" onClick={()=>{setJoining(false);setErr("")}}>رجوع</button>
+      </div>
+    </div>
+  );
+
+  if(stage === null) return (
+    <div className="center-screen">
+      <div className="brand" style={{fontFamily:"Amiri,serif"}}>MamSteps</div>
+      <div className="brand-sub">أين أنت الآن؟</div>
+      <div className="card">
+        <button className="btn" style={{padding:"22px",fontSize:19,marginBottom:14}}
+          onClick={()=>setStage("pregnant")}>
+          🤰 أنا حامل
+        </button>
+        <button className="btn btn-sage" style={{padding:"22px",fontSize:19}}
+          onClick={()=>setStage("born")}>
+          👶 ولدتُ بالفعل
+        </button>
+        <p className="tiny" style={{marginTop:14}}>
+          يمكنك تغيير ذلك لاحقاً من إعداداتك.
+        </p>
+        <button className="btn btn-ghost" style={{marginTop:10}}
+          onClick={()=>setJoining(true)}>معي كود دعوة</button>
+      </div>
+    </div>
+  );
+
+  /* مسار: ولدت بالفعل */
+  if(stage === "born") return (
+    <div className="center-screen">
+      <h1>مبروك 🤍</h1>
+      <p className="muted" style={{marginBottom:26}}>احكي لنا عن مولودك.</p>
+      <div className="card">
+        <label>اسمك</label>
+        <input value={name} maxLength={20} onChange={e=>setName(e.target.value)}
+          placeholder="مثلاً: آية" />
+
+        <label>من أين أنت؟</label>
+        <div className="row" style={{marginBottom:18}}>
+          <button className="pill" data-on={country==="LB"?"1":"0"}
+            onClick={()=>{setCountry("LB");setDialect("lb")}}>لبنان</button>
+          <button className="pill" data-on={country==="EG"?"1":"0"}
+            onClick={()=>{setCountry("EG");setDialect("eg")}}>مصر</button>
+          <button className="pill" data-on={country==="OTHER"?"1":"0"}
+            onClick={()=>setCountry("OTHER")}>مكان آخر</button>
+        </div>
+
+        <label>تاريخ الولادة</label>
+        <input type="date" value={dateVal} max={new Date().toISOString().slice(0,10)}
+          onChange={e=>setDate(e.target.value)} />
+
+        {dateVal &&
+          <div className="alert alert-info">
+            عمره الآن: <b>{monthsSince(dateVal) === 0
+              ? daysSince(dateVal) + " يوم"
+              : monthsSince(dateVal) + " شهر"}</b>
+          </div>}
+
+        <label>اسم المولود (اختياري)</label>
+        <input value={babyName} maxLength={24} onChange={e=>setBabyName(e.target.value)} />
+
+        <label>وزنه عند الولادة بالكيلو (اختياري)</label>
+        <input type="number" step="0.01" value={weight}
+          onChange={e=>setWeight(e.target.value)} placeholder="3.2" />
+
+        {err && <div className="alert alert-warn">{err}</div>}
+
+        <button className="btn" disabled={!name.trim() || !dateVal || busy} onClick={saveBorn}>
+          {busy ? "لحظة..." : "ابدئي رحلة السنة الأولى"}
+        </button>
+        <button className="btn btn-ghost" onClick={()=>{setStage(null);setErr("")}}>رجوع</button>
+      </div>
+    </div>
+  );
+
+  if(step === 0) return (
+    <div className="center-screen">
+      <h1>أهلاً بك 🤍</h1>
+      <p className="muted" style={{marginBottom:26}}>ما اسمك؟ جنينك سيناديك به.</p>
+      <div className="card">
+        <label>اسمك</label>
+        <input value={name} maxLength={20} onChange={e=>setName(e.target.value)} placeholder="مثلاً: آية" />
+        <label>من أين أنت؟</label>
+        <div className="row" style={{marginBottom:18}}>
+          <button className="pill" data-on={country==="LB"?"1":"0"}
+            onClick={()=>{setCountry("LB");setDialect("lb")}}>لبنان</button>
+          <button className="pill" data-on={country==="EG"?"1":"0"}
+            onClick={()=>{setCountry("EG");setDialect("eg")}}>مصر</button>
+          <button className="pill" data-on={country==="OTHER"?"1":"0"}
+            onClick={()=>setCountry("OTHER")}>مكان آخر</button>
+        </div>
+        <button className="btn" disabled={!name.trim()} onClick={()=>setStep(1)}>لنكمل</button>
+        <button className="btn btn-ghost" onClick={()=>setStage(null)}>رجوع</button>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="center-screen">
+      <h1>متى موعدك؟</h1>
+      <p className="muted" style={{marginBottom:26}}>اختاري الطريقة التي تعرفينها.</p>
+      <div className="card">
+        <div className="row" style={{marginBottom:18}}>
+          <button className="pill" data-on={mode==="due"?"1":"0"} onClick={()=>setMode("due")}>
+            الطبيب أخبرني بموعد الولادة
+          </button>
+          <button className="pill" data-on={mode==="lmp"?"1":"0"} onClick={()=>setMode("lmp")}>
+            أعرف أول يوم في آخر دورة
+          </button>
+        </div>
+
+        <label>{mode==="due" ? "تاريخ الولادة المتوقع" : "أول يوم في آخر دورة"}</label>
+        <input type="date" value={dateVal} onChange={e=>setDate(e.target.value)} />
+
+        {mode==="lmp" && dateVal &&
+          <div className="alert alert-info">
+            موعد ولادتك المتوقع: <b>{dueFromLmp(dateVal)}</b>
+          </div>}
+
+        {err && <div className="alert alert-warn">{err}</div>}
+
+        <button className="btn" disabled={!dateVal || busy} onClick={save}>
+          {busy ? "لحظة..." : "ابدئي رحلتك"}
+        </button>
+        <button className="btn btn-ghost" onClick={()=>setStep(0)}>رجوع</button>
+        <p className="tiny">يمكنك تعديل التاريخ في أي وقت من إعداداتك.</p>
+      </div>
+    </div>
+  );
+}
+
+/* ============ الشاشة الرئيسية ============ */
+function Ring({ value, max, label, sub }){
+  const R = 58, C = 2 * Math.PI * R;
+  const pct = Math.min(1, value / max);
+  return (
+    <div className="ring">
+      <svg width="132" height="132" viewBox="0 0 132 132">
+        <circle cx="66" cy="66" r={R} fill="none" stroke="var(--accent-soft)" strokeWidth="11"/>
+        <circle cx="66" cy="66" r={R} fill="none" stroke="var(--accent)" strokeWidth="11"
+          strokeLinecap="round" strokeDasharray={C}
+          strokeDashoffset={C * (1 - pct)}
+          style={{transition:"stroke-dashoffset .9s cubic-bezier(.2,.7,.3,1)"}}/>
+      </svg>
+      <div className="ring-mid">
+        <div className="ring-lbl">{label}</div>
+        <div className="ring-num">{value}</div>
+        <div className="ring-of">{sub}</div>
+      </div>
+    </div>
+  );
+}
+
+function Home({ profile, preg, week, sub, go, nav }){
+  const left = daysLeft(preg.due_date);
+  const [size,setSize] = useState("");
+  const [letter,setLetter] = useState(null);
+  const [ann,setAnn] = useState([]);
+  const trial = trialDaysLeft(sub);
+  const expired = sub && new Date(sub.expires_at) <= new Date();
+
+  useEffect(()=>{
+    db.from("announcements").select("*").eq("is_active", true)
+      .order("created_at",{ascending:false}).limit(2)
+      .then(({data})=>setAnn(data||[]));
+  },[]);
+
+  useEffect(()=>{
+    db.from("weekly_messages").select("size_note, body")
+      .eq("week", week).eq("audience","mother").eq("dialect", profile.dialect)
+      .eq("variant", profile.variant_no || 1).limit(1)
+      .then(({data})=>{
+        if(data && data[0]){
+          setSize(data[0].size_note || "");
+          setLetter(fillName(data[0].body, preg.mother_name || profile.display_name));
+        }
+      });
+  },[week]);
+
+  const TILES = [
+    ["weekly","💌","رسالة جنينك","اقرئيها الآن","var(--accent-soft)"],
+    ["album","📸","ألبومي","صورة كل أسبوع","#F3EAF7"],
+    ["tools","🧰","أدواتي","ركلات وطلق","#EAF3EE"],
+    ["journey","🗺️","قصة حملك","كل ما فعلتِه","#FBF0E4"]
+  ];
+
+  return (
+    <div className="screen">
+      <div className="hm-top">
+        <div>
+          <div className="hm-hi">مرحباً، <span>{profile.display_name}</span> 🤍</div>
+          <p className="muted">كل يوم يقرّبك أكثر</p>
+        </div>
+        <div className="hm-avatar">🤰</div>
+      </div>
+
+      {trial !== null &&
+        <div className="alert alert-info" onClick={go} style={{cursor:"pointer"}}>
+          🎁 <b>تجربتك المجانية — باقٍ {trial === 0 ? "أقل من يوم" : trial + " يوم"}</b>
+          <br/>اضغطي هنا لرؤية الباقات.
+        </div>}
+      {expired &&
+        <div className="alert alert-warn" onClick={go} style={{cursor:"pointer"}}>
+          ⭐ <b>انتهت تجربتك</b><br/>اختاري باقتك لتكملي مع جنينك.
+        </div>}
+      {ann.map(a=>(
+        <div className="alert alert-info" key={a.id}><b>{a.title}</b><br/>{a.body}</div>
+      ))}
+
+      <div className="ring-wrap">
+        <Ring value={week} max={40} label="الأسبوع" sub="من ٤٠ أسبوع" />
+        <div className="hm-visual">
+          <div style={{fontSize:52}}>🤍</div>
+          {size && <div className="hm-size">بحجم {size}</div>}
+        </div>
+      </div>
+
+      <div className="hm-days">
+        <span>🗓️</span>
+        <span>باقٍ <b>{left}</b> يوم على موعد الولادة</span>
+      </div>
+
+      {letter &&
+        <div className="hm-card hm-letter">
+          <h3>💌 رسالة جنينك اليوم</h3>
+          <p>{letter.length > 130 ? letter.slice(0,130) + "..." : letter}</p>
+          <button className="hm-btn" onClick={()=>nav("weekly")}>اقرئي الرسالة كاملة</button>
+        </div>}
+
+      <div className="hm-card" style={{background:"#FFF9F6",border:"1px solid var(--line)"}}>
+        <h3>💬 تحدّثي مع جنينك</h3>
+        <p>اسأليه، احكي له، وسيردّ عليك بأسلوبه.</p>
+        <button className="hm-btn ghost" onClick={()=>nav("chat")}>ابدئي الحديث</button>
+      </div>
+
+      <div className="hm-grid">
+        {TILES.map(([k,i,t,d,bg])=>(
+          <div className="hm-tile" key={k} onClick={()=>nav(k)}>
+            <div className="hm-ico" style={{background:bg}}>{i}</div>
+            <b>{t}</b>
+            <span>{d}</span>
+          </div>
+        ))}
+      </div>
+
+      <div className="alert alert-warn" style={{marginTop:18}}>
+        ⚠️ إذا حدث نزيف، أو ألم بطن شديد، أو لم تعودي تشعرين بحركة الجنين،
+        أو صداع شديد مع تشوّش في الرؤية — توجّهي إلى الطوارئ فوراً. لا تنتظري.
+      </div>
+    </div>
+  );
+}
+
+/* ============ الرسالة الاسبوعية ============ */
+
+function Weekly({ profile, preg, week, role, sub, go }){
+  const [msg,setMsg] = useState(null);
+  const [load,setLoad] = useState(true);
+  const [shown,setShown] = useState(week);
+  const [openList,setOpenList] = useState(false);
+
+  /* المشترك بيشوف كل الارشيف · غير المشترك آخر أسبوعين بس */
+  const paid = RANK[planOf(sub)] >= 1 && planOf(sub) !== "trial";
+  const minWeek = paid ? 1 : Math.max(1, week - 2);
+
+  useEffect(()=>{ setShown(week); },[week]);
+
+  useEffect(()=>{
+    if(shown < minWeek){ setShown(week); return; }
+    setLoad(true);
+    db.from("weekly_messages").select("*")
+      .eq("week", shown)
+      .eq("audience", role === "father" ? "father" : "mother")
+      .eq("dialect", profile.dialect)
+      .then(({data})=>{
+        if(data && data.length){
+          const pick = data.find(r => r.variant === profile.variant_no) || data[0];
+          setMsg(pick);
+        } else setMsg(null);
+        setLoad(false);
+      });
+  },[shown, role]);
+
+  const who = role === "father"
+    ? (preg.father_name || "بابا")
+    : (preg.mother_name || profile.display_name);
+
+  const open = [];
+  for(let w = week; w >= minWeek; w--) open.push(w);
+  const lockedPast = [];
+  for(let w = minWeek - 1; w >= 1; w--) lockedPast.push(w);
+  const future = [];
+  for(let w = week + 1; w <= 40; w++) future.push(w);
+
+  return (
+    <div className="screen">
+      <div className="hdr"><div>
+        <h2>رسالة الاسبوع {shown}</h2>
+        <p className="muted">
+          {shown === week ? "من جنينك إليك · رسالة هذا الاسبوع"
+                          : "رسالة سابقة · أنت الآن في الاسبوع " + week}
+        </p>
+      </div></div>
+
+      {load ? <div className="spin"></div> :
+       !msg ? <div className="card"><p className="muted">
+          لا توجد رسالة لهذا الاسبوع بعد. ستكون جاهزة قريباً 🤍
+       </p></div> :
+      <div className="letter">
+        <p>{fillName(msg.body, who)}</p>
+        {msg.size_note && shown === week &&
+          <p className="tiny" style={{marginTop:12}}>جنينك الآن بحجم {msg.size_note}</p>}
+        <div className="from">— {preg.baby_name || "جنينك"} 🤍</div>
+      </div>}
+
+      {shown !== week &&
+        <button className="btn" onClick={()=>setShown(week)}>العودة لرسالة هذا الاسبوع</button>}
+
+      <button className="btn btn-ghost" onClick={()=>setOpenList(!openList)}>
+        {openList ? "إغلاق الرسائل" : "📬 رسائلك السابقة"}
+      </button>
+
+      {openList && <>
+        <div className="card">
+          <h2>رسائل يمكنك قراءتها</h2>
+          <div style={{display:"flex",flexWrap:"wrap",gap:8,marginTop:10}}>
+            {open.map(w=>(
+              <button key={w} className="pill" data-on={shown===w?"1":"0"}
+                style={{flex:"none",minWidth:56,padding:"9px 12px"}}
+                onClick={()=>{ setShown(w); window.scrollTo({top:0,behavior:"smooth"}); }}>
+                {w}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {lockedPast.length > 0 &&
+          <div className="card" style={{borderColor:"var(--accent)"}}>
+            <h2>🔒 {lockedPast.length} رسالة سابقة</h2>
+            <p className="muted" style={{marginBottom:14}}>
+              كل الرسائل التي كتبها جنينك من الاسبوع ١ حتى الآن — تُفتح مع الاشتراك.
+            </p>
+            <div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:14}}>
+              {lockedPast.slice(0,14).map(w=>(
+                <span key={w} className="pill" style={{flex:"none",minWidth:56,
+                  padding:"9px 12px",opacity:.4,display:"inline-block",textAlign:"center"}}>
+                  🔒 {w}
+                </span>
+              ))}
+            </div>
+            <button className="btn" onClick={go}>افتحي كل الرسائل</button>
+          </div>}
+
+        {future.length > 0 && <div className="card">
+          <h2>لم تصل بعد</h2>
+          <p className="muted" style={{marginBottom:12}}>
+            كل أسبوع تصلك رسالة جديدة من جنينك 🤍
+          </p>
+          <div style={{display:"flex",flexWrap:"wrap",gap:8}}>
+            {future.slice(0,16).map(w=>(
+              <span key={w} className="pill" style={{flex:"none",minWidth:56,
+                padding:"9px 12px",opacity:.4,display:"inline-block",textAlign:"center"}}>
+                🔒 {w}
+              </span>
+            ))}
+          </div>
+        </div>}
+      </>}
+    </div>
+  );
+}
+
+/* ============ احكيلي ============ */
+function Letters({ user, preg, week }){
+  const [body,setBody] = useState("");
+  const [list,setList] = useState([]);
+  const [busy,setBusy] = useState(false);
+  const [open,setOpen] = useState({});
+  const [when,setWhen] = useState("birth");
+  const born = daysLeft(preg.due_date) === 0;
+
+  const WHEN = [
+    { k:"birth",  t:"يوم ولادته" },
+    { k:"year1",  t:"عيد ميلاده الاول" },
+    { k:"year3",  t:"عمر ٣ سنوات" },
+    { k:"year10", t:"عمر ١٠ سنوات" },
+    { k:"year18", t:"عمر ١٨ سنة" }
+  ];
+
+  async function load(){
+    const { data } = await db.from("letters_to_baby").select("*")
+      .eq("pregnancy_id", preg.id).order("created_at",{ascending:false});
+    setList(data || []);
+  }
+  useEffect(()=>{ load(); },[]);
+
+  async function save(){
+    if(!body.trim()) return;
+    setBusy(true);
+    await db.from("letters_to_baby").insert({
+      pregnancy_id: preg.id, user_id: user.id, week, body: body.trim(),
+      open_at: preg.due_date, open_kind: when
+    });
+    setBody(""); setBusy(false); load();
+  }
+
+  return (
+    <div className="screen">
+      <div className="hdr"><div>
+        <h2>صندوق الرسائل</h2>
+        <p className="muted">اكتبي له ما تشائين — يُحفظ حتى يأتي</p>
+      </div></div>
+
+      <div className="card">
+        <textarea value={body} onChange={e=>setBody(e.target.value)}
+          placeholder="حبيبي، اليوم..." maxLength={2000} />
+
+        <label>متى يقرأها؟</label>
+        <div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:16}}>
+          {WHEN.map(w=>(
+            <button key={w.k} className="pill" data-on={when===w.k?"1":"0"}
+              style={{flex:"none",padding:"10px 14px",fontSize:14}}
+              onClick={()=>setWhen(w.k)}>{w.t}</button>
+          ))}
+        </div>
+
+        <button className="btn" onClick={save} disabled={busy || !body.trim()}>
+          {busy ? "يُحفظ..." : "احفظيها في الصندوق"}
+        </button>
+        <p className="tiny">صندوقك مغلق — كل رسالة تُفتح في وقتها 🤍</p>
+      </div>
+
+      {list.length > 0 && <>
+        <h2 style={{margin:"22px 0 12px"}}>رسائلك ({list.length})</h2>
+        {list.map(l=>{
+          const w = WHEN.find(x=>x.k===(l.open_kind||"birth"));
+          return (
+            <div className="saved" key={l.id}>
+              <div className="meta">
+                أسبوع {l.week} · {new Date(l.created_at).toLocaleDateString("ar-EG")}
+                {w && " · تُفتح " + w.t}
+              </div>
+              <div className={(!born && !open[l.id]) ? "locked" : ""}>{l.body}</div>
+              {!born && <button className="btn btn-ghost btn-sm" style={{marginTop:10,width:"100%"}}
+                onClick={()=>setOpen({...open,[l.id]:!open[l.id]})}>
+                {open[l.id] ? "أغلقيها" : "🔒 افتحيها الآن"}
+              </button>}
+            </div>
+          );
+        })}
+      </>}
+    </div>
+  );
+}
+
+/* ============ الاشتراك والدفع ============ */
+function Billing({ user, profile, sub, reload }){
+  const [prices,setPrices] = useState([]);
+  const [methods,setMethods] = useState([]);
+  const [plan,setPlan] = useState(null);
+  const [method,setMethod] = useState(null);
+  const [ref,setRef] = useState("");
+  const [file,setFile] = useState(null);
+  const [busy,setBusy] = useState(false);
+  const [msg,setMsg] = useState("");
+  const [reqs,setReqs] = useState([]);
+
+  async function load_(){
+    const c = profile.country;
+    const p = await db.from("plan_prices").select("*")
+      .eq("country", c).eq("is_active", true).order("sort_order");
+    setPrices(p.data || []);
+    const m = await db.from("payment_methods").select("*")
+      .eq("country", c).eq("is_active", true).order("sort_order");
+    setMethods(m.data || []);
+    const r = await db.from("payment_requests").select("*")
+      .eq("user_id", user.id).order("created_at",{ascending:false}).limit(5);
+    setReqs(r.data || []);
+  }
+  useEffect(()=>{ load_(); },[]);
+
+  async function submit(){
+    if(!plan || !method || !ref.trim()) return;
+    setBusy(true); setMsg("");
+    try{
+      let path = null;
+      if(file){
+        path = user.id + "/" + Date.now() + "_receipt.jpg";
+        const small = await shrink(file, 1400);
+        const { error } = await db.storage.from("receipts").upload(path, small);
+        if(error) throw error;
+      }
+      const p = prices.find(x=>x.plan===plan.plan);
+      const { error } = await db.from("payment_requests").insert({
+        user_id:user.id, plan:plan.plan, country:profile.country,
+        method_name:method.method_name,
+        amount: p ? (p.price_local || p.price_usd) : null,
+        currency: p ? p.currency : null,
+        months: p ? p.months : 1,
+        reference: ref.trim(), receipt_path: path, status:"pending" });
+      if(error) throw error;
+      setMsg("وصلنا طلبك! سنفعّل اشتراكك في أقرب وقت 🤍");
+      setPlan(null); setMethod(null); setRef(""); setFile(null);
+      load_();
+    }catch(e){
+      setMsg(String(e.message).includes("duplicate")
+        ? "رقم العملية هذا مستخدم من قبل."
+        : e.message);
+    }
+    setBusy(false);
+  }
+
+  const exp = sub ? new Date(sub.expires_at) : null;
+  const alive = exp && exp > new Date();
+  const pending = reqs.filter(r=>r.status==="pending");
+
+  /* شاشة الدفع بعد اختيار الباقة */
+  if(plan) return (
+    <div className="screen">
+      <div className="hdr"><div>
+        <h2>{PLAN_INFO[plan.plan]?.name}</h2>
+        <p className="muted">{(plan.price_local || plan.price_usd) + " " + plan.currency}</p>
+      </div></div>
+
+      {msg && <div className={"alert " + (msg.includes("وصلنا") ? "alert-ok" : "alert-warn")}>{msg}</div>}
+
+      <div className="card">
+        <h2>حوّلي المبلغ</h2>
+        <p className="muted" style={{marginBottom:14}}>اختاري الطريقة المناسبة لك</p>
+        {methods.length === 0 &&
+          <div className="alert alert-warn">لا توجد وسيلة دفع متاحة لبلدك حالياً.</div>}
+        {methods.map(m=>(
+          <div className="plan" key={m.id} data-on={method?.id===m.id?"1":"0"}
+            onClick={()=>setMethod(m)}>
+            <b>{m.method_name}</b>
+            <p style={{fontSize:16,margin:"6px 0"}}>{m.account_info}</p>
+            {m.instructions && <p className="tiny">{m.instructions}</p>}
+          </div>
+        ))}
+      </div>
+
+      {method && <div className="card">
+        <h2>ثم أكّدي التحويل</h2>
+        <label>رقم العملية / المرجع</label>
+        <input value={ref} onChange={e=>setRef(e.target.value)} placeholder="من إيصال التحويل" />
+        <label>صورة الإيصال (تسرّع التفعيل)</label>
+        <input type="file" accept="image/*" onChange={e=>setFile(e.target.files[0])} />
+        <button className="btn" onClick={submit} disabled={busy || !ref.trim()}>
+          {busy ? "جارٍ الإرسال..." : "أرسلي الطلب"}
+        </button>
+      </div>}
+
+      <button className="btn btn-ghost" onClick={()=>{setPlan(null);setMethod(null)}}>
+        العودة للباقات
+      </button>
+    </div>
+  );
+
+  /* شاشة الباقات */
+  return (
+    <div className="screen">
+      <div className="hdr"><div>
+        <h2>اشتراكك</h2>
+        <p className="muted">
+          {sub && alive
+            ? (sub.status === "trial" ? "تجربة مجانية" : PLAN_INFO[sub.plan]?.name || "مجاني")
+              + " · لحد " + exp.toLocaleDateString("ar-EG")
+            : "ليس لديك اشتراك فعّال"}
+        </p>
+      </div></div>
+
+      {msg && <div className="alert alert-ok">{msg}</div>}
+
+      {pending.length > 0 &&
+        <div className="alert alert-info">⏳ لديك طلب دفع قيد المراجعة — سنفعّله قريباً 🤍</div>}
+
+      {sub && sub.status === "trial" && alive &&
+        <div className="alert alert-info">
+          تجربتك المجانية تنتهي {exp.toLocaleDateString("ar-EG")} — اختاري باقتك قبلها.
+        </div>}
+
+      {prices.length === 0 && <div className="card"><p className="muted">جارٍ تحميل الباقات...</p></div>}
+
+      {prices.map(p=>(
+        <div className="plan" key={p.plan}
+          style={p.badge ? {borderColor:"var(--accent)",borderWidth:2} : {}}>
+          <div className="top">
+            <b>{PLAN_INFO[p.plan]?.name}</b>
+            <span className="price">{(p.price_local || p.price_usd) + " " + p.currency}</span>
+          </div>
+          {p.badge && <p className="tiny" style={{color:"var(--accent)",fontWeight:700}}>⭐ {p.badge}</p>}
+          <p className="tiny">{p.months > 1 ? "لمدة " + p.months + " أشهر" : "شهرياً"}</p>
+          <ul style={{margin:"10px 0"}}>
+            {(PLAN_INFO[p.plan]?.items||[]).map((it,i)=><li key={i}>{it}</li>)}
+          </ul>
+          <button className="btn" style={{marginTop:6}} onClick={()=>{setPlan(p);setMsg("")}}>
+            اشتركي بهذه الباقة
+          </button>
+        </div>
+      ))}
+
+      {reqs.length > 0 && <>
+        <h2 style={{margin:"22px 0 12px"}}>طلباتك السابقة</h2>
+        {reqs.map(r=>(
+          <div className="req" key={r.id}>
+            <b>{PLAN_INFO[r.plan]?.name}</b> · {r.amount} {r.currency}
+            <p className="tiny">
+              {r.status === "pending" ? "⏳ قيد المراجعة"
+               : r.status === "approved" ? "✅ تم التفعيل" : "❌ مرفوض"}
+              {r.admin_note ? " — " + r.admin_note : ""}
+            </p>
+          </div>
+        ))}
+      </>}
+    </div>
+  );
+}
+
+/* ============ الإعدادات ============ */
+function Settings({ user, profile, preg, sub, role, reload, go, baby }){
+  const [gender,setGender] = useState(preg.baby_gender);
+  const [persona,setPersona] = useState(preg.baby_persona || "warm");
+  const [serenity,setSerenity] = useState(profile.show_serenity !== false);
+  const [babyName,setBabyName] = useState(preg.baby_name || "");
+  const [due,setDue] = useState(preg.due_date);
+  const [msg,setMsg] = useState("");
+  const [confirmStop,setConfirm] = useState(false);
+
+  async function save(){
+    await db.from("pregnancies").update({
+      baby_gender: gender, baby_name: babyName.trim() || null,
+      due_date: due, baby_persona: persona
+    }).eq("id", preg.id);
+    await db.from("profiles").update({ show_serenity: serenity }).eq("id", user.id);
+    setMsg("حُفظ 🤍"); reload();
+  }
+
+  async function stop(){
+    await db.from("pregnancies").update({ status:"ended", ended_at:new Date().toISOString() })
+      .eq("id", preg.id);
+    await db.auth.signOut();
+  }
+
+  return (
+    <div className="screen">
+      <div className="hdr"><div><h2>إعداداتك</h2></div></div>
+
+      {msg && <div className="alert alert-ok">{msg}</div>}
+
+      <div className="card">
+        <h2>اشتراكك</h2>
+        <p className="muted" style={{marginBottom:14}}>
+          {sub
+            ? (sub.status === "trial" ? "تجربة مجانية"
+               : PLAN_INFO[sub.plan]?.name || "مجاني")
+              + " · لحد " + new Date(sub.expires_at).toLocaleDateString("ar-EG")
+            : "—"}
+        </p>
+        <button className="btn" onClick={go}>الباقات والدفع</button>
+      </div>
+
+      {role !== "father" && <InviteFather user={user} preg={preg} sub={sub} go={go} />}
+
+      <div className="card">
+        <label>شخصية جنينك</label>
+        <p className="tiny" style={{marginBottom:10}}>تغيّر طريقة كلامه معك في الدردشة</p>
+        <div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:18}}>
+          {[["warm","حنون 🤍"],["playful","مشاغب 😄"],
+            ["calm","هادي 🌙"],["curious","فضولي ✨"]].map(([k,t])=>(
+            <button key={k} className="pill" data-on={persona===k?"1":"0"}
+              style={{flex:"none",padding:"11px 16px"}}
+              onClick={()=>setPersona(k)}>{t}</button>
+          ))}
+        </div>
+
+        <label>جنس الجنين</label>
+        <div className="row" style={{marginBottom:18}}>
+          <button className="pill" data-on={gender==="unknown"?"1":"0"}
+            onClick={()=>setGender("unknown")}>لا أريد أن أعرف</button>
+          <button className="pill" data-on={gender==="boy"?"1":"0"}
+            onClick={()=>setGender("boy")}>صبي</button>
+          <button className="pill" data-on={gender==="girl"?"1":"0"}
+            onClick={()=>setGender("girl")}>بنت</button>
+        </div>
+
+        <label>اسم الجنين (إن اخترتموه)</label>
+        <input value={babyName} maxLength={20} onChange={e=>setBabyName(e.target.value)}
+          placeholder="لم نختر بعد" />
+
+        <label>موعد الولادة</label>
+        <input type="date" value={due} onChange={e=>setDue(e.target.value)} />
+
+        <label>قسم لحظة سكينة</label>
+        <div className="row" style={{marginBottom:18}}>
+          <button className="pill" data-on={serenity?"1":"0"} onClick={()=>setSerenity(true)}>
+            ظاهر</button>
+          <button className="pill" data-on={!serenity?"1":"0"} onClick={()=>setSerenity(false)}>
+            مخفي</button>
+        </div>
+
+        <button className="btn" onClick={save}>احفظي</button>
+      </div>
+
+      <div className="card">
+        <h2>حسابي</h2>
+        <p className="muted" style={{marginBottom:14}}>{user.email}</p>
+        <button className="btn btn-ghost" onClick={()=>db.auth.signOut()}>تسجيل خروج</button>
+      </div>
+
+      {!baby && <div className="card">
+        <h2>وَلدتِ؟</h2>
+        <p className="muted" style={{marginBottom:14}}>
+          سجّلي يوم الولادة ليتحوّل التطبيق إلى رحلة السنة الأولى.
+        </p>
+        <button className="btn btn-sage" onClick={()=>go("birth")}>سجّلي الولادة 👶</button>
+      </div>}
+
+      <Support user={user} />
+
+      <div className="card">
+        <h2>إيقاف المتابعة</h2>
+        <p className="muted" style={{marginBottom:14}}>
+          يوقف كل الرسائل والتنبيهات فوراً. بيانات صندوقك تبقى محفوظة.
+        </p>
+        {!confirmStop
+          ? <button className="btn btn-danger" onClick={()=>setConfirm(true)}>إيقاف المتابعة</button>
+          : <>
+              <p className="muted" style={{marginBottom:12}}>هل أنت متأكدة؟</p>
+              <div className="row">
+                <button className="btn btn-danger btn-sm" onClick={stop}>نعم، أوقفها</button>
+                <button className="btn btn-ghost btn-sm" onClick={()=>setConfirm(false)}>لا</button>
+              </div>
+            </>}
+      </div>
+
+      <p className="tiny" style={{textAlign:"center",marginTop:20}}>
+        MamSteps يقدّم معلومات عامة فقط، ولا يغني عن طبيبك.
+      </p>
+    </div>
+  );
+}
+
+/* ============ الشات ============ */
+function Chat({ user, profile, preg, week, sub, go }){
+  const [mode,setMode] = useState("assistant");
+  const [msgs,setMsgs] = useState([]);
+  const [text,setText] = useState("");
+  const [busy,setBusy] = useState(false);
+  const [info,setInfo] = useState("");
+  const endRef = useRef(null);
+
+  const babyMode = mode === "baby";
+  const canBaby = can(sub, "babychat");
+
+  async function load_(){
+    const table = babyMode ? "baby_chat" : "chat_messages";
+    const { data } = await db.from(table).select("*")
+      .eq("user_id", user.id).order("created_at",{ascending:true}).limit(40);
+    setMsgs((data||[]).map(m=>({
+      role: (m.role === "assistant" || m.role === "baby") ? "assistant" : "user",
+      content: m.content })));
+  }
+  useEffect(()=>{ load_(); },[mode]);
+  useEffect(()=>{ endRef.current?.scrollIntoView({behavior:"smooth"}); },[msgs,busy]);
+
+  async function send(){
+    const content = text.trim();
+    if(!content || busy) return;
+
+    const next = [...msgs, { role:"user", content }];
+    setMsgs(next); setText(""); setBusy(true); setInfo("");
+
+    const table = babyMode ? "baby_chat" : "chat_messages";
+    await db.from(table).insert({
+      user_id:user.id, pregnancy_id:preg.id, role:"user", content,
+      ...(babyMode ? { week } : {}) });
+
+    try{
+      const { data:{ session } } = await db.auth.getSession();
+      const res = await fetch(SUPABASE_URL + "/functions/v1/chat", {
+        method:"POST",
+        headers:{ "Content-Type":"application/json",
+                  "Authorization":"Bearer " + session.access_token },
+        body: JSON.stringify({
+          message: content,
+          history: next.slice(-6).map(m=>({role:m.role, content:m.content})),
+          week, dialect: profile.dialect,
+          name: profile.display_name,
+          babyName: preg.baby_name || "",
+          persona: preg.baby_persona || "warm",
+          mode })
+      });
+      const out = await res.json();
+
+      if(out.limit_reached){
+        setInfo("انتهت رسائلك لهذا الشهر (" + out.limit + "). يمكنك ترقية باقتك.");
+        setBusy(false); return;
+      }
+      if(out.error) throw new Error(out.error);
+
+      setMsgs(m=>[...m, { role:"assistant", content: out.reply }]);
+      await db.from(table).insert({
+        user_id:user.id, pregnancy_id:preg.id,
+        role: babyMode ? "baby" : "assistant", content: out.reply,
+        ...(babyMode ? { week } : {}) });
+
+      if(out.limit - out.used <= 3)
+        setInfo("باقٍ " + (out.limit - out.used) + " رسائل هذا الشهر");
+
+    }catch(e){
+      setMsgs(m=>[...m, { role:"error", content: String(e.message || e) }]);
+    }
+    setBusy(false);
+  }
+
+  return (
+    <div className="screen" style={{paddingBottom:20}}>
+      <div className="hdr"><div>
+        <h2>{babyMode ? "جنينك يردّ" : "اسألي"}</h2>
+        <p className="muted">أسبوع {week}</p>
+      </div></div>
+
+      <div className="row" style={{marginBottom:14}}>
+        <button className="pill" data-on={!babyMode?"1":"0"} onClick={()=>setMode("assistant")}>
+          اسألي</button>
+        <button className="pill" data-on={babyMode?"1":"0"} onClick={()=>setMode("baby")}>
+          جنينك يردّ {!canBaby && "🔒"}</button>
+      </div>
+
+      {babyMode && !canBaby
+        ? <Locked what="دردشة الجنين" need="الكاملة" go={go} />
+        : <>
+            <div className="card" style={{minHeight:280,display:"flex",
+              flexDirection:"column",gap:10,padding:16}}>
+              {msgs.length === 0 &&
+                <p className="muted" style={{textAlign:"center",padding:"40px 10px"}}>
+                  {babyMode ? "اكتبي له شيئاً، سيردّ عليك 🤍"
+                            : "اسأليني أي شيء عن حملك"}
+                </p>}
+              {msgs.map((m,i)=>(
+                <div key={i} style={{
+                  alignSelf: m.role==="user" ? "flex-end" : "flex-start",
+                  maxWidth:"85%", padding:"11px 15px", borderRadius:16, fontSize:16,
+                  whiteSpace:"pre-wrap", lineHeight:1.9,
+                  background: m.role==="user" ? "var(--accent)"
+                            : m.role==="error" ? "#FDF0ED" : "var(--accent-soft)",
+                  color: m.role==="user" ? "#fff" : "var(--ink)",
+                  borderTopRightRadius: m.role==="user" ? 5 : 16,
+                  borderTopLeftRadius: m.role==="user" ? 16 : 5
+                }}>{m.content}</div>
+              ))}
+              {busy && <p className="muted" style={{alignSelf:"flex-start"}}>يكتب الآن...</p>}
+              <div ref={endRef}></div>
+            </div>
+
+            {info && <div className="alert alert-info">{info}</div>}
+
+            <div style={{display:"flex",gap:8}}>
+              <input style={{marginBottom:0}} value={text} placeholder="اكتبي سؤالك..."
+                onChange={e=>setText(e.target.value)}
+                onKeyDown={e=>{ if(e.key==="Enter") send(); }} />
+              <button className="btn" style={{width:"auto",padding:"0 22px",marginBottom:0}}
+                onClick={send} disabled={busy || !text.trim()}>أرسلي</button>
+            </div>
+
+            <p className="tiny" style={{marginTop:12}}>
+              MamSteps يقدّم معلومات عامة فقط. لأي عرَض أو قلق حقيقي — طبيبك هو المرجع.
+            </p>
+          </>}
+    </div>
+  );
+}
+
+/* ============ صلاحيات الباقات ============ */
+const RANK = { free:0, trial:1, basic:1, family:2, full:3, lifetime:3 };
+const NEEDS = { album:2, father:2, tools:1, babychat:3 };
+
+function planOf(sub){
+  if(!sub) return "free";
+  const alive = new Date(sub.expires_at) > new Date();
+  if(!alive) return "free";
+  if(sub.status === "trial") return "trial";   /* التجربة = مستوى الاساسية */
+  return sub.plan;
+}
+function can(sub, feature){
+  return RANK[planOf(sub)] >= (NEEDS[feature] || 0);
+}
+function trialDaysLeft(sub){
+  if(!sub || sub.status !== "trial") return null;
+  const d = Math.ceil((new Date(sub.expires_at) - new Date()) / DAY);
+  return d > 0 ? d : 0;
+}
+
+function Locked({ what, go, need }){
+  return (
+    <div className="card" style={{textAlign:"center"}}>
+      <div style={{fontSize:38}}>🔒</div>
+      <h2 style={{marginTop:8}}>{what}</h2>
+      <p className="muted" style={{marginBottom:16}}>
+        {need ? "متاحة في باقة " + need + " فما فوق." : "هذه الميزة متاحة في الباقات المدفوعة."}
+      </p>
+      <button className="btn" onClick={go}>شاهدي الباقات</button>
+    </div>
+  );
+}
+
+/* ============ الالبوم ============ */
+async function shrink(file, max){
+  const img = await new Promise((res,rej)=>{
+    const i = new Image();
+    i.onload = ()=>res(i); i.onerror = rej;
+    i.src = URL.createObjectURL(file);
+  });
+  const scale = Math.min(1, max / Math.max(img.width, img.height));
+  const c = document.createElement("canvas");
+  c.width = Math.round(img.width * scale);
+  c.height = Math.round(img.height * scale);
+  c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+  return new Promise(r => c.toBlob(r, "image/jpeg", 0.82));
+}
+
+function Album({ user, preg, week, sub, go }){
+  const [rows,setRows] = useState([]);
+  const [urls,setUrls] = useState({});
+  const [busy,setBusy] = useState(false);
+  const [kind,setKind] = useState("bump");
+  const [msg,setMsg] = useState("");
+  const fileRef = useRef(null);
+
+  async function load_(){
+    const { data } = await db.from("album_photos").select("*")
+      .eq("pregnancy_id", preg.id).order("week",{ascending:false});
+    setRows(data || []);
+    const map = {};
+    for(const r of (data||[])){
+      const { data:s } = await db.storage.from("album").createSignedUrl(r.photo_path, 3600);
+      if(s) map[r.id] = s.signedUrl;
+    }
+    setUrls(map);
+  }
+  useEffect(()=>{ if(can(sub,"album")) load_(); },[]);
+
+  if(!can(sub,"album")) return (
+    <div className="screen">
+      <div className="hdr"><div><h2>ألبومي</h2></div></div>
+      <Locked what="ألبوم التصوير الاسبوعي" need="العائلية" go={go} />
+    </div>
+  );
+
+  async function upload(e){
+    const f = e.target.files[0];
+    if(!f) return;
+    setBusy(true); setMsg("");
+    try{
+      const small = await shrink(f, 1200);
+      const path = user.id + "/" + preg.id + "-w" + week + "-" + Date.now() + ".jpg";
+      const { error } = await db.storage.from("album").upload(path, small);
+      if(error) throw error;
+      await db.from("album_photos").insert({
+        pregnancy_id: preg.id, user_id: user.id, week, photo_path: path, photo_type: kind });
+      setMsg("حُفظت 🤍"); load_();
+    }catch(err){ setMsg(err.message); }
+    setBusy(false);
+    if(fileRef.current) fileRef.current.value = "";
+  }
+
+  async function del(r){
+    await db.storage.from("album").remove([r.photo_path]);
+    await db.from("album_photos").delete().eq("id", r.id);
+    load_();
+  }
+
+  const last = rows.find(r => r.photo_type === "bump");
+
+  return (
+    <div className="screen">
+      <div className="hdr"><div>
+        <h2>ألبومي</h2>
+        <p className="muted">{rows.length} صورة · أسبوع {week}</p>
+      </div></div>
+
+      {msg && <div className="alert alert-ok">{msg}</div>}
+
+      <div className="card">
+        <div className="row" style={{marginBottom:16}}>
+          <button className="pill" data-on={kind==="bump"?"1":"0"}
+            onClick={()=>setKind("bump")}>صورة بطن</button>
+          <button className="pill" data-on={kind==="ultrasound"?"1":"0"}
+            onClick={()=>setKind("ultrasound")}>سونار</button>
+        </div>
+
+        {kind === "bump" && last && urls[last.id] &&
+          <div style={{position:"relative",marginBottom:14}}>
+            <img src={urls[last.id]} alt="" style={{width:"100%",borderRadius:14,opacity:.32}} />
+            <p className="tiny" style={{textAlign:"center",marginTop:6}}>
+              صورة أسبوع {last.week} — قفي بنفس الوضعية ليظهر التغيّر جميلاً في النهاية
+            </p>
+          </div>}
+
+        <input ref={fileRef} type="file" accept="image/*" onChange={upload} disabled={busy} />
+        {busy && <div className="spin"></div>}
+        <p className="tiny">تُصغَّر الصور تلقائياً — يوفّر مساحتك</p>
+      </div>
+
+      {rows.map(r=>(
+        <div className="card" key={r.id}>
+          <div style={{display:"flex",justifyContent:"space-between",marginBottom:10}}>
+            <b>أسبوع {r.week}</b>
+            <span className="tiny">{r.photo_type === "bump" ? "بطن" : "سونار"}</span>
+          </div>
+          {urls[r.id]
+            ? <img src={urls[r.id]} alt="" style={{width:"100%",borderRadius:14}} />
+            : <div className="spin"></div>}
+          <button className="btn btn-ghost btn-sm" style={{width:"100%",marginTop:10}}
+            onClick={()=>del(r)}>احذفيها</button>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ============ أدواتي ============ */
+function Tools({ user, preg, sub, go }){
+  const [t,setT] = useState("kicks");
+  if(!can(sub,"tools")) return (
+    <div className="screen">
+      <div className="hdr"><div><h2>أدواتي</h2></div></div>
+      <Locked what="عدّاد الركلات والطلق وحقيبة المستشفى" need="الاساسية" go={go} />
+    </div>
+  );
+  return (
+    <div className="screen">
+      <div className="hdr"><div><h2>أدواتي</h2></div></div>
+      <div className="row" style={{marginBottom:18}}>
+        <button className="pill" data-on={t==="kicks"?"1":"0"} onClick={()=>setT("kicks")}>الركلات</button>
+        <button className="pill" data-on={t==="cont"?"1":"0"} onClick={()=>setT("cont")}>الطلق</button>
+        <button className="pill" data-on={t==="bag"?"1":"0"} onClick={()=>setT("bag")}>الحقيبة</button>
+      </div>
+      {t==="kicks" && <Kicks user={user} preg={preg} />}
+      {t==="cont"  && <Contractions user={user} preg={preg} />}
+      {t==="bag"   && <Bag preg={preg} />}
+    </div>
+  );
+}
+
+function Kicks({ user, preg }){
+  const [count,setCount] = useState(0);
+  const [start,setStart] = useState(null);
+  const [hist,setHist] = useState([]);
+  const [now,setNow] = useState(Date.now());
+
+  async function load_(){
+    const { data } = await db.from("kick_sessions").select("*")
+      .eq("pregnancy_id", preg.id).order("started_at",{ascending:false}).limit(7);
+    setHist(data || []);
+  }
+  useEffect(()=>{ load_(); },[]);
+  useEffect(()=>{
+    if(!start) return;
+    const i = setInterval(()=>setNow(Date.now()), 1000);
+    return ()=>clearInterval(i);
+  },[start]);
+
+  function tap(){
+    if(!start) setStart(Date.now());
+    setCount(count + 1);
+  }
+  async function finish(){
+    if(!start) return;
+    await db.from("kick_sessions").insert({
+      pregnancy_id: preg.id, user_id: user.id, kick_count: count,
+      started_at: new Date(start).toISOString(), ended_at: new Date().toISOString() });
+    setCount(0); setStart(null); load_();
+  }
+
+  const mins = start ? Math.floor((now - start) / 60000) : 0;
+
+  return (
+    <>
+      <div className="hero">
+        <p className="muted">عدد الحركات</p>
+        <div className="week-num">{count}</div>
+        {start && <p className="tiny">من {mins} دقيقة</p>}
+        <button className="btn" style={{marginTop:18}} onClick={tap}>شعرت بحركة 👶</button>
+        {start && <button className="btn btn-ghost" onClick={finish}>انتهيت</button>}
+      </div>
+
+      <div className="alert alert-info">
+        المعتاد أن تشعري بـ ١٠ حركات خلال ساعتين في الثلث الاخير.
+        إذا قلّت الحركة بشكل واضح عن المعتاد — اتصلي بطبيبك.
+      </div>
+
+      {hist.length > 0 && <div className="card">
+        <h2>آخر الجلسات</h2>
+        <div style={{marginTop:12}}>
+          {hist.map(h=>(
+            <div className="req" key={h.id}>
+              <b>{h.kick_count} حركة</b>
+              <p className="tiny">{new Date(h.started_at).toLocaleString("ar-EG")}</p>
+            </div>
+          ))}
+        </div>
+      </div>}
+    </>
+  );
+}
+
+function Contractions({ user, preg }){
+  const [list,setList] = useState([]);
+  const [on,setOn] = useState(null);
+  const [now,setNow] = useState(Date.now());
+
+  async function load_(){
+    const { data } = await db.from("contractions").select("*")
+      .eq("pregnancy_id", preg.id).order("started_at",{ascending:false}).limit(12);
+    setList(data || []);
+  }
+  useEffect(()=>{ load_(); },[]);
+  useEffect(()=>{
+    if(!on) return;
+    const i = setInterval(()=>setNow(Date.now()), 1000);
+    return ()=>clearInterval(i);
+  },[on]);
+
+  async function stop(){
+    await db.from("contractions").insert({
+      pregnancy_id: preg.id, user_id: user.id,
+      started_at: new Date(on).toISOString(),
+      duration_sec: Math.round((Date.now() - on) / 1000) });
+    setOn(null); load_();
+  }
+
+  const gaps = [];
+  for(let i = 0; i < list.length - 1; i++){
+    gaps.push(Math.round(
+      (new Date(list[i].started_at) - new Date(list[i+1].started_at)) / 60000));
+  }
+  const regular = gaps.length >= 3 && gaps.slice(0,3).every(g => g <= 5 && g >= 1);
+
+  return (
+    <>
+      <div className="hero">
+        <p className="muted">{on ? "الانقباض جارٍ" : "اضغطي مع بداية الانقباض"}</p>
+        <div className="week-num">
+          {on ? Math.round((now - on) / 1000) + "ث" : list.length}
+        </div>
+        {!on && <p className="tiny">انقباض مسجّل</p>}
+        <button className={"btn " + (on ? "btn-sage" : "")} style={{marginTop:18}}
+          onClick={()=> on ? stop() : setOn(Date.now())}>
+          {on ? "انتهى الانقباض" : "بدأ انقباض"}
+        </button>
+      </div>
+
+      {regular &&
+        <div className="alert alert-warn">
+          🚨 انقباضاتك أصبحت منتظمة ومتقاربة. اتصلي بطبيبك أو توجّهي إلى المستشفى.
+        </div>}
+
+      {gaps.length > 0 && <div className="card">
+        <h2>المدة بين الانقباضات</h2>
+        <div style={{marginTop:12}}>
+          {list.map((c,i)=>(
+            <div className="req" key={c.id}>
+              <b>{c.duration_sec}ث</b>
+              {gaps[i] !== undefined && <span className="tiny"> · بعد {gaps[i]} دقيقة</span>}
+              <p className="tiny">{new Date(c.started_at).toLocaleTimeString("ar-EG")}</p>
+            </div>
+          ))}
+        </div>
+      </div>}
+
+      <div className="alert alert-info">
+        القاعدة المشهورة: انقباض كل ٥ دقائق، بيدوم دقيقة، ومستمر ساعة — وقتها روحي.
+        وأي وقت بتحسي إنو في شي غلط، لا تستني.
+      </div>
+    </>
+  );
+}
+
+const BAG_DEFAULT = [
+  ["mother","قمصان نوم مريحة وواسعة"],["mother","روب وشحاطة"],
+  ["mother","حمالات صدر للرضاعة"],["mother","فوط نفاس"],
+  ["mother","كيلوت قطن كبير"],["mother","أدوات حمام وفوطة"],
+  ["mother","شاحن تلفون طويل"],["mother","سناكس ومي"],
+  ["baby","بيجامات للمولود (٣-٤)"],["baby","بطانية قطن"],
+  ["baby","حفاضات نيوبورن"],["baby","مناديل مبللة"],
+  ["baby","طاقية وجوارب"],["baby","كرسي سيارة للرجعة"],
+  ["documents","هوية وأوراق التأمين"],["documents","ملف الحمل والتحاليل"],
+  ["documents","أرقام الدكتور والمستشفى"],["documents","مصاري كاش"]
+];
+
+function Bag({ preg }){
+  const [rows,setRows] = useState([]);
+  const [item,setItem] = useState("");
+  const [cat,setCat] = useState("mother");
+
+  async function load_(){
+    const { data } = await db.from("hospital_bag").select("*")
+      .eq("pregnancy_id", preg.id).order("sort_order");
+    if(!data || !data.length){
+      await db.from("hospital_bag").insert(
+        BAG_DEFAULT.map(([c,n],i)=>({
+          pregnancy_id: preg.id, category: c, item_name: n, sort_order: i })));
+      const r = await db.from("hospital_bag").select("*")
+        .eq("pregnancy_id", preg.id).order("sort_order");
+      setRows(r.data || []);
+    } else setRows(data);
+  }
+  useEffect(()=>{ load_(); },[]);
+
+  async function toggle(r){
+    await db.from("hospital_bag").update({ is_packed: !r.is_packed }).eq("id", r.id);
+    setRows(rows.map(x => x.id === r.id ? {...x, is_packed: !x.is_packed} : x));
+  }
+  async function add(){
+    if(!item.trim()) return;
+    await db.from("hospital_bag").insert({
+      pregnancy_id: preg.id, category: cat, item_name: item.trim(), sort_order: 99 });
+    setItem(""); load_();
+  }
+
+  const done = rows.filter(r => r.is_packed).length;
+  const groups = { mother:"لك أنت", baby:"للمولود", documents:"أوراق ونقود" };
+
+  return (
+    <>
+      <div className="hero" style={{padding:"20px 16px"}}>
+        <p className="muted">جهّزت</p>
+        <div className="week-num">{done}<span style={{fontSize:24}}>/{rows.length}</span></div>
+        <div className="bar"><span style={{width:(rows.length ? done/rows.length*100 : 0)+"%"}}></span></div>
+      </div>
+
+      {Object.keys(groups).map(g=>(
+        <div className="card" key={g}>
+          <h2>{groups[g]}</h2>
+          <div style={{marginTop:10}}>
+            {rows.filter(r=>r.category===g).map(r=>(
+              <div key={r.id} onClick={()=>toggle(r)}
+                style={{padding:"11px 0",borderBottom:"1px solid var(--line)",cursor:"pointer",
+                  display:"flex",gap:10,alignItems:"center",
+                  opacity: r.is_packed ? .45 : 1,
+                  textDecoration: r.is_packed ? "line-through" : "none"}}>
+                <span style={{fontSize:19}}>{r.is_packed ? "✅" : "⬜"}</span>
+                {r.item_name}
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+
+      <div className="card">
+        <h2>أضيفي شيئاً</h2>
+        <input value={item} onChange={e=>setItem(e.target.value)} placeholder="ما الناقص؟" />
+        <select value={cat} onChange={e=>setCat(e.target.value)}>
+          <option value="mother">لك أنت</option>
+          <option value="baby">للمولود</option>
+          <option value="documents">أوراق ونقود</option>
+        </select>
+        <button className="btn" onClick={add} disabled={!item.trim()}>أضيفيه</button>
+      </div>
+    </>
+  );
+}
+
+/* ============ دعوة الاب ============ */
+function InviteFather({ user, preg, sub, go }){
+  const [code,setCode] = useState("");
+  const [busy,setBusy] = useState(false);
+  const [msg,setMsg] = useState("");
+
+  useEffect(()=>{
+    db.from("invite_codes").select("code,used_by")
+      .eq("pregnancy_id", preg.id).order("created_at",{ascending:false}).limit(1)
+      .then(({data})=>{ if(data && data[0] && !data[0].used_by) setCode(data[0].code); });
+  },[]);
+
+  async function make(){
+    setBusy(true);
+    const c = Math.random().toString(36).slice(2,8).toUpperCase();
+    const { error } = await db.from("invite_codes")
+      .insert({ code:c, pregnancy_id:preg.id, created_by:user.id });
+    if(error) setMsg(error.message); else { setCode(c); setMsg(""); }
+    setBusy(false);
+  }
+
+  return (
+    <div className="card">
+      <h2>ادعي الأب</h2>
+      {!can(sub,"father")
+        ? <>
+            <p className="muted" style={{marginBottom:14}}>
+              حساب الاب متوفر بالباقة العائلية فما فوق.
+            </p>
+            <button className="btn" onClick={go}>شاهدي الباقات</button>
+          </>
+        : <>
+            <p className="muted" style={{marginBottom:14}}>
+              تصله رسالة أسبوعية خاصة به، ويشاهد الألبوم معك.
+            </p>
+            {msg && <div className="alert alert-warn">{msg}</div>}
+            {code
+              ? <>
+                  <div className="hero" style={{padding:"18px 12px"}}>
+                    <p className="muted">كود الدعوة</p>
+                    <div style={{fontSize:34,fontWeight:700,letterSpacing:4,color:"var(--accent)"}}>
+                      {code}
+                    </div>
+                  </div>
+                  <p className="tiny">
+                    ليسجّل حساباً جديداً في التطبيق، ويختار "معي كود دعوة" ويكتب هذا الكود.
+                  </p>
+                  <button className="btn btn-ghost" onClick={make} disabled={busy}>كود جديد</button>
+                </>
+              : <button className="btn" onClick={make} disabled={busy}>
+                  {busy ? "لحظة..." : "أنشئي كوداً"}
+                </button>}
+          </>}
+    </div>
+  );
+}
+
+/* ============ الدعم الفني ============ */
+function Support({ user }){
+  const [body,setBody] = useState("");
+  const [list,setList] = useState([]);
+  const [busy,setBusy] = useState(false);
+  const [msg,setMsg] = useState("");
+  const [open,setOpen] = useState(false);
+
+  async function load_(){
+    const { data } = await db.from("support_tickets").select("*")
+      .eq("user_id", user.id).order("created_at",{ascending:false}).limit(10);
+    setList(data || []);
+  }
+  useEffect(()=>{ load_(); },[]);
+
+  async function send(){
+    if(!body.trim()) return;
+    setBusy(true);
+    const { error } = await db.from("support_tickets")
+      .insert({ user_id:user.id, body:body.trim() });
+    setMsg(error ? error.message : "وصلتنا رسالتك! سنردّ عليك قريباً 🤍");
+    setBody(""); setBusy(false); load_();
+  }
+
+  return (
+    <div className="card">
+      <h2>تواصلي معنا</h2>
+      <p className="muted" style={{marginBottom:14}}>
+        أي مشكلة في التطبيق أو الاشتراك، اكتبي لنا.
+      </p>
+
+      {!open
+        ? <button className="btn btn-ghost" onClick={()=>setOpen(true)}>
+            اكتبي رسالة {list.length > 0 ? "(" + list.length + " سابقة)" : ""}
+          </button>
+        : <>
+            {msg && <div className="alert alert-ok">{msg}</div>}
+            <textarea style={{minHeight:100}} value={body} maxLength={800}
+              onChange={e=>setBody(e.target.value)} placeholder="ما المشكلة؟" />
+            <button className="btn" onClick={send} disabled={busy || !body.trim()}>
+              {busy ? "جارٍ الإرسال..." : "أرسلي"}
+            </button>
+            <p className="tiny" style={{marginBottom:14}}>
+              للاسئلة الطبية، دكتورك هو المرجع — نحنا منساعد بالتطبيق بس.
+            </p>
+
+            {list.map(t=>(
+              <div className="saved" key={t.id}>
+                <div className="meta">{new Date(t.created_at).toLocaleDateString("ar-EG")}</div>
+                {t.body}
+                {t.admin_reply &&
+                  <div style={{marginTop:10,paddingTop:10,borderTop:"1px solid var(--line)"}}>
+                    <div className="meta">ردّ الإدارة</div>{t.admin_reply}
+                  </div>}
+              </div>
+            ))}
+            <button className="btn btn-ghost btn-sm" style={{width:"100%",marginTop:10}}
+              onClick={()=>setOpen(false)}>إغلاق</button>
+          </>}
+    </div>
+  );
+}
+
+/* ============ تنبيه الطلبات الجديدة ============ */
+function beep(){
+  try{
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const notes = [880, 1170];
+    notes.forEach((f,i)=>{
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.type = "sine"; o.frequency.value = f;
+      o.connect(g); g.connect(ctx.destination);
+      const t = ctx.currentTime + i * 0.18;
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.25, t + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.16);
+      o.start(t); o.stop(t + 0.18);
+    });
+  }catch(e){}
+}
+
+function useAdminAlerts(active){
+  const [counts,setCounts] = useState({ reqs:0, tickets:0 });
+  const prev = useRef(null);
+  const [flash,setFlash] = useState(null);
+
+  useEffect(()=>{
+    if(!active) return;
+    let stop = false;
+
+    async function tick(){
+      const a = await db.from("payment_requests")
+        .select("id", { count:"exact", head:true }).eq("status","pending");
+      const b = await db.from("support_tickets")
+        .select("id", { count:"exact", head:true }).eq("status","open");
+      if(stop) return;
+
+      const now = { reqs: a.count || 0, tickets: b.count || 0 };
+      setCounts(now);
+
+      if(prev.current){
+        const newReqs = now.reqs - prev.current.reqs;
+        const newTix  = now.tickets - prev.current.tickets;
+        if(newReqs > 0 || newTix > 0){
+          beep();
+          setFlash(newReqs > 0
+            ? "💰 وصلك " + newReqs + " طلب دفع جديد"
+            : "✉️ وصلك " + newTix + " رسالة دعم جديدة");
+          if(document.hidden) document.title = "(" + (now.reqs + now.tickets) + ") MamSteps";
+          setTimeout(()=>setFlash(null), 12000);
+        }
+      }
+      prev.current = now;
+    }
+
+    tick();
+    const id = setInterval(tick, 25000);
+    const onFocus = ()=>{ document.title = "MamSteps — خطوة بخطوة، من أول نبضة"; };
+    window.addEventListener("focus", onFocus);
+    return ()=>{ stop = true; clearInterval(id); window.removeEventListener("focus", onFocus); };
+  },[active]);
+
+  return { counts, flash, clear:()=>setFlash(null) };
+}
+
+/* ============ لوحة الادمن ============ */
+function Admin({ view, setView, alerts }){
+  return (
+    <div className="screen">
+      <div className="hdr"><div><h2>{ADMIN_SECTIONS.find(s=>s.id===view)?.label}</h2></div></div>
+
+      {alerts?.flash &&
+        <div className="alert alert-ok" style={{cursor:"pointer",fontSize:17,fontWeight:700}}
+          onClick={()=>{ setView(alerts.flash.includes("دفع") ? "reqs" : "tickets"); alerts.clear(); }}>
+          {alerts.flash} — اضغط هون
+        </div>}
+
+      <div className="admin-pills">
+        <div className="row" style={{marginBottom:10}}>
+          {ADMIN_SECTIONS.slice(0,3).map(s=>(
+            <button className="pill" key={s.id} data-on={view===s.id?"1":"0"}
+              onClick={()=>setView(s.id)}>{s.label}</button>
+          ))}
+        </div>
+        <div className="row" style={{marginBottom:10}}>
+          {ADMIN_SECTIONS.slice(3,6).map(s=>(
+            <button className="pill" key={s.id} data-on={view===s.id?"1":"0"}
+              onClick={()=>setView(s.id)}>{s.label}</button>
+          ))}
+        </div>
+        <div className="row" style={{marginBottom:18}}>
+          {ADMIN_SECTIONS.slice(6,9).map(s=>(
+            <button className="pill" key={s.id} data-on={view===s.id?"1":"0"}
+              onClick={()=>setView(s.id)}>{s.label}</button>
+          ))}
+        </div>
+      </div>
+
+      {view === "stats"   && <AdminStats go={setView} />}
+      {view === "money"   && <AdminMoney />}
+      {view === "pricing" && <AdminPricing />}
+      {view === "reqs"    && <AdminReqs />}
+      {view === "users"   && <AdminUsers />}
+      {view === "content" && <AdminContent />}
+      {view === "tickets" && <AdminTickets />}
+      {view === "ann"     && <AdminAnnounce />}
+      {view === "log"     && <AdminLog />}
+    </div>
+  );
+}
+
+const ADMIN_SECTIONS = [
+  { id:"stats",   label:"الارقام",     icon:"📊" },
+  { id:"money",   label:"المالية",     icon:"💰" },
+  { id:"pricing", label:"الاسعار",     icon:"🏷️" },
+  { id:"reqs",    label:"الطلبات",     icon:"📩" },
+  { id:"users",   label:"المستخدمين",  icon:"👥" },
+  { id:"content", label:"المحتوى",     icon:"📚" },
+  { id:"tickets", label:"الرسايل",     icon:"✉️" },
+  { id:"ann",     label:"إعلان",       icon:"📢" },
+  { id:"log",     label:"السجل",       icon:"🧾" }
+];
+
+function csvDownload(name, rows){
+  if(!rows.length) return;
+  const cols = Object.keys(rows[0]);
+  const body = rows.map(r => cols.map(c =>
+    '"' + String(r[c] ?? "").replace(/"/g,'""') + '"').join(",")).join("\n");
+  const blob = new Blob(["\uFEFF" + cols.join(",") + "\n" + body], {type:"text/csv"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = name + ".csv";
+  a.click();
+}
+
+function AdminMoney(){
+  const [f,setF] = useState(null);
+  const [rows,setRows] = useState([]);
+  const [list,setList] = useState([]);
+  const [title,setTitle] = useState("");
+  const [amount,setAmount] = useState("");
+  const [cat,setCat] = useState("ai");
+
+  async function load_(){
+    const a = await db.rpc("admin_finance");   setF(a.data);
+    const b = await db.rpc("admin_monthly");   setRows(b.data || []);
+    const c = await db.from("expenses").select("*")
+      .order("spent_on",{ascending:false}).limit(20);
+    setList(c.data || []);
+  }
+  useEffect(()=>{ load_(); },[]);
+
+  async function add(){
+    if(!title.trim() || !amount) return;
+    await db.from("expenses").insert({
+      title:title.trim(), amount_usd:Number(amount), category:cat });
+    setTitle(""); setAmount(""); load_();
+  }
+  async function del(id){
+    await db.from("expenses").delete().eq("id", id); load_();
+  }
+
+  if(!f) return <div className="spin"></div>;
+
+  const net = Number(f.revenue_total) - Number(f.expense_total);
+  const netMonth = Number(f.revenue_month) - Number(f.expense_month);
+  const max = Math.max(1, ...rows.map(r => Math.max(Number(r.revenue), Number(r.expense))));
+
+  return (
+    <>
+      <div className="hero" style={{padding:"22px 16px"}}>
+        <p className="muted">صافي الربح الكلي</p>
+        <div className="week-num" style={{color: net >= 0 ? "var(--sage)" : "var(--danger)"}}>
+          ${net.toFixed(0)}
+        </div>
+        <p className="tiny">دخل ${Number(f.revenue_total).toFixed(0)} · مصاريف ${Number(f.expense_total).toFixed(0)}</p>
+      </div>
+
+      <div className="stats">
+        <Box label="دخل هالشهر" value={"$" + Number(f.revenue_month).toFixed(0)} />
+        <Box label="مصاريف الشهر" value={"$" + Number(f.expense_month).toFixed(0)} />
+        <Box label="صافي الشهر" value={"$" + netMonth.toFixed(0)} />
+      </div>
+
+      <div className="card">
+        <h2>آخر ٦ شهور</h2>
+        <div style={{marginTop:14}}>
+          {rows.map(r=>(
+            <div key={r.month_key} style={{marginBottom:12}}>
+              <div style={{display:"flex",justifyContent:"space-between",fontSize:13}}>
+                <span>{r.month_key}</span>
+                <span style={{color: Number(r.net) >= 0 ? "var(--sage)" : "var(--danger)"}}>
+                  صافي ${Number(r.net).toFixed(0)}
+                </span>
+              </div>
+              <div className="bar" style={{margin:"5px 0 3px"}}>
+                <span style={{width:(Number(r.revenue)/max*100)+"%"}}></span>
+              </div>
+              <div className="bar" style={{margin:0}}>
+                <span style={{width:(Number(r.expense)/max*100)+"%",background:"var(--danger)"}}></span>
+              </div>
+            </div>
+          ))}
+          <p className="tiny">الذهبي = دخل · الاحمر = مصاريف</p>
+        </div>
+      </div>
+
+      <div className="card">
+        <h2>متوسط الدخل من المستخدم</h2>
+        <div className="week-num" style={{fontSize:34,marginTop:6}}>${Number(f.arpu).toFixed(2)}</div>
+        <p className="tiny">لو أقل من تكلفة المستخدم، السعر محتاج مراجعة</p>
+      </div>
+
+      <div className="card">
+        <h2>سجّل مصروف</h2>
+        <label>ما المصروف</label>
+        <input value={title} onChange={e=>setTitle(e.target.value)} placeholder="مثلاً: رصيد API" />
+        <label>المبلغ بالدولار</label>
+        <input type="number" value={amount} onChange={e=>setAmount(e.target.value)} placeholder="10" />
+        <label>التصنيف</label>
+        <select value={cat} onChange={e=>setCat(e.target.value)}>
+          <option value="ai">ذكاء اصطناعي</option>
+          <option value="hosting">استضافة</option>
+          <option value="marketing">تسويق</option>
+          <option value="audio">صوت</option>
+          <option value="other">مكان آخر</option>
+        </select>
+        <button className="btn" onClick={add} disabled={!title.trim() || !amount}>ضيفه</button>
+      </div>
+
+      {list.length > 0 && <div className="card">
+        <h2>آخر المصاريف</h2>
+        <div style={{marginTop:12}}>
+          {list.map(e=>(
+            <div className="req" key={e.id}>
+              <div style={{display:"flex",justifyContent:"space-between"}}>
+                <b>{e.title}</b><span>${Number(e.amount_usd).toFixed(2)}</span>
+              </div>
+              <p className="tiny">{e.spent_on}</p>
+              <button className="btn btn-ghost btn-sm" style={{width:"100%",marginTop:8}}
+                onClick={()=>del(e.id)}>احذف</button>
+            </div>
+          ))}
+        </div>
+        <button className="btn btn-ghost" style={{marginTop:12}}
+          onClick={()=>csvDownload("expenses", list)}>نزّل Excel</button>
+      </div>}
+    </>
+  );
+}
+
+function Box({ label, value, note }){
+  return (
+    <div className="stat">
+      <b>{value}</b>
+      <span>{label}</span>
+      {note && <p className="tiny" style={{marginTop:3}}>{note}</p>}
+    </div>
+  );
+}
+
+function AdminStats({ go }){
+  const [s,setS] = useState(null);
+  const [err,setErr] = useState("");
+  const [exp,setExp] = useState([]);
+
+  useEffect(()=>{
+    db.rpc("admin_stats").then(({data,error})=>{
+      if(error) setErr(error.message); else setS(data);
+    });
+    db.rpc("admin_expiring").then(({data})=>setExp(data||[]));
+  },[]);
+
+  if(err) return <div className="alert alert-warn">{err}</div>;
+  if(!s)  return <div className="spin"></div>;
+
+  return (
+    <>
+      {s.stale_payments > 0 &&
+        <div className="alert alert-warn" onClick={()=>go("reqs")}>
+          ⏰ {s.stale_payments} طلب دفع مستني من أكتر من ٢٤ ساعة
+        </div>}
+      {s.tickets_open > 0 &&
+        <div className="alert alert-warn" onClick={()=>go("tickets")}>
+          ✉️ {s.tickets_open} رسالة دعم ما انرد عليها
+        </div>}
+      {s.pending_payments > 0 && s.stale_payments === 0 &&
+        <div className="alert alert-info" onClick={()=>go("reqs")}>
+          📩 {s.pending_payments} طلب دفع بانتظارك
+        </div>}
+      {s.expiring_7 > 0 &&
+        <div className="alert alert-info">
+          🔔 {s.expiring_7} اشتراك بينتهي خلال ٧ أيام — ذكّرهم
+        </div>}
+
+      <div className="hero" style={{padding:"22px 16px"}}>
+        <p className="muted">مشتركين فعليين</p>
+        <div className="week-num">{s.paying}</div>
+        <p className="tiny">من أصل {s.users_total} مستخدم · تحوّل {s.conversion}%</p>
+      </div>
+
+      <div className="stats">
+        <Box label="كل المستخدمين" value={s.users_total} />
+        <Box label="جداد هالاسبوع" value={s.users_week} />
+        <Box label="حمل نشط" value={s.pregnancies} />
+      </div>
+
+      <div className="stats">
+        <Box label="تجربة مجانية" value={s.trials} />
+        <Box label="منتهي" value={s.expired} />
+        <Box label="مجمّد" value={s.frozen} />
+      </div>
+
+      <div className="card">
+        <h2>الباقات</h2>
+        <div className="stats" style={{marginTop:12,marginBottom:0}}>
+          <Box label="الاساسية" value={s.plan_basic} />
+          <Box label="العائلية" value={s.plan_family} />
+          <Box label="الكاملة" value={s.plan_full} />
+        </div>
+      </div>
+
+      <div className="card">
+        <h2>الدخل التقريبي</h2>
+        <div className="week-num" style={{fontSize:38,marginTop:6}}>
+          ${Number(s.revenue_usd).toFixed(0)}
+        </div>
+        <p className="tiny">من {s.approved_total} عملية مقبولة · تقديري بالدولار</p>
+      </div>
+
+      {exp.length > 0 && <div className="card">
+        <h2>بينتهي قريباً</h2>
+        <p className="muted" style={{marginBottom:12}}>ذكّرهم قبل ما يخلص</p>
+        {exp.map(u=>(
+          <div className="req" key={u.user_id}>
+            <b>{u.display_name || "بلا اسم"}</b>
+            <p className="tiny">{u.email}</p>
+            <p className="tiny">
+              {PLAN_INFO[u.plan]?.name} · باقي {u.days_left} يوم
+            </p>
+          </div>
+        ))}
+      </div>}
+
+      <div className="card">
+        <h2>البلدان</h2>
+        <div className="stats" style={{marginTop:12,marginBottom:0}}>
+          <Box label="لبنان" value={s.country_lb} />
+          <Box label="مصر" value={s.country_eg} />
+          <Box label="مكان آخر" value={s.country_other} />
+        </div>
+      </div>
+
+      <div className="card">
+        <h2>التفاعل</h2>
+        <p className="muted">{s.letters} رسالة انكتبت بصندوق صندوق الرسائل</p>
+      </div>
+    </>
+  );
+}
+
+function AdminReqs(){
+  const [reqs,setReqs] = useState([]);
+  const [load,setLoad] = useState(true);
+  const [note,setNote] = useState({});
+
+  async function load_(){
+    setLoad(true);
+    const { data } = await db.from("payment_requests").select("*")
+      .eq("status","pending").order("created_at",{ascending:false});
+    setReqs(data || []); setLoad(false);
+  }
+  useEffect(()=>{ load_(); },[]);
+
+  async function decide(r, status){
+    await db.from("payment_requests")
+      .update({ status, admin_note: note[r.id] || null }).eq("id", r.id);
+    load_();
+  }
+
+  async function viewReceipt(path){
+    const { data } = await db.storage.from("receipts").createSignedUrl(path, 300);
+    if(data) window.open(data.signedUrl, "_blank");
+  }
+
+  if(load) return <div className="spin"></div>;
+  if(!reqs.length) return <div className="card"><p className="muted">لا توجد طلبات جديدة ✅</p></div>;
+
+  return reqs.map(r=>(
+    <div className="card" key={r.id}>
+      <b>{PLAN_INFO[r.plan]?.name}</b> · {r.amount} {r.currency}
+      <p className="tiny">{r.method_name} · مرجع: {r.reference}</p>
+      <p className="tiny">{new Date(r.created_at).toLocaleString("ar-EG")}</p>
+
+      {r.receipt_path &&
+        <button className="btn btn-ghost" style={{marginTop:10}}
+          onClick={()=>viewReceipt(r.receipt_path)}>شوف الإيصال</button>}
+
+      <input placeholder="ملاحظة (اختياري)" value={note[r.id]||""}
+        onChange={e=>setNote({...note,[r.id]:e.target.value})} style={{marginTop:10}} />
+
+      <div className="row">
+        <button className="btn btn-sage btn-sm" onClick={()=>decide(r,"approved")}>موافقة</button>
+        <button className="btn btn-danger btn-sm" onClick={()=>decide(r,"rejected")}>رفض</button>
+      </div>
+    </div>
+  ));
+}
+
+function AdminUsers(){
+  const [rows,setRows] = useState([]);
+  const [load,setLoad] = useState(true);
+  const [err,setErr] = useState("");
+  const [note,setNote] = useState("");
+  const [q,setQ] = useState("");
+
+  async function load_(){
+    setLoad(true);
+    const { data, error } = await db.rpc("admin_users");
+    if(error) setErr(error.message); else setRows(data || []);
+    setLoad(false);
+  }
+  useEffect(()=>{ load_(); },[]);
+
+  async function give(u, plan){
+    const { error } = await db.rpc("admin_set_plan",
+      { p_user:u.user_id, p_plan:plan, p_months:1 });
+    if(error){ setErr(error.message); return; }
+    setNote("تم تفعيل " + PLAN_INFO[plan].name + " لـ " + (u.display_name || "المستخدم"));
+    setTimeout(()=>setNote(""), 2500);
+    await load_();
+  }
+  async function extend(u){
+    await db.rpc("admin_extend", { p_user:u.user_id, p_days:7 });
+    setNote("تم تمديد ٧ أيام");
+    setTimeout(()=>setNote(""), 2500);
+    await load_();
+  }
+  async function freeze(u){
+    await db.rpc("admin_freeze", { p_user:u.user_id, p_state: !u.is_frozen });
+    await load_();
+  }
+
+  if(err)  return <div className="alert alert-warn">{err}</div>;
+  if(load) return <div className="spin"></div>;
+
+  const t = q.trim().toLowerCase();
+  const list = rows.filter(r => !t ||
+    (r.display_name||"").toLowerCase().includes(t) ||
+    (r.email||"").toLowerCase().includes(t) ||
+    (r.country||"").toLowerCase().includes(t));
+
+  return (
+    <>
+      {note && <div className="alert alert-ok">{note}</div>}
+      <input placeholder="دوّر باسم أو إيميل أو بلد" value={q} onChange={e=>setQ(e.target.value)} />
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
+        <p className="tiny">{list.length} مستخدم</p>
+        <button className="btn btn-ghost btn-sm" style={{margin:0,flex:"none",padding:"7px 14px"}}
+          onClick={()=>csvDownload("users", list)}>نزّل Excel</button>
+      </div>
+
+      {list.map(u=>{
+        const live = u.status === "active" && new Date(u.expires_at) > new Date();
+        return (
+        <div className="card" key={u.user_id}
+          style={u.is_frozen ? {opacity:.6,borderColor:"var(--danger)"} : {}}>
+          <div style={{display:"flex",justifyContent:"space-between"}}>
+            <b>{u.display_name || "بلا اسم"}</b>
+            <span className="tiny">{u.country}{u.is_frozen ? " · مجمّد" : ""}</span>
+          </div>
+          <p className="tiny">{u.email}</p>
+          <p className="tiny">
+            {PLAN_INFO[u.plan]?.name || "مجاني"} ·{" "}
+            {u.status === "active" ? "مشترك" : u.status === "trial" ? "تجربة" : "منتهي"}
+            {u.expires_at && " · لحد " + new Date(u.expires_at).toLocaleDateString("ar-EG")}
+          </p>
+          {u.week_now && <p className="tiny">أسبوع {u.week_now} · ولادة {u.due_date}</p>}
+          <p className="tiny">سجّل: {new Date(u.joined).toLocaleDateString("ar-EG")}</p>
+
+          <div className="row" style={{marginTop:10}}>
+            {["basic","family","full"].map(p=>(
+              <button key={p} className="pill" data-on={(live && u.plan===p)?"1":"0"}
+                style={{padding:"10px 6px",fontSize:14}}
+                onClick={()=>give(u,p)}>{PLAN_INFO[p].name}</button>
+            ))}
+          </div>
+          <div className="row" style={{marginTop:8}}>
+            <button className="btn btn-ghost btn-sm" onClick={()=>extend(u)}>+٧ أيام</button>
+            <button className="btn btn-danger btn-sm" onClick={()=>freeze(u)}>
+              {u.is_frozen ? "فك التجميد" : "تجميد"}
+            </button>
+          </div>
+        </div>
+      );})}
+    </>
+  );
+}
+
+function AdminPricing(){
+  const [rows,setRows] = useState([]);
+  const [meths,setMeths] = useState([]);
+  const [edit,setEdit] = useState({});
+  const [msg,setMsg] = useState("");
+  const [load,setLoad] = useState(true);
+  const COUNTRY = { LB:"لبنان", EG:"مصر", OTHER:"باقي الدول" };
+
+  async function load_(){
+    setLoad(true);
+    const a = await db.rpc("admin_prices");
+    setRows(a.data || []);
+    const b = await db.from("payment_methods").select("*").order("country");
+    setMeths(b.data || []);
+    setLoad(false);
+  }
+  useEffect(()=>{ load_(); },[]);
+
+  function key(r){ return r.plan + "|" + r.country; }
+  function val(r, field){
+    const k = key(r);
+    return edit[k]?.[field] !== undefined ? edit[k][field] : r[field];
+  }
+  function set(r, field, v){
+    const k = key(r);
+    setEdit({ ...edit, [k]: { ...(edit[k]||{}), [field]: v } });
+  }
+
+  async function save(r){
+    const { error } = await db.rpc("admin_update_price", {
+      p_plan: r.plan, p_country: r.country,
+      p_usd: Number(val(r,"price_usd")),
+      p_local: Number(val(r,"price_local")),
+      p_currency: val(r,"currency"),
+      p_badge: val(r,"badge") || null,
+      p_active: val(r,"is_active")
+    });
+    setMsg(error ? error.message : "حُفظ ✅");
+    setTimeout(()=>setMsg(""), 2500);
+    setEdit({}); load_();
+  }
+
+  async function saveMethod(m, patch){
+    await db.from("payment_methods").update(patch).eq("id", m.id);
+    setMsg("حُفظ ✅"); setTimeout(()=>setMsg(""), 2500);
+    load_();
+  }
+
+  if(load) return <div className="spin"></div>;
+
+  return (
+    <>
+      {msg && <div className={"alert " + (msg.includes("✅") ? "alert-ok" : "alert-warn")}>{msg}</div>}
+
+      {Object.keys(COUNTRY).map(c=>(
+        <div className="card" key={c}>
+          <h2>أسعار {COUNTRY[c]}</h2>
+          <div style={{marginTop:14}}>
+            {rows.filter(r=>r.country===c).map(r=>(
+              <div key={key(r)} style={{paddingBottom:16,marginBottom:16,
+                borderBottom:"1px solid var(--line)"}}>
+                <b>{PLAN_INFO[r.plan]?.name || r.plan}</b>
+                {r.months > 1 && <span className="tiny"> · {r.months} تشهر</span>}
+
+                <div className="row" style={{marginTop:10}}>
+                  <div style={{flex:1}}>
+                    <label>السعر المحلي</label>
+                    <input type="number" style={{marginBottom:8}}
+                      value={val(r,"price_local") ?? ""}
+                      onChange={e=>set(r,"price_local",e.target.value)} />
+                  </div>
+                  <div style={{flex:1}}>
+                    <label>العملة</label>
+                    <input style={{marginBottom:8}} value={val(r,"currency") ?? ""}
+                      onChange={e=>set(r,"currency",e.target.value)} />
+                  </div>
+                </div>
+
+                <label>بالدولار (للحسابات)</label>
+                <input type="number" style={{marginBottom:8}} value={val(r,"price_usd") ?? ""}
+                  onChange={e=>set(r,"price_usd",e.target.value)} />
+
+                <label>شارة مميزة (اتركها فارغة إن لم ترد)</label>
+                <input style={{marginBottom:8}} value={val(r,"badge") ?? ""}
+                  placeholder="مثلاً: الاوفر" onChange={e=>set(r,"badge",e.target.value)} />
+
+                <div className="row">
+                  <button className="pill" data-on={val(r,"is_active")?"1":"0"}
+                    onClick={()=>set(r,"is_active",!val(r,"is_active"))}>
+                    {val(r,"is_active") ? "ظاهرة ✅" : "مخفية"}
+                  </button>
+                  <button className="btn btn-sage btn-sm" onClick={()=>save(r)}>احفظ</button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+
+      <div className="card">
+        <h2>وسائل الدفع</h2>
+        <p className="muted" style={{marginBottom:14}}>هون بتحط أرقامك الحقيقية</p>
+        {meths.map(m=>(
+          <div key={m.id} style={{paddingBottom:16,marginBottom:16,
+            borderBottom:"1px solid var(--line)"}}>
+            <b>{m.method_name}</b> <span className="tiny">· {COUNTRY[m.country]}</span>
+            <label style={{marginTop:8}}>الرقم / الحساب</label>
+            <input defaultValue={m.account_info} style={{marginBottom:8}}
+              onBlur={e=>{ if(e.target.value !== m.account_info)
+                saveMethod(m,{account_info:e.target.value}); }} />
+            <label>التعليمات</label>
+            <input defaultValue={m.instructions || ""} style={{marginBottom:8}}
+              onBlur={e=>{ if(e.target.value !== m.instructions)
+                saveMethod(m,{instructions:e.target.value}); }} />
+            <button className="pill" data-on={m.is_active?"1":"0"}
+              onClick={()=>saveMethod(m,{is_active:!m.is_active})}>
+              {m.is_active ? "شغّالة ✅" : "متوقفة"}
+            </button>
+          </div>
+        ))}
+        <p className="tiny">التعديل بينحفظ لما تطلع من الخانة</p>
+      </div>
+    </>
+  );
+}
+
+function AdminContent(){
+  const [tab,setTab] = useState("serenity");
+  const [rows,setRows] = useState([]);
+  const [msg,setMsg] = useState("");
+
+  /* نموذج الإضافة */
+  const [body,setBody] = useState("");
+  const [ref,setRef] = useState("");
+  const [kind,setKind] = useState("verse");
+  const [cat,setCat] = useState("peace");
+  const [title,setTitle] = useState("");
+  const [dialect,setDialect] = useState("lb");
+  const [aud,setAud] = useState("mother");
+
+  const TABLE = { serenity:"serenity", stories:"stories", surprise:"surprise_messages" };
+
+  async function load_(){
+    const { data } = await db.from(TABLE[tab]).select("*").limit(200);
+    setRows(data || []);
+  }
+  useEffect(()=>{ load_(); },[tab]);
+
+  function flash(t){ setMsg(t); setTimeout(()=>setMsg(""), 2500); }
+
+  async function add(){
+    if(!body.trim()) return;
+    let row;
+    if(tab === "serenity")
+      row = { body: body.trim(), reference: ref.trim() || null, kind, category: cat };
+    else if(tab === "stories")
+      row = { body: body.trim(), title: title.trim() || "بلا عنوان", dialect, minutes: 2 };
+    else
+      row = { body: body.trim(), dialect, audience: aud, min_week: 1, max_week: 42 };
+
+    const { error } = await db.from(TABLE[tab]).insert(row);
+    flash(error ? error.message : "انضاف ✅");
+    setBody(""); setRef(""); setTitle(""); load_();
+  }
+
+  async function toggle(r){
+    await db.from(TABLE[tab]).update({ is_active: !r.is_active }).eq("id", r.id);
+    load_();
+  }
+  async function del(r){
+    await db.from(TABLE[tab]).delete().eq("id", r.id);
+    flash("انحذف"); load_();
+  }
+
+  return (
+    <>
+      {msg && <div className={"alert " + (msg.includes("✅")||msg.includes("انحذف")
+        ? "alert-ok" : "alert-warn")}>{msg}</div>}
+
+      <div className="row" style={{marginBottom:18}}>
+        <button className="pill" data-on={tab==="serenity"?"1":"0"}
+          onClick={()=>setTab("serenity")}>سكينة</button>
+        <button className="pill" data-on={tab==="stories"?"1":"0"}
+          onClick={()=>setTab("stories")}>قصص</button>
+        <button className="pill" data-on={tab==="surprise"?"1":"0"}
+          onClick={()=>setTab("surprise")}>مفاجآت</button>
+      </div>
+
+      <div className="card">
+        <h2>إضافة جديدة</h2>
+
+        {tab === "serenity" && <>
+          <p className="muted" style={{marginBottom:12}}>
+            انسخ الآية من مصحف موثوق (quran.com) والصقها كما هي.
+          </p>
+          <div className="row" style={{marginBottom:14}}>
+            <button className="pill" data-on={kind==="verse"?"1":"0"}
+              onClick={()=>setKind("verse")}>آية</button>
+            <button className="pill" data-on={kind==="dua"?"1":"0"}
+              onClick={()=>setKind("dua")}>دعاء</button>
+          </div>
+          <label>النص</label>
+          <textarea style={{minHeight:90}} value={body} onChange={e=>setBody(e.target.value)} />
+          <label>المرجع (مثلاً: البقرة ٢٨٦)</label>
+          <input value={ref} onChange={e=>setRef(e.target.value)} />
+          <label>التصنيف</label>
+          <select value={cat} onChange={e=>setCat(e.target.value)}>
+            <option value="peace">طمأنينة</option>
+            <option value="patience">صبر</option>
+            <option value="gratitude">شكر</option>
+            <option value="provision">رزق</option>
+            <option value="mercy">رحمة</option>
+          </select>
+        </>}
+
+        {tab === "stories" && <>
+          <label>العنوان</label>
+          <input value={title} onChange={e=>setTitle(e.target.value)} />
+          <label>اللهجة</label>
+          <select value={dialect} onChange={e=>setDialect(e.target.value)}>
+            <option value="lb">لبناني</option>
+            <option value="eg">مصري</option>
+          </select>
+          <label>القصة</label>
+          <textarea style={{minHeight:150}} value={body} onChange={e=>setBody(e.target.value)} />
+        </>}
+
+        {tab === "surprise" && <>
+          <div className="row" style={{marginBottom:14}}>
+            <button className="pill" data-on={dialect==="lb"?"1":"0"}
+              onClick={()=>setDialect("lb")}>لبناني</button>
+            <button className="pill" data-on={dialect==="eg"?"1":"0"}
+              onClick={()=>setDialect("eg")}>مصري</button>
+          </div>
+          <div className="row" style={{marginBottom:14}}>
+            <button className="pill" data-on={aud==="mother"?"1":"0"}
+              onClick={()=>setAud("mother")}>للام</button>
+            <button className="pill" data-on={aud==="father"?"1":"0"}
+              onClick={()=>setAud("father")}>للاب</button>
+          </div>
+          <label>الرسالة</label>
+          <textarea style={{minHeight:90}} value={body} onChange={e=>setBody(e.target.value)} />
+        </>}
+
+        <button className="btn" onClick={add} disabled={!body.trim()}>ضيفها</button>
+      </div>
+
+      <h2 style={{margin:"22px 0 12px"}}>الموجود ({rows.length})</h2>
+      {rows.map(r=>(
+        <div className="card" key={r.id} style={r.is_active === false ? {opacity:.5} : {}}>
+          {r.title && <b>{r.title}</b>}
+          <p style={{whiteSpace:"pre-wrap",marginTop:6}}>{r.body.slice(0,220)}
+            {r.body.length > 220 ? "..." : ""}</p>
+          <p className="tiny">
+            {r.reference || ""} {r.dialect ? "· " + (r.dialect==="lb"?"لبناني":"مصري") : ""}
+            {r.audience ? " · " + (r.audience==="mother"?"للام":"للاب") : ""}
+          </p>
+          <div className="row" style={{marginTop:10}}>
+            <button className="btn btn-ghost btn-sm" onClick={()=>toggle(r)}>
+              {r.is_active === false ? "إظهار" : "إخفاء"}
+            </button>
+            <button className="btn btn-danger btn-sm" onClick={()=>del(r)}>حذف</button>
+          </div>
+        </div>
+      ))}
+    </>
+  );
+}
+
+function AdminTickets(){
+  const [rows,setRows] = useState([]);
+  const [load,setLoad] = useState(true);
+  const [reply,setReply] = useState({});
+
+  async function load_(){
+    setLoad(true);
+    const { data } = await db.rpc("admin_tickets");
+    setRows(data || []); setLoad(false);
+  }
+  useEffect(()=>{ load_(); },[]);
+
+  async function send(t){
+    if(!reply[t.id]?.trim()) return;
+    await db.rpc("admin_reply_ticket", { p_id:t.id, p_reply:reply[t.id].trim() });
+    setReply({...reply,[t.id]:""});
+    load_();
+  }
+
+  if(load) return <div className="spin"></div>;
+  if(!rows.length) return <div className="card"><p className="muted">لا توجد رسائل ✅</p></div>;
+
+  return rows.map(t=>(
+    <div className="card" key={t.id}>
+      <div style={{display:"flex",justifyContent:"space-between"}}>
+        <b>{t.display_name || "بلا اسم"}</b>
+        <span className="tiny">{t.status === "open" ? "🔴 جديدة" : "✅ انرد عليها"}</span>
+      </div>
+      <p className="tiny">{t.email} · {new Date(t.created_at).toLocaleString("ar-EG")}</p>
+      <p style={{margin:"10px 0",whiteSpace:"pre-wrap"}}>{t.body}</p>
+
+      {t.admin_reply &&
+        <div className="alert alert-ok" style={{whiteSpace:"pre-wrap"}}>ردك: {t.admin_reply}</div>}
+
+      <textarea style={{minHeight:80}} placeholder="اكتب ردك"
+        value={reply[t.id]||""} onChange={e=>setReply({...reply,[t.id]:e.target.value})} />
+      <button className="btn btn-sage" onClick={()=>send(t)}>ابعت الرد</button>
+    </div>
+  ));
+}
+
+function AdminAnnounce(){
+  const [title,setTitle] = useState("");
+  const [body,setBody] = useState("");
+  const [list,setList] = useState([]);
+  const [msg,setMsg] = useState("");
+
+  async function load_(){
+    const { data } = await db.from("announcements").select("*")
+      .order("created_at",{ascending:false}).limit(10);
+    setList(data || []);
+  }
+  useEffect(()=>{ load_(); },[]);
+
+  async function publish(){
+    if(!title.trim() || !body.trim()) return;
+    const { error } = await db.from("announcements")
+      .insert({ title:title.trim(), body:body.trim() });
+    setMsg(error ? error.message : "تم النشر ✅");
+    setTitle(""); setBody(""); load_();
+  }
+
+  async function toggle(a){
+    await db.from("announcements").update({ is_active: !a.is_active }).eq("id", a.id);
+    load_();
+  }
+
+  return (
+    <>
+      {msg && <div className="alert alert-ok">{msg}</div>}
+      <div className="card">
+        <h2>إعلان جديد</h2>
+        <p className="muted" style={{marginBottom:14}}>بيظهر لكل المستخدمين بالشاشة الرئيسية</p>
+        <label>العنوان</label>
+        <input value={title} maxLength={60} onChange={e=>setTitle(e.target.value)}
+          placeholder="مثلاً: ميزة جديدة" />
+        <label>النص</label>
+        <textarea style={{minHeight:90}} value={body} maxLength={400}
+          onChange={e=>setBody(e.target.value)} />
+        <button className="btn" onClick={publish} disabled={!title.trim() || !body.trim()}>
+          انشر
+        </button>
+      </div>
+
+      {list.map(a=>(
+        <div className="card" key={a.id}>
+          <div style={{display:"flex",justifyContent:"space-between"}}>
+            <b>{a.title}</b>
+            <span className="tiny">{a.is_active ? "🟢 ظاهر" : "⚪ مخفي"}</span>
+          </div>
+          <p className="muted">{a.body}</p>
+          <button className="btn btn-ghost btn-sm" style={{marginTop:10,width:"100%"}}
+            onClick={()=>toggle(a)}>{a.is_active ? "إخفاء" : "إظهار"}</button>
+        </div>
+      ))}
+    </>
+  );
+}
+
+function AdminLog(){
+  const [rows,setRows] = useState([]);
+  useEffect(()=>{ db.rpc("admin_recent_log").then(({data})=>setRows(data||[])); },[]);
+
+  if(!rows.length) return <div className="card"><p className="muted">السجل فاضي</p></div>;
+
+  return (
+    <div className="card">
+      <h2>آخر العمليات</h2>
+      <div style={{marginTop:12}}>
+        {rows.map((l,i)=>(
+          <div className="req" key={i}>
+            <b>{l.action}</b>
+            {l.details && <p className="tiny">{l.details}</p>}
+            <p className="tiny">{new Date(l.created_at).toLocaleString("ar-EG")}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ============ التطبيق ============ */
+function App(){
+  const [session,setSession] = useState(null);
+  const [profile,setProfile] = useState(null);
+  const [preg,setPreg] = useState(null);
+  const [role,setRole] = useState("mother");
+  const [sub,setSub] = useState(null);
+  const [tab,setTab] = useState("home");
+  const [ready,setReady] = useState(false);
+  const [asUser,setAsUser] = useState(false);
+  const [adminView,setAdminView] = useState("stats");
+  const [baby,setBaby] = useState(null);
+  const [authView,setAuthView] = useState(null);
+
+  useEffect(()=>{
+    db.auth.getSession().then(({data})=>{ setSession(data.session); if(!data.session) setReady(true); });
+    const { data:sc } = db.auth.onAuthStateChange((_e,s)=>{
+      setSession(s);
+      if(!s){ setProfile(null); setPreg(null); setReady(true); }
+    });
+    return ()=> sc.subscription.unsubscribe();
+  },[]);
+
+  async function loadAll(){
+    if(!session) return;
+    const uid = session.user.id;
+    const { data:p } = await db.from("profiles").select("*").eq("id", uid).single();
+    setProfile(p);
+
+    const { data:m } = await db.from("pregnancy_members").select("pregnancy_id, member_role")
+      .eq("user_id", uid).limit(1);
+
+    if(m && m.length){
+      setRole(m[0].member_role);
+      const { data:pr } = await db.from("pregnancies").select("*").eq("id", m[0].pregnancy_id).single();
+      setPreg(pr && pr.status !== "ended" ? pr : null);
+    } else setPreg(null);
+
+    const { data:s } = await db.from("subscriptions").select("*").eq("user_id", uid).single();
+    setSub(s);
+
+    if(m && m.length){
+      const { data:b } = await db.from("babies").select("*")
+        .eq("pregnancy_id", m[0].pregnancy_id).limit(1);
+      setBaby(b && b.length ? b[0] : null);
+    } else setBaby(null);
+
+    setReady(true);
+  }
+  useEffect(()=>{ if(session) loadAll(); },[session]);
+
+  useEffect(()=>{
+    const g = preg ? preg.baby_gender : "unknown";
+    document.documentElement.style.setProperty("--accent", accentFor(g));
+    document.documentElement.style.setProperty("--accent-soft", softFor(g));
+  },[preg]);
+
+  const alerts = useAdminAlerts(!!(profile && profile.is_admin && !asUser));
+  const [showSurprise,setShowSurprise] = useState(false);
+
+  useEffect(()=>{
+    if(!preg || !profile) return;
+    const t = setTimeout(()=>{ if(Math.random() < 0.35) setShowSurprise(true); }, 9000);
+    return ()=>clearTimeout(t);
+  },[preg && preg.id]);
+
+  if(!ready) return <div className="spin"></div>;
+  if(!session) return authView
+    ? <Auth initial={authView} onBack={()=>setAuthView(null)} />
+    : <Landing onStart={()=>setAuthView("up")} onLogin={()=>setAuthView("in")} />;
+  if(!profile) return <div className="spin"></div>;
+
+  const isAdmin = profile.is_admin;
+
+  /* الادمن: لوحة التحكم مباشرة */
+  if(isAdmin && !asUser){
+    return (
+      <>
+        <Admin view={adminView} setView={setAdminView} alerts={alerts} />
+        <div className="tabs">
+          <div className="nav-sep">الإدارة</div>
+          {ADMIN_SECTIONS.map(s=>{
+            const n = s.id === "reqs" ? alerts.counts.reqs
+                    : s.id === "tickets" ? alerts.counts.tickets : 0;
+            return (
+              <button className="tab" key={s.id} data-on={adminView===s.id?"1":"0"}
+                onClick={()=>setAdminView(s.id)}>
+                <i>{s.icon}</i>{s.label}
+                {n > 0 && <span style={{background:"var(--danger)",color:"#fff",
+                  borderRadius:99,padding:"1px 8px",fontSize:12,marginInlineStart:6,
+                  fontWeight:700}}>{n}</span>}
+              </button>
+            );
+          })}
+          <div className="nav-sep">مكان آخر</div>
+          <button className="tab" onClick={()=>{ loadAll(); setAsUser(true); setTab("home"); }}>
+            <i>👁️</i>شوف كمستخدمة</button>
+          <button className="tab" onClick={()=>db.auth.signOut()}>
+            <i>🚪</i>خروج</button>
+        </div>
+      </>
+    );
+  }
+
+  if(!preg) return <Onboard user={session.user} done={loadAll} />;
+
+  const week = weekFrom(preg.due_date);
+  const past = daysLeft(preg.due_date) === 0;
+
+  /* وضع الأمومة بعد الولادة */
+  if(baby) return (
+    <>
+      {tab === "home"    && <BabyHome user={session.user} profile={profile}
+                                      baby={baby} reload={loadAll} />}
+      {tab === "album"   && <BabyAlbum user={session.user} baby={baby} />}
+      {tab === "moments" && <BabyMoments user={session.user} baby={baby} />}
+      {tab === "cards"   && <Cards preg={preg} baby={baby} />}
+      {tab === "letters" && <Letters user={session.user} preg={preg} week={40} />}
+      {tab === "stories" && <Stories profile={profile} />}
+      {tab === "serenity"&& <Serenity profile={profile} />}
+      {tab === "billing" && <Billing user={session.user} profile={profile} sub={sub} reload={loadAll} />}
+      {tab === "me"      && <Settings user={session.user} profile={profile} preg={preg}
+                                      sub={sub} role={role} reload={loadAll} baby={baby}
+                                      go={(t)=>setTab(t || "billing")} />}
+
+      <Nav tab={tab} setTab={setTab} isAdmin={isAdmin} setAsUser={setAsUser}
+        items={[
+          ["home","\ud83c\udfe0","الرئيسية"],["album","\ud83d\udcf8","الألبوم"],
+          ["moments","\u2b50","أوّل مرات"],["cards","\ud83d\udc8c","بطاقات"],
+          ["letters","\ud83e\udd0d","صندوق الرسائل"],["stories","\ud83d\udcd6","قصص"],
+          ...(profile.show_serenity !== false ? [["serenity","\ud83d\udd4a\ufe0f","سكينة"]] : []),
+          ["billing","\ud83d\udc8e","الباقات"],["me","\u2699\ufe0f","حسابي"]
+        ]} />
+    </>
+  );
+
+  if(!baby && tab === "birth")
+    return <BirthForm user={session.user} preg={preg} done={loadAll}
+             back={()=>setTab("me")} />;
+
+  return (
+    <>
+      {showSurprise &&
+        <Surprise user={session.user} week={week} role={role}
+          onClose={()=>setShowSurprise(false)} />}
+
+      {past && !baby &&
+        <div style={{padding:"16px 18px 0"}}>
+          <div className="alert alert-info" style={{cursor:"pointer"}}
+            onClick={()=>setTab("birth")}>
+            🤍 <b>وصل موعدك!</b><br/>سجّلي يوم الولادة لتبدأ رحلة السنة الأولى.
+          </div>
+        </div>}
+
+      {tab === "home"    && <Home profile={profile} preg={preg} week={week} sub={sub}
+                                  go={()=>setTab("billing")} nav={setTab} />}
+      {tab === "weekly"  && <Weekly profile={profile} preg={preg} week={week} role={role}
+                                    sub={sub} go={()=>setTab("billing")} />}
+      {tab === "letters" && <Letters user={session.user} preg={preg} week={week} />}
+      {tab === "chat"    && <Chat user={session.user} profile={profile} preg={preg}
+                                  week={week} sub={sub} go={()=>setTab("billing")} />}
+      {tab === "album"   && <Album user={session.user} preg={preg} week={week} sub={sub}
+                                   go={()=>setTab("billing")} />}
+      {tab === "tools"   && <Tools user={session.user} preg={preg} sub={sub}
+                                   go={()=>setTab("billing")} />}
+      {tab === "moments" && <Moments user={session.user} profile={profile} preg={preg} week={week} />}
+      {tab === "journey" && <Journey user={session.user} preg={preg} week={week} profile={profile} />}
+      {tab === "guide"   && <Guide profile={profile} week={week} />}
+      {tab === "names"   && <Names user={session.user} preg={preg} />}
+      {tab === "doctorq" && <DoctorQ preg={preg} />}
+      {tab === "cards"   && <Cards preg={preg} baby={null} />}
+      {tab === "stories" && <Stories profile={profile} />}
+      {tab === "serenity"&& <Serenity profile={profile} />}
+      {tab === "billing" && <Billing user={session.user} profile={profile} sub={sub} reload={loadAll} />}
+      {tab === "me"      && <Settings user={session.user} profile={profile} preg={preg} sub={sub}
+                                      role={role} reload={loadAll}
+                                      go={(t)=>setTab(t || "billing")} />}
+
+      <Nav tab={tab} setTab={setTab} isAdmin={isAdmin} setAsUser={setAsUser}
+        items={[
+          ["home","\ud83c\udfe0","الرئيسية"],["weekly","\ud83d\udc8c","رسالة جنينك"],
+          ["chat","\ud83d\udcac","اسألي"],["tools","\ud83e\uddf0","أدواتي"],
+          ["album","\ud83d\udcf8","ألبومي"],["letters","\ud83e\udd0d","صندوق الرسائل"],
+          ["moments","\u2b50","لحظاتي"],["journey","\ud83d\uddfa\ufe0f","قصة حملك"],
+          ["guide","\ud83d\udca1","دليلك"],["names","\u2728","اسم المولود"],
+          ["doctorq","\ud83d\udccb","أسئلة للطبيب"],["cards","\ud83d\udc8c","بطاقات"],
+          ["stories","\ud83d\udcd6","قصص"],
+          ...(profile.show_serenity !== false ? [["serenity","\ud83d\udd4a\ufe0f","سكينة"]] : []),
+          ["billing","\ud83d\udc8e","الباقات"],["me","\u2699\ufe0f","حسابي"]
+        ]} />
+    </>
+  );
+}
+
+/* ============ التنقّل ============ */
+function Nav({ tab, setTab, items, isAdmin, setAsUser }){
+  const [open,setOpen] = useState(false);
+  function go(t){ setTab(t); setOpen(false); window.scrollTo({top:0}); }
+
+  return (
+    <>
+      {open &&
+        <div className="drawer" onClick={()=>setOpen(false)}>
+          <div className="drawer-panel" onClick={e=>e.stopPropagation()}>
+            <h3 style={{fontFamily:"Amiri,serif"}}>MamSteps</h3>
+            {items.map(([k,i,t])=>(
+              <button key={k} className="drawer-item" data-on={tab===k?"1":"0"}
+                onClick={()=>go(k)}><i>{i}</i>{t}</button>
+            ))}
+            {isAdmin && <>
+              <div className="drawer-sep">الإدارة</div>
+              <button className="drawer-item" onClick={()=>setAsUser(false)}>
+                <i>📊</i>لوحة التحكم</button>
+            </>}
+          </div>
+        </div>}
+
+      <div className="tabs">
+        {items.map(([k,i,t],idx)=>(
+          <button key={k} className={"tab" + (idx >= 4 ? " extra" : "")}
+            data-on={tab===k?"1":"0"} onClick={()=>go(k)}>
+            <i>{i}</i>{t}
+          </button>
+        ))}
+        {isAdmin &&
+          <button className="tab extra" onClick={()=>setAsUser(false)}>
+            <i>📊</i>لوحة التحكم</button>}
+        <button className="tab menu-btn" onClick={()=>setOpen(true)}>
+          <i>☰</i>المزيد</button>
+      </div>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+
+<script>
+(function(){
+  function boot(){
+    try{
+      const code = document.getElementById("src").textContent;
+      const out = Babel.transform(code, { presets: [["react", { runtime: "classic" }]] }).code;
+      const s = document.createElement("script");
+      s.textContent = out;
+      document.body.appendChild(s);
+    }catch(e){
+      document.getElementById("root").innerHTML =
+        '<div style="padding:40px;text-align:center;font-family:Tajawal,sans-serif">'
+        + '<h2>ما قدرنا نحمّل التطبيق</h2>'
+        + '<p style="color:#6B7C8C">جرّب تعمل تحديث للصفحة، أو افتحها من متصفح تاني.</p>'
+        + '<p style="color:#D9634F;font-size:13px;margin-top:14px">' + e.message + '</p></div>';
+    }
+  }
+
+  function ready(){
+    if(window.Babel && window.React && window.ReactDOM && window.supabase) return boot();
+
+    // محاولة تحميل بديلة لو المصدر الاساسي انحجب
+    const alt = document.createElement("script");
+    alt.src = "https://unpkg.com/@babel/standalone/babel.min.js";
+    alt.onload = boot;
+    alt.onerror = function(){
+      document.getElementById("root").innerHTML =
+        '<div style="padding:40px;text-align:center;font-family:Tajawal,sans-serif">'
+        + '<h2>ما قدرنا نحمّل التطبيق</h2>'
+        + '<p style="color:#6B7C8C">تأكد من الإنترنت وجرّب تحدّث الصفحة.</p></div>';
+    };
+    document.body.appendChild(alt);
+  }
+
+  if(document.readyState === "complete") ready();
+  else window.addEventListener("load", ready);
+})();
+</script>
+</body>
+</html>
